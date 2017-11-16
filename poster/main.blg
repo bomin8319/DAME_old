@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: apalike.bst
+Database file #1: Ref.bib
+Warning--entry type for "12379_2016" isn't style-file defined
+--line 1 of file Ref.bib
+You've used 4 entries,
+            1935 wiz_defined-function locations,
+            495 strings with 4367 characters,
+and the built_in function-call counts, 1505 in all, are:
+= -- 149
+> -- 61
+< -- 3
++ -- 20
+- -- 20
+* -- 113
+:= -- 265
+add.period$ -- 11
+call.type$ -- 4
+change.case$ -- 30
+chr.to.int$ -- 4
+cite$ -- 4
+duplicate$ -- 64
+empty$ -- 95
+format.name$ -- 26
+if$ -- 296
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 3
+newline$ -- 22
+num.names$ -- 12
+pop$ -- 26
+preamble$ -- 1
+purify$ -- 30
+quote$ -- 0
+skip$ -- 58
+stack$ -- 0
+substring$ -- 85
+swap$ -- 16
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 24
+warning$ -- 0
+while$ -- 11
+width$ -- 0
+write$ -- 50
+(There was 1 warning)

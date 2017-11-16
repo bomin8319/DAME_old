@@ -1,0 +1,112 @@
+% adapted Philippe Dreuw and Thomas Deselaers
+% further adapted from edits by James Malcolm
+% finally, Shawn Lankton made some edits (www.shawnlankton.com)
+
+\ProvidesPackage{beamerthemeLankton}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\definecolor{navyblue}{rgb}{0.0, 0.0, 0.5}
+\definecolor{beaublue}{rgb}{0.74, 0.83, 0.9}
+\definecolor{navyblue}{rgb}{0.15, 0.38, 0.61}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+
+\setbeamercolor{headline}{bg=navyblue}
+\setbeamercolor{footline}{bg=darkblue}
+\setbeamerfont{footline}{size=\large}
+\setbeamercolor{separation line}{bg=beaublue}
+\setbeamercolor{title in headline}{fg=white}
+\setbeamercolor{author in headline}{fg=beaublue}
+\setbeamercolor{institute in headline}{fg=lightgray}
+
+\setbeamercolor{framesubtitle}{fg=blue, bg=beaublue}
+\setbeamercolor{author in head/foot}{fg=navyblue,bg=navyblue}
+\setbeamercolor{title in head/foot}{fg=blue,bg=navyblue}
+\setbeamercolor{website in footline}{fg=blue,bg=navyblue}
+\setbeamercolor{email in footline}{fg=white,bg=white}
+
+\setbeamercolor*{normal text}{fg=black, bg=white}
+\setbeamercolor*{block body}{fg=black,bg=white}
+\setbeamercolor*{block title}{fg=black,bg=beaublue}
+\setbeamerfont{block title}{size=\large,series=\sc\bf}
+\setbeamercolor{upper separation line head}{fg=black}
+
+% \setbeamertemplate{blocks}[rounded][shadow=true]
+
+% \setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+  \vskip.5ex
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=1ex,colsep*=.5ex]{block title}%
+    \usebeamerfont*{block title}{\Large \insertblocktitle}
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[rounded=true,shadow=true,colsep*=.5ex,sep=.5ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.5ex}\vbox{}%
+  }
+  \setbeamertemplate{block end}{
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{
+  \leavevmode
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+     \begin{columns}[T]
+     	\begin{column}{.05\paperwidth}
+     	\end{column}
+     		\begin{column}{.1\paperwidth}
+     			\centering
+     			\vskip15ex
+     			\includegraphics[height=0.04\paperwidth]{logo}
+     			\vspace{1pt}
+     		\end{column}
+     	\begin{column}{.75\paperwidth}
+     		\vskip4ex
+     		%\raggedleft
+     		\centering
+     		\usebeamercolor{title in headline}{\color{fg}\textbf{\LARGE{\inserttitle}}\\[1ex]}
+     		\usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
+     		\usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+     		\vskip2ex
+     	\end{column}
+          	\begin{column}{.15\paperwidth}
+     	\end{column}
+     \end{columns}
+     \end{beamercolorbox}
+
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+  \leavevmode%
+  \begin{beamercolorbox}[ht=4ex,leftskip=1cm,rightskip=1cm]{author in head/foot}%
+    \usebeamercolor{website in footline}{\color{fg} \footleft}
+    \hfill
+    \usebeamercolor{email in footline}{\color{fg} \footright}
+    \vskip1ex
+  \end{beamercolorbox}
+  \vskip0pt%
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Display a grid to help align images ... and it looks nice with this color scheme
+%\beamertemplategridbackground[1cm]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \Mode<all>

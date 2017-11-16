@@ -1,0 +1,18 @@
+\begin{thebibliography}{}
+
+\bibitem[Durante and Dunson, 2014]{durante2014nonparametric}
+Durante, D. and Dunson, D.~B. (2014).
+\newblock Nonparametric bayes dynamic modelling of relational data.
+\newblock {\em Biometrika}, page asu040.
+
+\bibitem[Minhas et~al., 2016]{minhas2016inferential}
+Minhas, S., Hoff, P.~D., and Ward, M.~D. (2016).
+\newblock Inferential approaches for network analyses: Amen for latent factor
+  models.
+\newblock {\em arXiv preprint arXiv:1611.00460}.
+
+\bibitem[Voeten et~al., 2016]{12379_2016}
+Voeten, E., Strezhnev, A., and Bailey, M. (2016).
+\newblock United nations general assembly voting data.
+
+\end{thebibliography}

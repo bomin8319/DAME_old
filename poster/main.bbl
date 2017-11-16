@@ -1,0 +1,26 @@
+\begin{thebibliography}{}
+
+\bibitem[Durante and Dunson, 2014]{durante2014nonparametric}
+Durante, D. and Dunson, D.~B. (2014).
+\newblock Nonparametric bayes dynamic modelling of relational data.
+\newblock {\em Biometrika}, page asu040.
+
+\bibitem[Hoff et~al., 2014]{hoff2014amen}
+Hoff, P., Fosdick, B., Volfovsky, A., and Stovel, K. (2014).
+\newblock amen: Additive and multiplicative effects modeling of networks and
+  relational data.
+\newblock {\em R package version 0.999. URL: http://CRAN. R-project.
+  org/package= amen}.
+
+\bibitem[Hoff, 2009]{hoff2009multiplicative}
+Hoff, P.~D. (2009).
+\newblock Multiplicative latent factor models for description and prediction of
+  social networks.
+\newblock {\em Computational and mathematical organization theory},
+  15(4):261--272.
+
+\bibitem[Voeten et~al., 2016]{12379_2016}
+Voeten, E., Strezhnev, A., and Bailey, M. (2016).
+\newblock United nations general assembly voting data.
+
+\end{thebibliography}

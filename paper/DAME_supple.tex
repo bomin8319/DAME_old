@@ -1,0 +1,271 @@
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=27mm,
+	right=30mm,
+	top=30mm,
+	bottom= 30mm
+}
+
+\usepackage[english]{babel}
+\usepackage{listings}
+\lstset{
+    language=R,
+    basicstyle=\scriptsize\ttfamily,
+    commentstyle=\ttfamily\color{gray},
+    numbers=left,
+    numberstyle=\ttfamily\color{gray}\footnotesize,
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    title=\lstname,
+    escapeinside={},
+    keywordstyle={},
+    morekeywords={}
+    }
+\linespread{2}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=0.5pt] (char) {#1};}}
+\usetikzlibrary{fit,positioning}
+\usepackage{authblk}
+\usepackage{natbib}
+\usepackage[algo2e]{algorithm2e}
+\usepackage{algorithmic}  
+\usepackage{algorithm}
+\algsetup{linenosize=\small}
+\usepackage{comment}
+	\usepackage{setspace}
+\title{Supplementary Material for DAME}
+\author{Bomin Kim}
+
+\begin{document}
+	\maketitle
+	\section{Modeling Framework}
+	\subsection{Model Formulation}\label{subsec: Model formulation}
+	Our interest is simultaneously modeling the sequence of $N \times N$ time-varying symmetric  matrices $\boldsymbol{Y}=\{Y(t), t \in \mathcal{T}\}$ having entries $y_{ijt}$, where $\mathcal{T} = \{t_1,...,t_T\}$ denote the time grid on which networks are observed. We define the model as
+	\begin{equation}
+	\begin{aligned}
+	&y_{ijt}=\boldsymbol{X}^T_{ijt}\boldsymbol{\beta}_t+z_{ijt}\quad t \in \mathcal{T},
+	\end{aligned}
+	\end{equation}
+	independently for each $i=2,...,N$ and $j=1,...,i-1$, where $X_{ijt}=[X^1_{ijt},...,X^P_{ijt}]^T$ is a $P-$dimensional vector of edge covariates, $\boldsymbol{\beta}_t=[\beta_{1t},...,\beta_{Pt}]^T$ is the corresponding dynamic coefficients, and $z_{ijt}$ is the unobserved random effects. Following the latent factor model, we also model $z_{ijt}$ to account for potential dependencies in the additive and multiplicative form
+	\begin{equation}
+	\begin{aligned}
+	z_{ijt} = \theta_{it}+\theta_{jt}+{\boldsymbol{u}_{it}^TD_t \boldsymbol{u}_{jt}}+\epsilon_{ijt},
+	\end{aligned}
+	\end{equation}
+	where $\theta_{it}$ and $\theta_{jt}$ are the additive nodal random effects of $i$ and $j$, respectively, $\boldsymbol{u}_{it}^TD_t \boldsymbol{u}_{jt}$ is the multiplicative random effect with $D_t$ denoting the $R\times R$ diagonal matrix (i.e. $D_t= \mbox{diag}(d_{1t},...,d_{Rt}$) and $\boldsymbol{u}_{it}=[u_{i1t},...,u_{iRt}]^T$ denoting the vector of latent coordinates of node $i$, and $\epsilon_{ijt}$ is the noise.
+		\subsection{Prior Specification}\label{subsec: Prior specification}
+	We assume independent Gaussian process priors for the parameters $\{\beta_{p}(\cdot)\}_{p=1}^P,$ $\{\theta_{i}(\cdot)\}_{i=1}^N,$ $\{d_{r}(\cdot)\}_{r=1}^R$ and $\{\{u_{ir}(\cdot)\}_{i=1}^N\}_{r=1}^R$. We also assign additional hierarchy to include a shrinkage parameters $\{\tau^{\beta}_p\}_{p=1}^P$, $\tau^{\theta}$, and $\{\tau^{u}_r\}_{r=1}^R$ using Inverse-Gamma (IG) priors. Specifically, we let 
+	\begin{center}
+		\begin{itemize}
+			\item[1.] $\beta_{p}(\cdot) \sim \mbox{GP}(0, \tau^{\beta}_pc_\beta)\mbox{ for }p = 1,...,P$, where $\tau^{\beta}_p \sim \mbox{IG}(a_\beta, b_\beta)$ and $c_\beta(t, t')=f(\kappa^{\beta}_p, |t-t'|)$;
+			\item[2.] $\theta_{i}(\cdot) \sim \mbox{GP}(0, \tau^{\theta}c_\theta)\mbox{ for }i = 1,...,N$, where $\tau^{\theta}\sim \mbox{IG}(a_\theta, b_\theta)$ and $c_\theta(t, t')=f(\kappa^\theta, |t-t'|)$;
+			\item[3.] $d_{r}(\cdot) \sim \mbox{GP}(0, c_d)\mbox{ for }r = 1,...,R$, where $c_d(t, t')=f(\kappa^d, |t-t'|)$;
+			\item[4.] $u_{ir}(\cdot) \sim\mbox{GP}(0, \tau^{u}_rI_T)\mbox{ for }i = 1,...,N \mbox{ and } r=1,...,R$, where $\tau_r^{u} \sim \mbox{IG}(a_u, b_u)$;\\
+			(i.e., $u_{ti}(\cdot) \sim\mbox{MVN}_R(0, \mbox{diag}(\tau^{u}_1, ..., \tau^{u}_r))\mbox{ for }i = 1,...,N$)
+			\item[5.] $\epsilon_{ij} \sim \mbox{N}(0, \sigma_e^2)$, where $\sigma_e^2 \sim \mbox{IG}(a_\sigma, b_\sigma)$,
+		\end{itemize}
+	\end{center}
+	where $\beta_{p}(\cdot) = [\beta_{p}(t_1),...,\beta_{p}(t_T)]^T$ and the rest of vectors with $(\cdot)$ defined in the same manner, and $I_T$ is $T\times T$ identity matrix. Since the multiplicative random effect is measured by $u_i(t)^TD(t)u_j(t)$, we assign temporal correlation structure to the diagonals $d_{r}(\cdot)$ and shirinkage parameter $\tau_u^r$ to the latent coordinates $u_{ir}(\cdot)$, in order to prevent from non-identifiability issue. To specify the form of Gaussian process, we use the standard Exponential covariance function:
+	\begin{equation*}
+	f(\kappa, |t-t'|) = \mbox{exp}\left(-\frac{|t-t'|}{\kappa}\right),
+	\end{equation*}
+where $\kappa$ is the positive length parameter. We choose this parameterization such that $\kappa \approx 0$ implies independence across time and larger $\kappa$ implies higher correlation between timepoints. To estimate $\kappa$, we use the uninfromative prior $\kappa \sim \mbox{Uniform}(0.001, 10)$.
+	\subsection{Posterior Computation}\label{subsec: posterior computation}
+	Posterior computation is performed via simple Gibbs sampler to update the vector of time-varying regression coefficients and the vector of additive and multiplicative latent factors. Using conjugate prior distributions, this section provides a Gibbs sampling scheme that approximates the joint posterior distribution over the variables $\boldsymbol{\beta} = \{\beta_p(\cdot)\}_{p=1}^P, $ $\boldsymbol{\theta} = \{\theta_{i}(\cdot)\}_{i=1}^N,$ $\boldsymbol{d} = \{d_r(\cdot)\}_{r=1}^R,$ $\boldsymbol{u} = \{\{u_{ir}(\cdot)\}_{i=1}^N\}_{r=1}^R, $ $\boldsymbol{\tau}^\beta = \{\tau^{\beta}_p\}_{p=1}^P$,$\tau^{\theta},$ $\boldsymbol{\tau}^u =\{\tau^{u}_r\}_{r=1}^R,$ $\boldsymbol{\kappa}^\beta = \{\kappa^{\beta}_p\}_{p=1}^P$,$\kappa^{\theta},$ $\kappa^{d},$ and $\sigma_e^2$, given the observed data ($\boldsymbol{Y},\boldsymbol{X}$) and the hyperparameters ($a_\beta, b_\beta, a_\theta, b_\theta, a_u, b_u, a_\sigma, b_\sigma$). Therefore, our inference goal is to draw samples from the posterior distribution
+	\begin{equation}
+	\begin{aligned}
+	&P(\boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u}, \boldsymbol{\tau}^\beta, \tau^\theta, \boldsymbol{\tau}^u, \boldsymbol{\kappa}^\beta, \kappa^\theta, \kappa^d, \sigma_e^2|\boldsymbol{Y},\boldsymbol{X}, a_\beta, b_\beta, a_\theta, b_\theta, a_u, b_u, a_\sigma, b_\sigma) \\&
+	\propto P(\boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u}, \boldsymbol{\tau}^\beta, \tau^\theta, \boldsymbol{\tau}^u, \boldsymbol{\kappa}^\beta, \kappa^\theta, \kappa^d, \sigma_e^2, \boldsymbol{Y}|\boldsymbol{X}, a_\beta, b_\beta, a_\theta, b_\theta, a_u, b_u, a_\sigma, b_\sigma) \\
+	&=P(\boldsymbol{\tau}^\beta|a_\beta, b_\beta)P(\boldsymbol{\kappa}^\beta) P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymbol{\tau}^\beta,  \boldsymbol{\kappa}^\beta)  P({\tau}^\theta|a_\theta, b_\theta)P({\kappa}^\theta)  P(\boldsymbol{\theta}|\tau^\theta, \kappa^\theta) P({\kappa}^d)  P(\boldsymbol{d}|\kappa^d) P(\boldsymbol{\tau}^u|a_u, b_u)P(\boldsymbol{u}|\boldsymbol{\tau}^u)\\&\quad\quad \times P(\sigma_e^2|a_\sigma, b_\sigma) P(\boldsymbol{Y}|\boldsymbol{X}, \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2)
+	\end{aligned}
+	\end{equation}
+	All of the $P()$ can be easily obtained from their prior specifications in Section \ref{subsec: Prior specification}, except the last one $P(\boldsymbol{Y}|\boldsymbol{X}, \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2)$. To obtain this, we introdcuce the noise array $\boldsymbol{E}$. Let $\boldsymbol{E} = [E(t_1),...,E(t_T)]^T$ denote the noise array over the time grid, where the $(i, j)^{th}$ entry of the matrix $E(t)$ is defined as $E_{ij}(t) = y_{ij}(t)-\big(\sum_{p=1}^P{X^{pT}_{ij}}(t)\beta_p(t)+\theta_i(t)+\theta_j(t)+u_i(t)^TD(t)u_j(t)\big)$. Given that the distribution of the observed network $\boldsymbol{Y}=\{Y(t_1),...,Y(t_T)\}$  conditional on all the parameters can be written as
+	\begin{equation}
+	P(\boldsymbol{Y}|\boldsymbol{X}, \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2)\propto  \prod_{t=1}^T\prod_{i>j}(\sigma_e^2)^{-\frac{1}{2}}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||E_{ij}(t)||^2\}.
+	\end{equation}
+Now, we want to sequentially update each parameter $(\boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u}, \boldsymbol{\tau}^\beta, \tau^\theta, \boldsymbol{\tau}^u, \boldsymbol{\kappa}^\beta, \kappa^\theta, \kappa^d, \sigma_e^2)$ from its full conditional distributions. Although we derive full conditionals of $\tau$'s using Normal-inverse Gamma conjugacy (when assuming $\kappa$ fixed), we still use Metropolis-Hastings algorithm for multivariate sampling of the two Gaussian process parameters ($\tau$, $\kappa$) due to their high correlation (when assuming $\kappa$ not fixed and thus estimable).
+	\begin{itemize}
+		\item [1.] Sample $\sigma_e^2 \sim \mbox{IG}\big(\frac{T\cdot N(N-1)}{4}+a_\sigma, \frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}(E_{ij}(t))^2 + b_\sigma\big)$;
+		\item [2.] For each $p \in \{1,...,P\}$ in random order, sample $\beta_p(\cdot)$ as follows:
+		\begin{enumerate}
+			\item [(a)] (Fixed $\kappa^\beta_p$) Sample $\tau^{\beta}_p \sim \mbox{IG}\big(\frac{T}{2}+a_\beta,\quad \frac{1}{2}\beta'_p(\cdot)c_\beta^{-1}\beta_p(\cdot)+b_\beta\big)$; 
+					\item [(a$^\prime$)] (Estimate $\kappa^\beta_p$) Sample ($\tau^{\beta}_p ,  \kappa^\beta_p$) using Metropolis-Hastings algorithm
+					\item [(b)] Sample $\beta_p(\cdot) \sim \mbox{N}_T\big(\tilde{\mu}_{\beta_p}, \tilde{\Sigma}_{\beta_p} \big)$, where
+						$$\tilde{\Sigma}_{\beta_p} = \Big((\tau^{\beta}_pc_\beta)^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}{X^{p2}_{ij}}(t)\}_{t_1}^{t_T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{\beta_p} =  \Big(\frac{\{\sum_{i>j}(E^{-p}_{ij}(t)X^{p}_{ij}(t))\}_{t_1}^{t_T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\beta_p}$$ 
+						(NOTE: $E^{-p}_{ij}(t)=E_{ij}(t)+X^{pT}_{ij}(t)\beta_p(t)$)						
+		\end{enumerate}
+		\item [3.] Sample $\theta_i(\cdot)$ as follows:
+		\begin{enumerate}
+			\item [(a)] (Fixed $\kappa^\theta$) Sample $\tau^{\theta} \sim \mbox{IG}\big(\frac{T\cdot N}{2}+a_\theta,\quad \frac{1}{2}\sum\limits_{i = 1}^{N}\theta_i'(\cdot)c_\theta^{-1}\theta_i(\cdot)+b_\theta\big)$;
+							\item [(a$^\prime$)] (Estimate $\kappa^\theta$) Sample ($\tau^{\theta},  \kappa^\theta$) using Metropolis-Hastings algorithm
+							\item [(b)] For each $i \in \{1,...,N\}$ in random order, sample $\theta_i(\cdot) \sim \mbox{N}_T\big(\tilde{\mu}_{\theta_i}, \tilde{\Sigma}_{\theta_i} \big)$, where
+	$$\tilde{\Sigma}_{\theta_i} = \Big((\tau^\theta c_\theta)^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)^{-1} \mbox{ and }
+						\tilde{\mu}_{\theta_i} = \Big(\frac{\{\sum_{i=i, j\neq i}E^{-i}_{ij}(t)\}_{t_1}^{t_T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\theta_i} $$ (NOTE: $E^{-i}_{ij}(t)=E_{ij}(t)+\theta_i(t)$)
+		\end{enumerate}
+		\item [4.] For each $r \in \{1,...,R\}$ in random order, sample $d_r(\cdot)$ as follows:
+		\begin{enumerate}
+			\item [(a)] (Estimate $\kappa^d$) Sample $\kappa^d$ using (univariate) Metropolis-Hastings algorithm 
+				\item [(b)] Sample $d_r(\cdot) \sim \mbox{N}_T\big(\tilde{\mu}_{d_r}, \tilde{\Sigma}_{d_r} \big)$, where
+$$\tilde{\Sigma}_{d_r} = \Big(c_d^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}({u_{ir}(t)u_{jr}(t)})^2\}_{t_1}^{t_T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{d_r} =  \Big(\frac{\{\sum_{i>j}(E^{-r}_{ij}(t)u_{ir}(t)u_{jr}(t))\}_{t_1}^{t_T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{d_r})$$
+(NOTE: $E^{-u}_{ij}(t)=E_{ij}(t)+u_{i[-r]}(t)^TD_{[-r, -r]}(t)u_{j[-r]}(t)$;)		
+		\end{enumerate}		
+		\item [5.] For each $t \in \{1,...,T\}$ and $i \in \{1,...,N\}$ in random order, sample $u_{i}(t)$ as follows:
+		\begin{enumerate}
+			\item [(a)] Sample $\tau_r^{u} \sim \mbox{IG}\big(\frac{T\cdot N}{2}+a_u,\quad \frac{1}{2}\sum\limits_{i = 1}^N u'_{ir}(\cdot)u_{ir}(\cdot)+b_u\big)$; 
+			\item [(b)] Sample $u_{i}(t)\sim \mbox{N}_R\big(\tilde{\mu}_{u_{i}(t)}, \tilde{\Sigma}_{u_{i}(t)} \big)$, where
+			$$\tilde{\Sigma}_{u_{ir}(t)} = \Big(\mbox{diag}(\boldsymbol{\tau}^u)^{-1}+\frac{\sum\limits_{j\neq i}D(t)u_{j}(t)u'_j(t)D(t)}{\sigma_e^2}\Big)^{-1}\mbox{ and } \tilde{\mu}_{u_{ir}(t)} = \Big(\frac{\{\sum_{i=i, j\neq i}(E^{-u}_{ij}(t)u'_{j}(t)D(t))'\}_{r1}^R}{{\sigma_e^2}}\Big)\tilde{\Sigma}_{u_{ir}(t)} $$ 
+			(NOTE: $E^{-u}_{ij}(t)=E_{ij}(t)+u^T_{i}(t)D(t)u_{j}(t)$);
+					\end{enumerate}			
+	\end{itemize}
+	Note that between every steps 1-5, $\boldsymbol{E}= [E(t_1),...,E(t_T)]^T$ has to be calculated again using the previously updated values, so that the next update is conditioned on the current values of all the other parameters. Except Gaussian process length parameters $(\boldsymbol{\kappa}^\beta, \kappa^\theta, \kappa^d)$, we know all the full conditional distributions, we achieve easy implementation and fast computation via Markov Chain Monte Carlo (MCMC) with Gibbs samping. For $\kappa$'s, we use the simplest case of Metropolis-Hastings algorithm using Normal proposals.
+\section{Appendix: Derivation}
+\subsection{Noise error variance $\sigma_e^2$} \label{sigma2}
+				 \begin{equation*}
+				 \begin{aligned}
+				 &P(\sigma_e^2|\boldsymbol{Y}, a_\sigma, b_\sigma) \propto P(\boldsymbol{Y}|\boldsymbol{X}, \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2) P(\sigma_e^2|a_\sigma, b_\sigma)\\
+				 &\propto\prod\limits_{t=1}^T\prod\limits_{i> j}(\sigma_e^2)^{-\frac{1}{2}}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||y_{ij}(t)-\big(\sum_{p=1}^PX'_{ij}(t)\beta_p(t)+\theta_i(t)+\theta_j(t)+u_i(t)^TD(t)u_j(t)\big)||^2\}\\&\quad\quad\quad\quad\times (\sigma_e^2)^{-a_\sigma-1}\mbox{exp}\{\frac{1}{\sigma_e^2}b_\sigma\}\\
+				 &=(\sigma_e^2)^{-\frac{T}{2}\cdot\frac{N(N-1)}{2}-a_\sigma-1}\\&\quad\quad\quad\quad\times\mbox{exp}\{-\frac{1}{\sigma_e^2}\Big(\frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}||y_{ij}(t)-\big(\sum_{p=1}^PX'_{ij}(t)\beta_p(t)+\theta_i(t)+\theta_j(t)+u_i(t)^TD(t)u_j(t)\big)||^2+b_\sigma\Big)\}\\
+				 &\sim \mbox{IG}(\frac{T\cdot N(N-1)}{4}+a_\sigma,\quad \frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}(E_{ij}(t))^2+b_\sigma)	
+				 \end{aligned}
+				 \end{equation*} 
+\subsection{Gaussian Process variance parameter $\tau$'s} \label{tau}		
+\begin{itemize}
+	\item [1.] $\tau^{\beta}_p, \mbox{ for } p=1,...,P$:
+\begin{equation*}
+\begin{aligned}
+&P(\tau^{\beta}_p|\beta_p, a_\beta, b_\beta) \propto P(\beta_p|\tau^{\beta}_p, \kappa^\beta) \times P(\tau^{\beta}_p|a_\beta, b_\beta) \\
+&\propto|\tau^{\beta}_pc_\beta|^{-\frac{1}{2}}\mbox{exp}\{-\frac{1}{2}\Big(\beta'_p(\cdot)(\tau^{\beta}_pc_\beta)^{-1}\beta_p(\cdot)\Big)\}\times (\tau^{\beta}_p)^{-a_\beta-1}\mbox{exp}\{-\frac{1}{\tau^{\beta}_p}b_\beta\}\\
+&\propto(\tau^{\beta}_p)^{-\frac{T}{2}-a_\beta-1}\mbox{exp}\{-\frac{1}{\tau^{\beta}_p}\Big(\frac{1}{2}\beta'_p(\cdot)c_\beta^{-1}\beta_p(\cdot)+b_\beta\Big)\}\\
+&\sim \mbox{IG}(\frac{T}{2}+a_\beta,\quad \frac{1}{2}\beta'_p(\cdot)c_\beta^{-1}\beta_p(\cdot)+b_\beta)	
+\end{aligned}
+\end{equation*} 
+\item [2.] $\tau^{\theta}$:
+\begin{equation*}
+\begin{aligned}
+&P(\tau^{\theta}|\boldsymbol{\theta}, a_\theta, b_\theta) \propto \prod_{i = 1}^N P(\theta_i|\tau^{\theta}, \kappa^\theta) \times P(\tau^{\theta}|a_\theta, b_\theta) \\
+&\propto \prod_{i = 1}^N |\tau^{\theta}c_\theta|^{-\frac{1}{2}}\mbox{exp}\{-\frac{1}{2}\Big(\theta'_i(\cdot)(\tau^{\theta}c_\theta)^{-1}\theta_i(\cdot)\Big)\}\times (\tau^{\theta})^{-a_\theta-1}\mbox{exp}\{-\frac{1}{\tau^{\theta}}b_\theta\}\\
+&\propto(\tau^{\theta})^{-\frac{T\cdot N}{2}-a_\theta-1}\mbox{exp}\{-\frac{1}{\tau^{\theta}}\Big(\frac{1}{2}\sum_{i = 1}^N\theta'_i(\cdot)c_\theta^{-1}\theta_i(\cdot)+b_\theta\Big)\}\\
+&\sim \mbox{IG}(\frac{T\cdot N}{2}+a_\theta,\quad \frac{1}{2}\sum_{i = 1}^N\theta'_i(\cdot)c_\theta^{-1}\theta_i(\cdot)+b_\theta)	
+\end{aligned}
+\end{equation*} 
+\item [3.] $\tau^{u}_r, \mbox{ for } r=1,...,R$:
+\begin{equation*}
+\begin{aligned}
+&P(\tau^{u}_r|\boldsymbol{u}_r, a_u, b_u) \propto \prod_{i = 1}^N P(u_{ir}|\tau^{u}_r) \times P(\tau^{u}_r|a_u, b_u) \\
+&\propto\prod_{i = 1}^N |\tau^{u}_rc_d|^{-\frac{1}{2}}\mbox{exp}\{-\frac{1}{2}\Big(u'_{ir}(\cdot)(\tau^{u}_rI_T)^{-1}u_{ir}(\cdot)\Big)\}\times (\tau^{u}_r)^{-a_u-1}\mbox{exp}\{-\frac{1}{\tau^{u}_r}b_u\}\\
+&\propto(\tau^{u}_r)^{-\frac{T \cdot N}{2}-a_u-1}\mbox{exp}\{-\frac{1}{\tau^{u}_r}\Big(\frac{1}{2}\sum_{i = 1}^N u'_{ir}(\cdot)u_{ir}(\cdot)+b_u\Big)\}\\
+&\sim \mbox{IG}(\frac{T \cdot N}{2}+a_u,\quad \frac{1}{2}\sum_{i = 1}^N u'_{ir}(\cdot)u_{ir}(\cdot)+b_u)	
+\end{aligned}
+\end{equation*} 
+\end{itemize}
+\subsection{Fixed and random effects}
+\begin{itemize}
+	\item [1.]  $\beta_p(\cdot), \mbox{ for } p=1,...,P$:
+\begin{equation*}
+\begin{aligned}
+&P(\beta_p(\cdot)|\boldsymbol{Y}, \boldsymbol{X}, \kappa^\beta_p, \tau^\beta_p) \propto P(\boldsymbol{Y}|\boldsymbol{X}, \beta_p(\cdot), \boldsymbol{\beta}_{[-p]}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2) \times P(\beta_p(\cdot)|\kappa^\beta_p, \tau^\beta_p) \\
+&\propto\prod\limits_{i>j}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||E^{-p}_{ij}(\cdot)-X^{p}_{ij}(\cdot)\beta_p(\cdot)||^2\}\times \mbox{exp}\{-\frac{1}{2}\Big(\beta'_p(\cdot)(\tau^{\beta}_pc_\beta)^{-1}\beta_p(\cdot)\Big)\}\\
+& \quad\quad\mbox{by letting } E^{-p}_{ij}(t)=y_{ij}(t)-\big(\sum_{p\neq p}X^p_{ij}(t)\beta_p(t)+\theta_i(t)+\theta_j(t)+u_i(t)^TD(t)u_j(t)\big)\\
+&\propto\mbox{exp}\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{i>j}-2(E^{-p}_{ij}(\cdot)X^{p}_{ij}(\cdot))'\beta_p(\cdot)+\beta'_p(\cdot)(\mbox{diag}(\sum\limits_{i>j}{X^p_{ij}}^2(\cdot)))\beta_p(\cdot)\Big)\}\times \mbox{exp}\{-\frac{1}{2}\Big(\beta'_p(\cdot)(\tau^{\beta}_pc_\beta)^{-1}\beta_p(\cdot)\Big)\}\\
+&\propto\mbox{exp}\{-\frac{1}{2}\Big(\beta'_p(\cdot)\Big((\tau^{\beta}_pc_\beta)^{-1}+\frac{\mbox{diag}(\sum_{i>j}{X^p_{ij}}^2(\cdot))}{\sigma_e^2}\Big)\beta_p(\cdot)-\frac{2}{\sigma_e^2}\Big(\sum_{i>j}(E^{-p}_{ij}(\cdot)X^{p}_{ij}(\cdot))'\beta_p(\cdot)\Big)\Big)\}\\
+& \sim \mbox{MVN}_T(\Big((\tau^{\beta}_pc_\beta)^{-1}+\frac{\mbox{diag}(\sum_{i>j}{X^p_{ij}}^2(\cdot))}{\sigma_e^2}\Big)^{-1}\frac{\sum_{i>j}(E^{-p}_{ij}(\cdot)X^{p}_{ij}(\cdot))}{\sigma_e^2}, \Big((\tau^{\beta}_pc_\beta)^{-1}+\frac{\mbox{diag}(\sum_{i>j}{X^p_{ij}}^2(\cdot))}{\sigma_e^2}\Big)^{-1})
+\end{aligned}
+\end{equation*} 
+		\item [2.] $\theta_{i}(\cdot), \mbox{ for } i=1,...,N$:
+		\begin{equation*}
+		\begin{aligned}
+		&p(\theta_{i}(\cdot)|\boldsymbol{Y}, \kappa^\theta, \tau^\theta) \propto \prod\limits_{\substack{i=i, j\neq i}}p(\boldsymbol{Y}|\boldsymbol{X}, \theta_{i}(\cdot), \boldsymbol{\beta}, \boldsymbol{\theta}_{[-i]}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2) \times p(\theta_{i}(\cdot)|\kappa^\theta, \tau^\theta) \\
+		&\propto\prod\limits_{\substack{i=i, j\neq i}}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||E^{-i}_{ij}(\cdot)-\theta_{i}(\cdot)||^2\}\times \mbox{exp}\{-\frac{1}{2}\Big(\theta'_{i}(\cdot){(\tau^\theta c_\theta)}^{-1}\theta_{i}(\cdot)\Big)\}\\
+		& \quad\quad\mbox{by letting } E^{-i}_{ij}(t)=y_{ij}(t)-\big(\sum_{p=1 }^PX^p_{ij}(t)\beta_p(t)+\theta_{j}(t)+u_i(t)^TD(t)u_j(t)\big)\\
+		&\propto\mbox{exp}\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{\substack{i=i, j\neq i}}-2(E^{-i}_{ij}(\cdot))'\theta_{i}(\cdot)+\theta'_{i}(\cdot)(\sum\limits_{\substack{i=i, j\neq i}}I_T)\theta_{i}(\cdot)\Big)\}\times \mbox{exp}\{-\frac{1}{2}\Big(\theta'_{i}(\cdot){(\tau^\theta c_\theta)}^{-1}\theta_{i}(\cdot)\Big)\}\\
+		&\propto\mbox{exp}\{-\frac{1}{2}\Big(\theta'_{i}(\cdot)\Big({(\tau^\theta c_\theta)}^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)\theta_{i}(\cdot)-\frac{2}{\sigma_e^2}\Big(\sum_{i=i, j\neq i}(E^{-i}_{ij}(\cdot))'\theta_{i}(\cdot)\Big)\Big)\}\\
+		& \sim \mbox{MVN}_T(\Big((\tau^\theta c_\theta)^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)^{-1}\frac{\sum_{i=i, j\neq i}E^{-i}_{ij}(\cdot)}{\sigma_e^2}, \Big((\tau^\theta c_\theta)^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)^{-1})
+		\end{aligned}
+		\end{equation*} 
+	\item [3.] $d_r(\cdot), \mbox{ for } r=1,...,R$:
+	\begin{equation*}
+	\begin{aligned}
+	&P(d_r(\cdot)|\boldsymbol{Y}, \kappa^d) \propto P(\boldsymbol{Y}|\boldsymbol{X}, d_r(\cdot), \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}_{[-r]}, \boldsymbol{u},\sigma_e^2) \times P(d_r(\cdot)| \kappa^d) \\
+	&\propto\prod\limits_{i>j}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||E^{-r}_{ij}(\cdot)-d_r(\cdot)u_{ir}(\cdot)u_{jr}(\cdot)||^2\}\times \mbox{exp}\{-\frac{1}{2}\Big(d'_r(\cdot)c_d^{-1}d_r(\cdot)\Big)\}\\
+	& \quad\quad\mbox{by letting } E^{-r}_{ij}(t)=y_{ij}(t)-\big(\sum_{p=1 }^PX^p_{ij}(t)\beta_p(t)+\theta_i(t)+\theta_j(t)+u_{i[-r]}(t)^TD_{[-r, -r]}(t)u_{j[-r]}(t)\big)\\
+	&\propto\mbox{exp}\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{i>j}-2(E^{-r}_{ij}(\cdot)u_{ir}(\cdot)u_{jr}(\cdot))'d_r(\cdot)+d'_r(\cdot)(\mbox{diag}(\sum\limits_{i>j}({u_{ir}(\cdot)u_{jr}(\cdot)})^2))d_r(\cdot)\Big)\}\\&\quad\quad\times \mbox{exp}\{-\frac{1}{2}\Big(d'_r(\cdot)c_d^{-1}d_r(\cdot)\Big)\}\\
+	&\propto\mbox{exp}\{-\frac{1}{2}\Big(d'_r(\cdot)\Big(c_d^{-1}+\frac{\mbox{diag}(\sum_{i>j}({u_{ir}(\cdot)u_{jr}(\cdot)})^2)}{\sigma_e^2}\Big)d_r(\cdot)-\frac{2}{\sigma_e^2}\Big(\sum_{i>j}(E^{-r}_{ij}(\cdot)u_{ir}(\cdot)u_{jr}(\cdot))'d_r(\cdot)\Big)\Big)\}\\
+	& \sim \mbox{MVN}_T(\Big(c_d^{-1}+\frac{\mbox{diag}(\sum_{i>j}({u_{ir}(\cdot)u_{jr}(\cdot)})^2)}{\sigma_e^2}\Big)^{-1}\frac{\sum_{i>j}(E^{-r}_{ij}(\cdot)u_{ir}(\cdot)u_{jr}(\cdot))}{\sigma_e^2},\\&\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \Big(c_d^{-1}+\frac{\mbox{diag}(\sum_{i>j}({u_{ir}(\cdot)u_{jr}(\cdot)})^2)}{\sigma_e^2}\Big)^{-1})
+	\end{aligned}
+	\end{equation*} 
+		\item [4.] $u_i(t), \mbox{ for } i=1,...,N;$ (while other variables sample $T$-length vectors, $u_i(t)$ is $R$-length vector):
+			\begin{equation*}
+			\begin{aligned}
+			&P(u_i(t)|\boldsymbol{Y}, \boldsymbol{\tau}^u) \propto P(Y(t)|u_{i}(t), \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u}_{[-ti]},\sigma_e^2) \times P(u_{i}(t)|\boldsymbol{\tau}^u) \\
+				&\propto\prod\limits_{i=i, j\neq i}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||E^{-u}_{ij}(t)-u_{j}(t)^TD(t)u_{i}(t)||^2\}\times \mbox{exp}\{-\frac{1}{2}\Big(u'_{i}(t)\mbox{diag}(\boldsymbol{\tau}^u)u_{i}(t)\Big)\}\\
+				& \quad\quad\mbox{by letting } E^{-u}_{ij}(t)=y_{ij}(t)-\big(\sum_{p=1 }^PX^p_{ij}(t)\beta_p(t)+\theta_i(t)+\theta_j(t)\big) \mbox{ and } \mbox{diag}(\boldsymbol{\tau}^u) = \mbox{diag}(\tau^{u}_1, ..., \tau^{u}_r)\\
+				&\propto\mbox{exp}\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{i=i, j\neq i}-2(E^{-u}_{ij}(t)u'_{j}(t)D(t))u_i(t)+u'_i(t)\Big(\sum\limits_{j\neq i}D(t)u_{j}(t)u'_j(t)D(t)\Big)u_i(t)\Big)\}\\&\quad\quad\times \mbox{exp}\{-\frac{1}{2}\Big(u'_{i}(t)\mbox{diag}(\boldsymbol{\tau}^u)u_{i}(t)\Big)\}\\
+				&\propto\mbox{exp}\{-\frac{1}{2}\Big(u'_i(t)\Big(\mbox{diag}(\boldsymbol{\tau}^u)^{-1}+\frac{\sum\limits_{j\neq i}D(t)u_{j}(t)u'_j(t)D(t)}{\sigma_e^2}\Big)u_i(t)-\frac{2}{\sigma_e^2}\Big(\sum_{i=i, j\neq i}(E^{-u}_{ij}(t)u'_{j}(t)D(t))u_i(t)\Big)\Big)\}\\
+				& \sim \mbox{MVN}_R(\Big(\mbox{diag}(\boldsymbol{\tau}^u)^{-1}+\frac{\sum\limits_{j\neq i}D(t)u_{j}(t)u'_j(t)D(t)}{\sigma_e^2}\Big)^{-1}\frac{\sum_{i=i, j\neq i}(E^{-u}_{ij}(t)u'_{j}(t)D(t))'}{{\sigma_e^2}},\\&\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \Big(\mbox{diag}(\boldsymbol{\tau}^u)^{-1}+\frac{\sum\limits_{j\neq i}D(t)u_{j}(t)u'_j(t)D(t)}{\sigma_e^2}\Big)^{-1})
+					\end{aligned}
+			\end{equation*} 
+\end{itemize}
+\subsection{Metropolis-Hastings algorithm for Gaussian process parameters}
+For Gaussian process parameters, we use the Metropolis-Hastings algorithm with a proposal density $Q$ being the multivariate Gaussian distribution, with a diagonal covariance matrix multiplied by $\sigma^2_Q$ (proposal distribution variance parameters set by the user), centered on the current values of $(\tau, \kappa)$. Since both $\tau$ and $\kappa$ have to be positive, we use
+\begin{equation*}
+(\tau^\prime, \kappa^\prime) \sim \exp(MVN_2(\log(\tau, \kappa), \sigma^2_QI_2)).
+\end{equation*}
+Under the symmetric proposal distribution as above, we cancel out Q-ratio and then accept the new proposed value $(\tau^\prime, \kappa^\prime)$ with probability equal to:
+ \begin{equation}
+ \begin{split}
+ & \mbox{Acceptance Probability}=
+ \begin{cases}  \frac{P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x)}{P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x)}\quad\text{if}  <1\\
+ 1 \quad \text{else}
+ \end{cases},
+ \end{split}
+ \end{equation}
+ where $x$ is the variable of interest (e.g. $\beta_p, \theta, d$) and $x(\cdot)$ is the $T$-length vector. Then the log of acceptance ratio we have is:
+ \begin{equation}
+\log \mbox{(Acceptance Probability) }= \min\Big( \log\Big( {\frac{P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x)}{P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x)}}\Big), 0\Big). 
+ \end{equation}
+ Use the log of acceptance ratio, if the log of a sample from Uniform(0,1) is less than the log-acceptance probability (6), we accept the proposed value. Otherwise, we reject.
+ Below are the derivation of acceptance ratio for each of the variables.
+\begin{itemize}
+	\item [1.] $(\tau^\beta_p, \kappa^\beta_p), \mbox{ for } p=1,...,P$:
+	\begin{equation}
+	\begin{aligned}
+	\frac{P(\tau^{\beta\prime}_p, \kappa^{\beta\prime}_p|\beta_p(\cdot), a_\beta, b_\beta)}{P(\tau^\beta_p, \kappa^\beta_p|\beta_p(\cdot), a_\beta, b_\beta)}=&\frac{P(\tau^{\beta\prime}_p, \kappa^{\beta\prime}_p, \beta_p(\cdot)| a_\beta, b_\beta)}{P(\tau^\beta_p, \kappa^\beta_p,\beta_p(\cdot) |a_\beta, b_\beta)}\\=&\frac{P(\tau^{\beta\prime}_p|a_\beta, b_\beta)P(\kappa^{\beta\prime}_p)P( \beta_p(\cdot)|\tau^{\beta\prime}_p, \kappa^{\beta\prime}_p) }{P(\tau^{\beta}_p|a_\beta, b_\beta)P(\kappa^{\beta}_p)P( \beta_p(\cdot)|\tau^{\beta}_p, \kappa^{\beta}_p)} \\
+	=&\frac{\mbox{dinvgamma}(\tau^{\beta\prime}_p, a_\beta, b_\beta)\times\mbox{dmvnorm}( \beta_p(\cdot), \boldsymbol{0}, \tau^{\beta\prime}_pc(\kappa^{\beta\prime}_p)) }{\mbox{dinvgamma}(\tau^{\beta}_p, a_\beta, b_\beta)\times\mbox{dmvnorm}( \beta_p(\cdot), \boldsymbol{0}, \tau^{\beta}_pc(\kappa^{\beta}_p))}
+	\end{aligned}
+	\end{equation}
+	\item [2.] $(\tau^\theta, \kappa^\theta)$
+		\begin{equation}
+		\begin{aligned}
+		\frac{P(\tau^{\theta\prime}, \kappa^{\theta\prime}|\boldsymbol{\theta}(\cdot), a_\theta, b_\theta)}{P(\tau^\theta, \kappa^\theta|\boldsymbol{\theta}(\cdot), a_\theta, b_\theta)}=&\frac{P(\tau^{\theta\prime}, \kappa^{\theta\prime}, \boldsymbol{\theta}(\cdot)| a_\theta, b_\theta)}{P(\tau^\theta, \kappa^\theta,\boldsymbol{\theta}(\cdot)|a_\theta, b_\theta)}\\=&\frac{P(\tau^{\theta\prime}|a_\theta, b_\theta)P(\kappa^{\theta\prime})\prod_{i=1}^N P(\theta_i(\cdot)|\tau^{\theta\prime}, \kappa^{\theta\prime}) }{P(\tau^{\theta}|a_\theta, b_\theta)P(\kappa^{\theta})P( \prod_{i=1}^N\theta_i(\cdot)|\tau^{\theta}, \kappa^{\theta})}\\
+			=&\frac{\mbox{dinvgamma}(\tau^{\theta\prime}, a_\theta, b_\theta)\times\prod_{i=1}^N \mbox{dmvnorm}( \theta_i(\cdot), \boldsymbol{0}, \tau^{\theta\prime}c(\kappa^{\theta\prime})) }{\mbox{dinvgamma}(\tau^{\theta}, a_\theta, b_\theta)\times\prod_{i=1}^N \mbox{dmvnorm}( \theta_i(\cdot), \boldsymbol{0}, \tau^{\theta}c(\kappa^{\theta}))}
+		\end{aligned}
+		\end{equation}
+	\item [3.] $\kappa^d$
+		\begin{equation}
+		\begin{aligned}
+		\frac{P(\kappa^{d\prime}|\boldsymbol{d}(\cdot))}{P(\kappa^d|\boldsymbol{d}(\cdot))}=&\frac{P(\kappa^{d\prime}, \boldsymbol{d}(\cdot))}{P( \kappa^d,\boldsymbol{d}(\cdot))}\\=&\frac{P(\kappa^{d\prime})\prod_{r=1}^R P(d_r(\cdot)|\kappa^{d\prime}) }{P(\kappa^{d})\prod_{r=1}^R P( d_r(\cdot)| \kappa^{d})}\\
+			=&\frac{\prod_{r=1}^R \mbox{dmvnorm}( d_r(\cdot), \boldsymbol{0}, c(\kappa^{d\prime})) }{\prod_{r=1}^R \mbox{dmvnorm}( d_r(\cdot), \boldsymbol{0}, c(\kappa^{d}))}
+		\end{aligned}
+		\end{equation}
+\end{itemize}
+\end{document}
