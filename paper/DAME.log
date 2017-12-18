@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  16 NOV 2017 17:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  18 DEC 2017 12:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -933,16 +933,9 @@ Package: authblk 2001/02/27 1.3 (PWD)
 \c@authors=\count154
 \c@affil=\count155
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/natbib/natbib.sty
-Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip60
-\bibsep=\skip61
-LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count156
-)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2013/01/06 v5.00 algorithms environments
-\c@AlgoLine=\count157
+\c@AlgoLine=\count156
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
@@ -957,14 +950,14 @@ Package `algorithm2e' Release 5.0 -- january 06 2013 --
 subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 - Author: Christophe Fiorio (cfiorio@um2.fr)
 ********************************************************
-\skiptotal=\skip62
-\skiplinenumber=\skip63
-\skiprule=\skip64
-\skiphlne=\skip65
-\skiptext=\skip66
-\skiplength=\skip67
-\algomargin=\skip68
-\skipalgocfslide=\skip69
+\skiptotal=\skip60
+\skiplinenumber=\skip61
+\skiprule=\skip62
+\skiphlne=\skip63
+\skiptext=\skip64
+\skiplength=\skip65
+\algomargin=\skip66
+\skipalgocfslide=\skip67
 \algowidth=\dimen198
 \inoutsize=\dimen199
 \inoutindent=\dimen200
@@ -973,31 +966,31 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \interspacetitleboxruled=\dimen203
 \algocf@inoutbox=\box50
 \algocf@inputbox=\box51
-\AlCapSkip=\skip70
-\AlCapHSkip=\skip71
-\algoskipindent=\skip72
+\AlCapSkip=\skip68
+\AlCapHSkip=\skip69
+\algoskipindent=\skip70
 \algocf@nlbox=\box52
 \algocf@hangingbox=\box53
 \algocf@untilbox=\box54
-\algocf@skipuntil=\skip73
+\algocf@skipuntil=\skip71
 \algocf@capbox=\box55
-\algoheightruledefault=\skip74
-\algoheightrule=\skip75
-\algotitleheightruledefault=\skip76
-\algotitleheightrule=\skip77
-\c@algocfline=\count158
-\c@algocfproc=\count159
-\c@algocf=\count160
+\algoheightruledefault=\skip72
+\algoheightrule=\skip73
+\algotitleheightruledefault=\skip74
+\algotitleheightrule=\skip75
+\c@algocfline=\count157
+\c@algocfproc=\count158
+\c@algocf=\count159
 \algocf@algoframe=\box56
 \algocf@algobox=\box57
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/algorithms/algorithmic.sty
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
-\c@ALC@unique=\count161
-\c@ALC@line=\count162
-\c@ALC@rem=\count163
-\c@ALC@depth=\count164
-\ALC@tlm=\skip78
-\algorithmicindent=\skip79
+\c@ALC@unique=\count160
+\c@ALC@line=\count161
+\c@ALC@rem=\count162
+\c@ALC@depth=\count163
+\ALC@tlm=\skip76
+\algorithmicindent=\skip77
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
@@ -1005,14 +998,14 @@ nment
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count165
+\c@float@type=\count164
 \float@exts=\toks42
 \float@box=\box58
 \@float@everytoks=\toks43
 \@floatcapt=\box59
 )
 \@float@every@algorithm=\toks44
-\c@algorithm=\count166
+\c@algorithm=\count165
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write4
@@ -1030,12 +1023,12 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \cmidrulesep=\dimen211
 \cmidrulekern=\dimen212
 \defaultaddspace=\dimen213
-\@cmidla=\count167
-\@cmidlb=\count168
+\@cmidla=\count166
+\@cmidlb=\count167
 \@aboverulesep=\dimen214
 \@belowrulesep=\dimen215
-\@thisruleclass=\count169
-\@lastruleclass=\count170
+\@thisruleclass=\count168
+\@lastruleclass=\count169
 \@thisrulewidth=\dimen216
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/siunitx/siunitx.sty
@@ -1052,24 +1045,24 @@ L3 Module: l3tl 2015/01/27 v5500 L3 Token lists
 L3 Module: l3str 2015/03/01 v5545 L3 Strings
 L3 Module: l3seq 2014/08/23 v5354 L3 Sequences and stacks
 L3 Module: l3int 2015/02/21 v5529 L3 Integers
-\c_max_int=\count171
-\l_tmpa_int=\count172
-\l_tmpb_int=\count173
-\g_tmpa_int=\count174
-\g_tmpb_int=\count175
+\c_max_int=\count170
+\l_tmpa_int=\count171
+\l_tmpb_int=\count172
+\g_tmpa_int=\count173
+\g_tmpb_int=\count174
 L3 Module: l3quark 2014/08/23 v5354 L3 Quarks
 L3 Module: l3prg 2014/08/23 v5354 L3 Control structures
-\g__prg_map_int=\count176
+\g__prg_map_int=\count175
 L3 Module: l3clist 2014/08/23 v5354 L3 Comma separated lists
 L3 Module: l3token 2014/09/15 v5422 L3 Experimental token manipulation
 L3 Module: l3prop 2014/08/23 v5354 L3 Property lists
 L3 Module: l3msg 2015/02/26 v5537 L3 Messages
 L3 Module: l3file 2014/08/24 v5369 L3 File and I/O operations
-\l_iow_line_count_int=\count177
-\l__iow_target_count_int=\count178
-\l__iow_current_line_int=\count179
-\l__iow_current_word_int=\count180
-\l__iow_current_indentation_int=\count181
+\l_iow_line_count_int=\count176
+\l__iow_target_count_int=\count177
+\l__iow_current_line_int=\count178
+\l__iow_current_word_int=\count179
+\l__iow_current_indentation_int=\count180
 L3 Module: l3skip 2014/08/23 v5354 L3 Dimensions and skips
 \c_zero_dim=\dimen217
 \c_max_dim=\dimen218
@@ -1077,12 +1070,12 @@ L3 Module: l3skip 2014/08/23 v5354 L3 Dimensions and skips
 \l_tmpb_dim=\dimen220
 \g_tmpa_dim=\dimen221
 \g_tmpb_dim=\dimen222
-\c_zero_skip=\skip80
-\c_max_skip=\skip81
-\l_tmpa_skip=\skip82
-\l_tmpb_skip=\skip83
-\g_tmpa_skip=\skip84
-\g_tmpb_skip=\skip85
+\c_zero_skip=\skip78
+\c_max_skip=\skip79
+\l_tmpa_skip=\skip80
+\l_tmpb_skip=\skip81
+\g_tmpa_skip=\skip82
+\g_tmpb_skip=\skip83
 \c_zero_muskip=\muskip12
 \c_max_muskip=\muskip13
 \l_tmpa_muskip=\muskip14
@@ -1090,18 +1083,18 @@ L3 Module: l3skip 2014/08/23 v5354 L3 Dimensions and skips
 \g_tmpa_muskip=\muskip16
 \g_tmpb_muskip=\muskip17
 L3 Module: l3keys 2015/01/27 v5500 L3 Key-value interfaces
-\g__keyval_level_int=\count182
-\l_keys_choice_int=\count183
+\g__keyval_level_int=\count181
+\l_keys_choice_int=\count182
 L3 Module: l3fp 2014/08/22 v5336 L3 Floating points
-\c__fp_leading_shift_int=\count184
-\c__fp_middle_shift_int=\count185
-\c__fp_trailing_shift_int=\count186
-\c__fp_big_leading_shift_int=\count187
-\c__fp_big_middle_shift_int=\count188
-\c__fp_big_trailing_shift_int=\count189
-\c__fp_Bigg_leading_shift_int=\count190
-\c__fp_Bigg_middle_shift_int=\count191
-\c__fp_Bigg_trailing_shift_int=\count192
+\c__fp_leading_shift_int=\count183
+\c__fp_middle_shift_int=\count184
+\c__fp_trailing_shift_int=\count185
+\c__fp_big_leading_shift_int=\count186
+\c__fp_big_middle_shift_int=\count187
+\c__fp_big_trailing_shift_int=\count188
+\c__fp_Bigg_leading_shift_int=\count189
+\c__fp_Bigg_middle_shift_int=\count190
+\c__fp_Bigg_trailing_shift_int=\count191
 L3 Module: l3box 2014/08/23 v5354 L3 Experimental boxes
 \c_empty_box=\box60
 \l_tmpa_box=\box61
@@ -1152,15 +1145,15 @@ File: l3unicode-data.def 2015/03/01 v5544 L3 Unicode data
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
 File: l3pdfmode.def 2015/03/01 v5544 L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count193
+\l__driver_color_stack_int=\count192
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2014/11/25 v5471 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count194
-\l__xparse_m_args_int=\count195
-\l__xparse_mandatory_args_int=\count196
-\l__xparse_processor_int=\count197
-\l__xparse_v_nesting_int=\count198
+\l__xparse_current_arg_int=\count193
+\l__xparse_m_args_int=\count194
+\l__xparse_mandatory_args_int=\count195
+\l__xparse_processor_int=\count196
+\l__xparse_v_nesting_int=\count197
 )
 Package: siunitx 2015/01/21 v2.6e A comprehensive (SI) units package
 
@@ -1170,32 +1163,32 @@ Package: l3keys2e 2014/11/25 v5471 LaTeX2e option processing using LaTeX3 keys
 Variant \tl_if_blank:VTF already defined; not changing it on line 50
 \l__siunitx_tmp_box=\box75
 \l__siunitx_tmp_dim=\dimen270
-\l__siunitx_tmp_int=\count199
+\l__siunitx_tmp_int=\count198
 Variant \prop_get:NVNT already defined; not changing it on line 380
 Variant \prop_get:NVNF already defined; not changing it on line 381
 Variant \prop_get:NVNTF already defined; not changing it on line 382
-\l__siunitx_number_mantissa_length_int=\count200
-\l__siunitx_number_uncert_length_int=\count201
-\l__siunitx_round_int=\count202
-\l__siunitx_process_decimal_int=\count203
-\l__siunitx_process_uncertainty_int=\count204
-\l__siunitx_process_fixed_int=\count205
-\l__siunitx_process_integer_min_int=\count206
-\l__siunitx_process_precision_int=\count207
-\l__siunitx_group_min_int=\count208
+\l__siunitx_number_mantissa_length_int=\count199
+\l__siunitx_number_uncert_length_int=\count200
+\l__siunitx_round_int=\count201
+\l__siunitx_process_decimal_int=\count202
+\l__siunitx_process_uncertainty_int=\count203
+\l__siunitx_process_fixed_int=\count204
+\l__siunitx_process_integer_min_int=\count205
+\l__siunitx_process_precision_int=\count206
+\l__siunitx_group_min_int=\count207
 \l__siunitx_angle_marker_box=\box76
 \l__siunitx_angle_unit_box=\box77
 \l__siunitx_angle_marker_dim=\dimen271
 \l__siunitx_angle_unit_dim=\dimen272
-\l__siunitx_unit_int=\count209
-\l__siunitx_unit_denominator_int=\count210
-\l__siunitx_unit_numerator_int=\count211
-\l__siunitx_unit_prefix_int=\count212
-\l__siunitx_unit_prefix_base_int=\count213
-\l__siunitx_unit_prefix_gram_int=\count214
-\l__siunitx_number_product_int=\count215
-\c__siunitx_one_fill_skip=\skip86
-\l__siunitx_table_unit_align_skip=\skip87
+\l__siunitx_unit_int=\count208
+\l__siunitx_unit_denominator_int=\count209
+\l__siunitx_unit_numerator_int=\count210
+\l__siunitx_unit_prefix_int=\count211
+\l__siunitx_unit_prefix_base_int=\count212
+\l__siunitx_unit_prefix_gram_int=\count213
+\l__siunitx_number_product_int=\count214
+\c__siunitx_one_fill_skip=\skip84
+\l__siunitx_table_unit_align_skip=\skip85
 \l__siunitx_table_exponent_dim=\dimen273
 \l__siunitx_table_integer_dim=\dimen274
 \l__siunitx_table_mantissa_dim=\dimen275
@@ -1209,8 +1202,8 @@ Variant \prop_get:NVNTF already defined; not changing it on line 382
 \l__siunitx_table_post_box=\box79
 \l__siunitx_table_mantissa_box=\box80
 \l__siunitx_table_result_box=\box81
-\l__siunitx_table_number_align_skip=\skip88
-\l__siunitx_table_text_align_skip=\skip89
+\l__siunitx_table_number_align_skip=\skip86
+\l__siunitx_table_text_align_skip=\skip87
 .................................................
 . LaTeX info: "xparse/define-command"
 . 
@@ -1333,23 +1326,30 @@ Variant \prop_get:NVNTF already defined; not changing it on line 382
 Package: translator 2010/06/12 ver 1.10
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/beamer/translator/translator-lang
-uage-mappings.tex))) (./DAME.aux)
+uage-mappings.tex)))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip88
+\bibsep=\skip89
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count215
+) (./DAME.aux)
 \openout1 = `DAME.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1414,7 +1414,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 54.
+Package hyperref Info: Link coloring OFF on input line 55.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1424,9 +1424,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count222
 )
-LaTeX Info: Redefining \ref on input line 54.
-LaTeX Info: Redefining \pageref on input line 54.
-LaTeX Info: Redefining \nameref on input line 54.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
 
 (./DAME.out) (./DAME.out)
 \@outlinefile=\write5
@@ -1518,7 +1518,7 @@ File: siunitx-abbreviations.cfg 2015/01/21 v2.6e siunitx: Abbreviated units
 \c__siunitx_mathsf_int=\count223
 \c__siunitx_mathtt_int=\count224
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--63
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
 
  []
 
@@ -1545,142 +1545,151 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--101
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--112
+Underfull \hbox (badness 10000) in paragraph at lines 110--113
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 117--119
+Underfull \hbox (badness 10000) in paragraph at lines 115--118
 
  []
 
 
-Overfull \hbox (2.18492pt too wide) detected at line 129
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
+
+ []
+
+
+Overfull \hbox (2.18492pt too wide) detected at line 132
 [] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 ^^\[]c[]\OT1/cmr/m/n/10 )[] + [][][][]
 [] = [][][][]\OML/cmm/m/it/10 ;
  []
 
 [4]
-Overfull \hbox (28.19185pt too wide) detected at line 143
+Overfull \hbox (28.19185pt too wide) detected at line 146
 [] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 ^^\[][]\OT1/cmr/m/n/10 )[] + [][][][][
 ] = [][][][])\OML/cmm/m/it/10 ;
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--159
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 156--159
+Underfull \hbox (badness 10000) in paragraph at lines 159--161
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 170--172
+Underfull \hbox (badness 10000) in paragraph at lines 172--174
 
  []
 
-<plots/correlation_histogram.pdf, id=258, 815.02736pt x 284.62286pt>
-File: plots/correlation_histogram.pdf Graphic file (type pdf)
+<plots_paper/correlations-1.png, id=244, 2264.46pt x 790.955pt>
+File: plots_paper/correlations-1.png Graphic file (type png)
 
-<use plots/correlation_histogram.pdf>
-Package pdftex.def Info: plots/correlation_histogram.pdf used on input line 179
+<use plots_paper/correlations-1.png>
+Package pdftex.def Info: plots_paper/correlations-1.png used on input line 181.
+
+(pdftex.def)             Requested size: 435.32718pt x 152.04507pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--184
+
+ []
+
+<plots_paper/bothpositive2-1.png, id=246, 2264.46pt x 792.9625pt>
+File: plots_paper/bothpositive2-1.png Graphic file (type png)
+
+<use plots_paper/bothpositive2-1.png>
+Package pdftex.def Info: plots_paper/bothpositive2-1.png used on input line 190
 .
-(pdftex.def)             Requested size: 435.32718pt x 152.02634pt.
+(pdftex.def)             Requested size: 317.78697pt x 111.28018pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--182
+<plots_paper/mixed2-1.png, id=247, 2264.46pt x 790.955pt>
+File: plots_paper/mixed2-1.png Graphic file (type png)
 
- []
+<use plots_paper/mixed2-1.png>
+Package pdftex.def Info: plots_paper/mixed2-1.png used on input line 191.
+(pdftex.def)             Requested size: 317.78697pt x 110.99846pt.
 
-[6] <plots/Degreeplot.pdf, id=265, 815.02736pt x 284.62286pt>
-File: plots/Degreeplot.pdf Graphic file (type pdf)
+<plots_paper/bothnegative2-1.png, id=248, 2264.46pt x 790.955pt>
+File: plots_paper/bothnegative2-1.png Graphic file (type png)
 
-<use plots/Degreeplot.pdf>
-Package pdftex.def Info: plots/Degreeplot.pdf used on input line 188.
-(pdftex.def)             Requested size: 435.32718pt x 152.02634pt.
+<use plots_paper/bothnegative2-1.png>
+Package pdftex.def Info: plots_paper/bothnegative2-1.png used on input line 192
+.
+(pdftex.def)             Requested size: 317.78697pt x 110.99846pt.
 
-<plots/Degreeplot2.pdf, id=266, 815.02736pt x 285.2595pt>
-File: plots/Degreeplot2.pdf Graphic file (type pdf)
-
-<use plots/Degreeplot2.pdf>
-Package pdftex.def Info: plots/Degreeplot2.pdf used on input line 189.
-(pdftex.def)             Requested size: 435.32718pt x 152.3664pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 184--192
+Underfull \hbox (badness 10000) in paragraph at lines 186--195
 
  []
 
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.193 \section
-              {Analysis of the United Nations Voting Network}\label{sec: UNv...
- <./plots/correlation_histogram.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 195--210
+l.195 \end{figure}
+                   <./plots_paper/correlations-1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 198--214
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--210
+Underfull \hbox (badness 10000) in paragraph at lines 198--214
 
  []
 
-[8pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.210 	\item
-             [1.] $\mbox{Intercept}^t_{ij}$: constant 1, <./plots/Degreeplot.pd
-f> <./plots/Degreeplot2.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 217--220
-
- []
-
-[9pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
+l.214 	\item
+             [1.] $\mbox{Intercept}^t_{ij}$: constant 1, <./plots_paper/bothpos
+itive2-1.png> <./plots_paper/mixed2-1.png> <./plots_paper/bothnegative2-1.png>]
+[8pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
 as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.228 	\item [5.]
-                  Georgia (GRG) has structural zeros from $t = 1$ to $t = 10...
-]
+l.214 	\item
+             [1.] $\mbox{Intercept}^t_{ij}$: constant 1,]
+Underfull \hbox (badness 10000) in paragraph at lines 221--224
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 242--254
 
  []
 
-<plots/ISR31.png, id=885, 3613.5pt x 1806.75pt>
-File: plots/ISR31.png Graphic file (type png)
- <use plots/ISR31.png>
-Package pdftex.def Info: plots/ISR31.png used on input line 259.
+[9] <plots_paper/ISR79.png, id=331, 3613.5pt x 1806.75pt>
+File: plots_paper/ISR79.png Graphic file (type png)
+
+<use plots_paper/ISR79.png>
+Package pdftex.def Info: plots_paper/ISR79.png used on input line 259.
 (pdftex.def)             Requested size: 435.32718pt x 217.65527pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 255--263
 
  []
 
-[10] <plots/betaplot_full.pdf, id=894, 815.02736pt x 446.99155pt>
-File: plots/betaplot_full.pdf Graphic file (type pdf)
+[10] <plots_paper/betaplot-1.png, id=341, 2264.46pt x 1249.66875pt>
+File: plots_paper/betaplot-1.png Graphic file (type png)
 
-<use plots/betaplot_full.pdf>
-Package pdftex.def Info: plots/betaplot_full.pdf used on input line 268.
-(pdftex.def)             Requested size: 435.32718pt x 238.75275pt.
+<use plots_paper/betaplot-1.png>
+Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 268.
+(pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
  [11pdfTeX warning (ext4): destination with the same identifier (name{figure.3}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.273  \newpage
-                <./plots/ISR31.png>]
-<plots/theta_reduced.pdf, id=902, 815.02736pt x 446.99155pt>
-File: plots/theta_reduced.pdf Graphic file (type pdf)
+                <./plots_paper/ISR79.png>]
+<plots_paper/thetaplot-1.png, id=348, 2264.46pt x 1249.66875pt>
+File: plots_paper/thetaplot-1.png Graphic file (type png)
 
-<use plots/theta_reduced.pdf>
-Package pdftex.def Info: plots/theta_reduced.pdf used on input line 276.
-(pdftex.def)             Requested size: 435.32718pt x 238.75275pt.
+<use plots_paper/thetaplot-1.png>
+Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 276.
+(pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 281--281
 
@@ -1692,21 +1701,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 281--281
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.281 ...on of additive random effects}\\ \newpage
-                                                   <./plots/betaplot_full.pdf>]
-<plots/UDU_4thyears_reduced.pdf, id=1252, 814.39058pt x 446.99155pt>
-File: plots/UDU_4thyears_reduced.pdf Graphic file (type pdf)
+                                                   <./plots_paper/betaplot-1.pn
+g>] <plots_paper/UDU-1.png, id=359, 2264.46pt x 1243.64626pt>
+File: plots_paper/UDU-1.png Graphic file (type png)
 
-<use plots/UDU_4thyears_reduced.pdf>
-Package pdftex.def Info: plots/UDU_4thyears_reduced.pdf used on input line 285.
-
-(pdftex.def)             Requested size: 435.32718pt x 238.9369pt.
+<use plots_paper/UDU-1.png>
+Package pdftex.def Info: plots_paper/UDU-1.png used on input line 285.
+(pdftex.def)             Requested size: 435.32718pt x 239.06581pt.
  [13pdfTeX warning (ext4): destination with the same identifier (name{figure.5}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.290 \newpage
-               <./plots/theta_reduced.pdf>] (./DAME.bbl
+               <./plots_paper/thetaplot-1.png>] (./DAME.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 292--1
 
  []
@@ -1717,35 +1725,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 292--1
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.18 
-      <./plots/UDU_4thyears_reduced.pdf>] [15]) [16] [17pdfTeX warning (ext4): 
-destination with the same identifier (name{table.2}) has been already used, dup
-licate ignored
+      <./plots_paper/UDU-1.png>] [15]) [16]
+Overfull \vbox (0.45293pt too high) has occurred while \output is active []
+
+
+[17pdfTeX warning (ext4): destination with the same identifier (name{table.2}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.370 \end{document}
-                    ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 370.
- [18pdfTeX warning (ext4): destination with the same identifier (name{table.3})
- has been already used, duplicate ignored
+l.360 \subsection
+                 *{Appendix B: Summary of UN Voting Network}] [18pdfTeX warning
+ (ext4): destination with the same identifier (name{table.3}) has been already 
+used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.370 \end{document}
+l.399 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{table.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.399 \end{document}
                     ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 370.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 399.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 399.
  (./DAME.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 370.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 370.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 399.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 399.
 Package rerunfilecheck Info: File `DAME.out' has not changed.
 (rerunfilecheck)             Checksum: 82771CF5AB1FD00FAE8D3FAB1E639A2C;965.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 370.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 399.
  ) 
 Here is how much of TeX's memory you used:
- 29582 strings out of 493089
- 575964 string characters out of 6134842
- 737295 words of memory out of 5000000
- 32523 multiletter control sequences out of 15000+600000
+ 29597 strings out of 493089
+ 576323 string characters out of 6134842
+ 738644 words of memory out of 5000000
+ 32531 multiletter control sequences out of 15000+600000
  15867 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,11n,56p,10416b,932s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1767,13 +1784,12 @@ ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on DAME.pdf (18 pages, 3874898 bytes).
+ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on DAME.pdf (18 pages, 1615146 bytes).
 PDF statistics:
- 2530 PDF objects out of 2984 (max. 8388607)
- 1963 compressed objects within 20 object streams
- 91 named destinations out of 1000 (max. 500000)
- 160 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 485 PDF objects out of 1000 (max. 8388607)
+ 424 compressed objects within 5 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 165 words of extra memory for PDF output out of 10000 (max. 10000000)
 

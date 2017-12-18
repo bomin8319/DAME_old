@@ -4,7 +4,7 @@
 \alias{ru_fc2}
 \title{ru_fc2}
 \usage{
-ru_fc2(XB, theta, U, Y, tau_r, s2, meaningful_NA_rows)
+ru_fc2(XB, theta, U, Y, tau_u, s2, meaningful_NA_rows)
 }
 \arguments{
 \item{XB}{Time-length list of XB matrix}
@@ -15,7 +15,7 @@ ru_fc2(XB, theta, U, Y, tau_r, s2, meaningful_NA_rows)
 
 \item{Y}{relational array of relations}
 
-\item{tau_r}{scale parameter of Gaussian process covariance}
+\item{tau_u}{scale parameter of Gaussian process covariance}
 
 \item{s2}{variance of normal error}
 

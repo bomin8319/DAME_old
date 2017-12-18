@@ -6,8 +6,7 @@
 \usage{
 DLFM_MH(Y, X, RE = c("additive", "multiplicative"), R = 2,
   dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1,
-  dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100,
-  plot = TRUE)
+  dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100)
 }
 \arguments{
 \item{Y}{relational array of relations}
@@ -29,8 +28,6 @@ DLFM_MH(Y, X, RE = c("additive", "multiplicative"), R = 2,
 \item{nscan}{number of iterations of the Markov chain (beyond burn-in)}
 
 \item{odens}{output density for the Markov chain}
-
-\item{plot}{logical: plot results while running?}
 }
 \value{
 Final estimate of the parameters

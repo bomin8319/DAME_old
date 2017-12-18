@@ -25,13 +25,14 @@
 		\node[shape=circle,draw,inner sep=0.5pt] (char) {#1};}}
 \usetikzlibrary{fit,positioning}
 \usepackage{authblk}
-\usepackage{natbib}
 \usepackage[algo2e]{algorithm2e}
 \usepackage{algorithmic}  
 \usepackage{algorithm}
 \usepackage{comment}
 \usepackage{array,longtable,booktabs,siunitx}
 \usepackage{array}% http://ctan.org/pkg/array
+\usepackage{natbib}
+\RequirePackage{natbib}
 \makeatletter
 \g@addto@macro{\endtabular}{\rowfont{}}% Clear row font
 \makeatother
@@ -55,114 +56,115 @@
 	\maketitle
 	\begin{abstract}
 		\noindent  
-		In this paper, we introduce the dynamic version of a Gaussian additive and multiplicative effects (AME) model---a statistical regression model for symmetric discrete-time networks that are correlated over time. Our model extends the additive and multiplicative latent factor network model of \cite{hoff2009multiplicative} and \cite{minhas2016inferential} by incorporating the temporal correlation structure into the prior specifications of the parameters. The temporal evolution of the network is modeled through a Gaussian process (GP) as in \cite{durante2013nonparametric}, whereas we estimate the unknown covariance structure from the dataset. We analyze United Nations voting data from 1983 to 2014 \citep{12379_2016} and show the effectiveness of our model at inferring the dyadic dependence structure among the international voting behaviors as well as allowing for a changing number of nodes over time. Overall, the DAME model shows significantly better fit to the dataset compared to the alternative approaches. Moreover, after controlling for other covariates such as geographic distances and bilateral trade between countries, the model-estimated latent positions and the movement of those positions reveal interesting and meaningful foreign policy positions and alliances of various countries. 
+		In this paper, we introduce the dynamic version of a Gaussian additive and multiplicative effects (AME) model---a statistical regression model for symmetric discrete-time networks that are correlated over time. Our model extends the additive and multiplicative latent factor network model of \cite{hoff2009multiplicative} and \cite{minhas2016inferential} by incorporating the temporal correlation structure into the prior specifications of the parameters. The temporal evolution of the network is modeled through a Gaussian process (GP) as in \cite{durante2013nonparametric}, where we estimate the unknown covariance structure from the dataset. We analyze United Nations voting data from 1983 to 2014 \citep{12379_2016} and show the effectiveness of our model at inferring the dyadic dependence structure among the international voting behaviors as well as allowing for a changing number of nodes over time. Overall, the DAME model shows significantly better fit to the dataset compared to the alternative approaches. Moreover, after controlling for other covariates such as geographic distances and bilateral trade between countries, the model-estimated latent positions and the movement of those positions reveal interesting and meaningful foreign policy positions and alliances of various countries. 
 	\end{abstract}
 	\section{Introduction} \label{sec: Introduction}
-	In recent decades, social network analysis has been well-established and is widely used in a variety of applications, ranging from friendship or collaboration networks to disease transmission.  Because a network naturally evolves over time, there has been growing need for methods of modeling networks that change over time. A number of models have been suggested that are extensions of static network models, such as the temporal exponential random graph model (TERGM) \citep{hanneke2010discrete} and the dynamic stochastic blockmodel \citep{xu2013dynamic}, or new models for network dynamics, such as the stochastic actor oriented model (SAOM) \citep{snijders2010introduction}. However, most previous studies on dynamic network modeling have given little consideration to the unobserved latent space \citep{hoff2002latent}—--the structure of the network that is not explained through the use of exogenous node and dyad covariates. We therefore extend existing latent factor models \citep{hoff2005bilinear,hoff2009multiplicative,hoff2014amen,minhas2016inferential} and develop the dynamic additive and multiplicative effects model (DAME) to model symmetric discrete-time networks, with emphasis on the latent structures—--unmeasured attributes of nodes for tie formation in networks and their evolution over time.\\ \newline
-	Since \cite{hoff2002latent} developed a class of models where the probability of a relation between actors depends on the positions of individuals in an unobserved ``social space," there have been several versions of the latent projection model in which the probability of a tie beteween nodes $i$ and $j$ is determined by the two nodes' latent vectors using $f(v_i, v_j)=\frac{v_i'v_j}{|v_j|}$, gradually providing additional explicability and flexibility. \cite{hoff2005bilinear} first introduced the symmetric multiplicative interaction effect ($v_i^\prime v_j$) into the network generalized linear model, in order to capture third-order dependence patterns—--often described by the three features, transitivity, balance, and clusterability \citep{hoff2005bilinear}. After modifying the parameterization of multiplicative effects into the form of an eigendecomposition $u_i^T\Lambda u_j$, \cite{hoff2008modeling} claimed that this ``latent eigenmodel'' is able to represent a wide array of patterns in the data, due to the fact that the eigenmodel provides an unrestricted low-rank approximation to the symmetric relational data. \cite{hoff2009multiplicative} extended the framework to model asymmetric social networks using the singular value decomposition $u_i^TDv_j$, and finally, \cite{hoff2014amen} and \cite{minhas2016inferential} combined the additive and multiplicative effects to model the second-order (or reciprocity) and third-order dependencies and estabilished the AME regression model for a dyadic response data $y_{ij}$ in which 
-	\begin{equation*}\label{AME}
+	In recent decades, social network analysis has been well-established and is widely used in a variety of applications, ranging from friendship or collaboration networks to disease transmission.  Because a network naturally evolves over time, there has been growing need for methods of modeling networks that change over time. A number of models have been suggested that are extensions of static network models, such as the temporal exponential random graph model (TERGM) \citep{hanneke2010discrete} and the dynamic stochastic blockmodel \citep{xu2013dynamic}, or new models for network dynamics, such as the stochastic actor oriented model (SAOM) \citep{snijders2010introduction}. On the other side, there are dynamic network models that give consideration to the unobserved latent space \citep{hoff2002latent}---the structure of the network that is not explained through the use of exogenous node and dyad covariates. To provide important insights into the latter, we extend existing latent factor models \citep{hoff2005bilinear,hoff2009multiplicative,hoff2014amen,minhas2016inferential} and develop the dynamic additive and multiplicative effects model (DAME) to model symmetric discrete-time networks, with emphasis on the latent structures--unmeasured attributes of nodes for tie formation in networks and their evolution over time.\\ \newline
+	Since \cite{hoff2002latent} developed a class of models where the probability of a relation between actors depends on the positions of individuals in an unobserved ``social space," there have been several versions of the latent projection model in which the probability of a tie beteween nodes $i$ and $j$ is determined by the two nodes' latent vectors using $f(v_i, v_j)={(v_i'v_j)}{|v_j|^{-1}}$, gradually providing additional explicability and flexibility. \cite{hoff2005bilinear} first introduced the symmetric multiplicative interaction effect ($v_i^\prime v_j$) into the network generalized linear model in order to capture third-order dependence patterns---often described by the three features, transitivity, balance, and clusterability \citep{hoff2005bilinear}. After modifying the parameterization of multiplicative effects into the form of an eigendecomposition $u_i^T\Lambda u_j$, \cite{hoff2008modeling} claimed that this ``latent eigenmodel'' is able to represent a wide array of patterns in the data, due to the fact that the eigenmodel provides an unrestricted low-rank approximation to the symmetric relational data. \cite{hoff2009multiplicative} extended the framework to model asymmetric social networks using the singular value decomposition $u_i^TDv_j$. Finally, \cite{hoff2014amen} and \cite{minhas2016inferential} combined the additive and multiplicative effects to model the second-order (or reciprocity) and third-order dependencies and estabilished the AME---additive and multiplicative effects ---regression model for dyadic response data $y_{ij}$, in which 
+	\begin{equation}\label{AME}
 		\begin{aligned}
 			&y_{ij} = g(\theta_{ij}),\\
-			& \theta_{ij} = \boldsymbol{\beta}^T\boldsymbol{X}_{ij} + e_{ij},\\
-			& e_{ij} = a_i + b_j + \epsilon_{ij} + \alpha(\boldsymbol{u}_i, \boldsymbol{v}_j), \mbox{ where }\\
-			& \alpha(\boldsymbol{u}_i, \boldsymbol{v}_j) = \boldsymbol{u}_i^T\boldsymbol{D}\boldsymbol{v}_j
+			& \theta_{ij} = \boldsymbol{\beta}^T\boldsymbol{X}_{ij} + e_{ij}, \mbox{ and }\\
+			& e_{ij} = a_i + b_j + \epsilon_{ij} + \alpha(\boldsymbol{u}_i, \boldsymbol{v}_j), 
 		\end{aligned}
-	\end{equation*}
-	and $ g(\theta_{ij})$ is a link function to model various type of relational matrix, such as continuous, binary, ordinal, or rank-based responses.\\ \newline
-	Although the latent space model is widely used for cross-sectional networks, networks at a specific point in time, the latent modeling of dynamic networks is relatively new in the statistics lieterature. The latent distance model has been applied to dynamic networks by many authors \citep{sarkar2005dynamic,sarkar2007latent,sewell2015latent,sewell2016latent,friel2016interlocking}, while a comparatively small literature employs the AME framework to develop dynamic network models. \citealp{ward2007persistent} first introduced the concept of dynamic latent factors and this idea was expanded by \cite{ward2013gravity} to analyze bilateral trade using the generalized bi-linear mixed effect model \citep{hoff2005bilinear}. This model allowed time-varying edge covariate parameters as well as latent factors, however, it did not involve any dynamic information in the dataset. There also exists a series of papers for modeling a tensor representation of network or multi-way array  \citep{hoff2011hierarchical,hoff2011separable,hoff2015multilinear,minhas2016new}, but this framework can be considered as larger class of models since the applications are not limited to longitudinal networks.
+	\end{equation}
+where $\alpha(\boldsymbol{u}_i, \boldsymbol{v}_j) = \boldsymbol{u}_i^T\boldsymbol{D}\boldsymbol{v}_j$ and $ g(\theta_{ij})$ is a link function, to model various types of relational matrices, such as continuous, binary, ordinal, or rank-based responses.\\ \newline
+As dynamic network analysis has become an emergent scientific field, there has been a growing number of dynamic network models that incorporate latent space models in the last decade \citep{kim2017review}. For instance, latent distance models have been widely used for dynamic networks by many authors \citep{sarkar2005dynamic,sarkar2007latent,sewell2015latent,sewell2016latent,friel2016interlocking}, providing ample references for the reader interested in these specific problems. On the other hand, a comparatively small literature employs the AME framework to develop dynamic network models. \cite{ward2007persistent} first introduced the concept of dynamic latent factors and this idea was expanded by \cite{ward2013gravity} to analyze bilateral trade using the generalized bi-linear mixed effect model \citep{hoff2005bilinear}. This model allowed time-varying edge covariate parameters as well as latent factors, however, it did not involve any dynamic information in the dataset. Most recently, \cite{he2017multiplicative} introduced a coevolution model for the analysis of longitudinal network and nodal attribute data, including latent nodal attributes. Their model---multiplicative coevolution regression (MCR) model---provides a large benefit of allowing the possibility that nodes may change their nodal (or latent) attributes  $\boldsymbol{X}_t$ depending on their past relation as well as the evolution of the network $\boldsymbol{Y}_t$, but their contagion of the network is limited to first-order autoregressive model, or AR(1). There also exists a series of papers for modeling a tensor representation of network or multi-way array \citep{hoff2011hierarchical,hoff2011separable,hoff2015multilinear,minhas2016new}, with longitudinal network serving as an example of the general model. Still, the latent variable component is not emphasized in those papers.
 		\\ \newline Focusing on the temporal aspect of networks, \cite{durante2013nonparametric} proposed the dynamic latent space model for binary symmetric matrices, which 
 		assumes that the latent factors are evolving in continuous time via Gaussian processes (GP), with the model formulation
-		\begin{equation*}\label{DuranteDunson}
+		\begin{equation}\label{DuranteDunson}
 			\begin{aligned}
 				&y_{ij, t}|\pi_{ij}(t) \sim \mbox{Bern}(\pi_{ij}(t)),\\
 				& \pi_{ij}(t) = \frac{1}{1+e^{-s_{ij}(t)}},\\
 				& s_{ij}(t) = \mu(t) + x_i(t)^\prime x_j(t)
 			\end{aligned}
-		\end{equation*}
+		\end{equation}
 		for $i<j$, with $x_{ih}(\cdot) \sim \mbox{GP}(0, \tau_h^{-1}c_X)$ and $\mu(\cdot) \sim \mbox{GP}(0, c_\mu)$,
-		where $x_i(t)=[x_{i1}(t),...,x_{iH}(t)]^\prime$ for $i = 1,...,V$ are the latent vectors of node $i$, together with the baseline $\mu(t)$, $\tau_h^{-1}$ for $h=1,...,H$ is a shrinkage parameter with a gamma prior, and $c_\mu$ and $c_x$ are the squared exponential functions (i.e. $c_X(t, t') = \mbox{exp}(-\kappa_X||t-t'||_2^2)$ and $c_\mu(t, t') = \mbox{exp}(-\kappa_\mu||t-t'||_2^2)$). This approach is based on nonparametric Bayesian inference and has the strong advantage of learning the number of latent dimensions $H$ in the model \citep{bhattacharya2011sparse}. Although the model has been successfully applied to different types of longitudinal networks \citep{durante2014bayesian2,durante2014bayesian}, it lacks several benefits of the AME model. First, model (\ref{DuranteDunson}) does not include the additive effects $a_i$ and $b_j$, which can capture significant heterogeneity in activity levels across nodes. Second, model (\ref{DuranteDunson}) uses the term $x_i(t)^\prime x_j(t)$ to represent multiplicative latent factor effects. However, the form $u_i(t)^TD(t)u_j(t)$ used in the AME model allows the flexibility of negative eigenvalues $d_r(t)$. Depending on the sign of $d_r(t)$, similar values of the latent coordinates $u_{ir}(t)$ and $u_{jr}(t)$ will contribute positively or negatively to the relationship between $i$ and $j$ in the specific latent dimension $r$. According to \cite{hoff2008modeling}, the parameterization of $u_i(t)^TD(t)u_j(t)$ can represent both positive or negative transitivity in varying degrees; on the other hand, the parameterization of $v_i(t)^Tv_j(t)$ is not able to explain negative transitivity or stochastic equivalence, where nodes with the same or similar latent vectors do not have trong relationships with one another.\\ \newline
-		We propose a new model, the dynamic additive and multiplicative effects (DAME) model, combining the advantages of the AME model and the dynamic latent space model; we use the same formulation as AME model, while incorporating the time-varying prior structures of \cite{durante2013nonparametric}. In addition, the DAME employs two innovations. First, we learn the temporal correlation of networks by estimating Gaussian process length parameters. Instead of using fixed covariance structure \citep{durante2013nonparametric,durante2014bayesian}, this does not require any initial guess on correlations and further enables efficient estimation on the fixed and random effect parameters. Second, in order to increase flexibility and accuracy of the model, the DAME allows the number of nodes to change over time by allowing a special case of missing values, which are referred to as ``structural zeros" in this paper. In what follows, we present the model formulation of the DAME, describing how we take advantage of temporal correlation; derive the sampling equations for hierarchical Bayesian inference with the DAME; present simulation studies to show the advantage of the DAME over the comparative approaches; and apply the DAME model to the United Nations voting network.
+		where $x_i(t)=[x_{i1}(t),...,x_{iH}(t)]^\prime$ for $i = 1,...,V$ are the latent vectors of node $i$, together with the baseline $\mu(t)$. The variance multipliers $\tau_h^{-1}$ for $h=1,...,H$ are shrinkage parameters with a gamma prior, and $c_\mu$ and $c_x$ are the squared exponential functions $c_X(t, t') = \mbox{exp}(-\kappa_X||t-t'||_2^2)$ and $c_\mu(t, t') = \mbox{exp}(-\kappa_\mu||t-t'||_2^2)$. This modeling approach is based on nonparametric Bayesian inference and has the strong advantage of learning the number of latent dimensions $H$ in the model \citep{bhattacharya2011sparse}. Although the model has been successfully applied to different types of longitudinal networks \citep{durante2014bayesian2,durante2014bayesian}, it lacks several benefits of the AME model. First, model (\ref{DuranteDunson}) does not include the additive effects $a_i$ and $b_j$, which can capture significant heterogeneity in activity levels across nodes. Second, model (\ref{DuranteDunson}) uses the term $x_i(t)^\prime x_j(t)$ to represent multiplicative latent factor effects. However, the form $u_i(t)^TD(t)u_j(t)$ used in the AME model allows the flexibility of negative eigenvalues $d_r(t)$. According to \cite{hoff2008modeling}, the parameterization of $u_i(t)^TD(t)u_j(t)$ can represent both positive or negative transitivity in varying degrees; on the other hand, the parameterization of $v_i(t)^Tv_j(t)$ is not able to explain negative transitivity or stochastic equivalence, where nodes with the same or similar latent vectors do not have trong relationships with one another.\\ \newline
+		We propose a new model, the dynamic additive and multiplicative effects (DAME) model, combining the advantages of the AME model and the dynamic latent space model. We use the same formulation as the AME model, while incorporating the time-varying prior structures of \cite{durante2013nonparametric}. In addition, the DAME model employs two innovations. First, we learn the temporal correlation of networks by estimating Gaussian process length parameters. Instead of using fixed covariance structure as in  \cite{durante2013nonparametric,durante2014bayesian}, our method does not require any initial guess about correlations and further enables efficient estimation of the fixed and random effect parameters. Second, in order to increase flexibility and accuracy of the model, DAME allows the number of nodes to change over time by allowing a special case of missing values, which are referred to as ``structural zeros" in this paper. In what follows, we introduce the DAME model and describe how we take advantage of temporal correlation, derive the sampling equations for hierarchical Bayesian inference, present simulation studies to show the advantage of DAME over alternative approaches, and apply DAME model to the United Nations voting network.
 		\section{Dynamic Additive and Multiplicative Effects Model}\label{sec: DAME}
 \subsection{Model Formulation}\label{subsec: Model formulation}
-Our goal is to simultaneously model the sequence of $N \times N$ time-varying symmetric matrices $\mathbf{Y} = \{Y^1,...,Y^T\}$, where the entry $y^t_{ij}$ denote any relational data corresponding to the node $i$ and node $j$, at timepoint $t$. Given the observed covariates $\mathbf{X} = \{X^1,...,X^T\}$ where $X^t$ consists of $P$ number of covariates (i.e. $X^t = \{X^t_1, \ldots, X^t_P\}$), we define the model as
+Our goal is to simultaneously model the sequence of $N \times N$ time-varying symmetric matrices $\mathbf{Y} = \{Y^1,...,Y^T\}$, where the entry $y^t_{ij}$ denotes any relational data corresponding to node $i$ and node $j$ at timepoint $t$. Given the observed covariates $\mathbf{X} = \{X^1,...,X^T\}$ where $X^t = \{X^t_1, \ldots, X^t_P\}$, we assume
 \begin{equation}
 \begin{aligned}
 &y^t_{ij}=\sum\limits_{p=1}^P \beta^t_{p}X^t_{ijp}+z^t_{ij},
 \end{aligned}
 \end{equation}
-independently for each $i=2,...,N$,$j=1,...,i-1$, and $t = 1,...,T$, where $X^t_{ijp}$ is the $p^{th}$ edge covariates, $\beta^t_{p}$ is the corresponding coefficient, and $z^t_{ij}$ is the unobserved random effects. Following the latent factor model of \cite{minhas2016inferential}, we also model $z^t_{ij}$ to account for potential higher-order dependencies in the additive and multiplicative form
+for node pair $(i, j)$, where $i=2,...,N$,$j=1,...,i-1$, and $t = 1,...,T$. In addition, $X^t_{ijp}$ is the $p${th} edge covariate, $\beta^t_{p}$ is the corresponding coefficient, and $z^t_{ij}$ is the unobserved random effect. Following the latent factor model of \cite{minhas2016inferential}, we also model $z^t_{ij}$ to account for potential higher-order dependencies in the additive and multiplicative form
 \begin{equation}
 \begin{aligned}
 z^t_{ij} = \theta^t_{i}+\theta^t_{j}+{{u^t_{i}}^\prime D^{t} u^t_{j}}+\epsilon^t_{ij},
 \end{aligned}
 \end{equation}
-where $\theta^t_{i}$ and $\theta^t_{j}$ are the additive nodal random effects of the node $i$ and $j$, respectively, ${{u^t_{i}}^\prime D^{t} u^t_{j}}$ is the multiplicative random effect with $D^{t}$ denoting the $R\times R$ diagonal matrix (i.e. $D^{t}= \mbox{diag}(d^t_{1},...,d^t_{R}$) and $u^t_{i}=[u^t_{i1},...,u^t_{iR}]^\prime$ denoting the $R$-length vector of latent coordinates of node $i$, and $\epsilon^t_{ij}$ is the noise.\\ \newline
-Following the prior specifications in \cite{bhattacharya2011sparse} and \cite{durante2013nonparametric}, we assume independent Gaussian process (GP) priors for the parameters $\{\beta_{p}\}_{p=1}^P,$ $\{\theta_{i}\}_{i=1}^N,$ $\{d_{r}\}_{r=1}^R$ and $\{\{u_{ir}\}_{i=1}^N\}_{r=1}^R$. We also assign additional hierarchy to include a shrinkage parameters $\{\tau^{\beta}_p\}_{p=1}^P$, $\tau^{\theta}$, and $\{\tau^{u}_r\}_{r=1}^R$ using inverse-Gamma (IG) priors. Specifically, we let 
+where $\theta^t_{i}$ and $\theta^t_{j}$ are the additive nodal random effects of the nodes $i$ and $j$, ${{u^t_{i}}^\prime D^{t} u^t_{j}}$ is the multiplicative random effect with $D^{t}$ denoting the $R\times R$ diagonal matrix of eigenvalues and $u^t_{i}=[u^t_{i1},...,u^t_{iR}]^\prime$ denoting the $R$-length vector of latent coordinates of node $i$, and $\epsilon^t_{ij}$ is the noise.\\ \newline
+Following the prior specifications in \cite{bhattacharya2011sparse} and \cite{durante2013nonparametric}, we assume independent Gaussian process (GP) priors for the parameters $\{\beta_{p}\}_{p=1}^P,$ $\{\theta_{i}\}_{i=1}^N,$ $\{d_{r}\}_{r=1}^R$ and $\{\{u_{ir}\}_{i=1}^N\}_{r=1}^R$. These priors depend on shrinkage parameters $\{\tau^{\beta}_p\}_{p=1}^P$, $\tau^{\theta}$, $\{\tau^{d}_r\}_{r=1}^R$, and $\{\{\tau^{u}_{rt}\}_{r=1}^R\}_{t=1}^T$ having inverse-Gamma (IG) priors. Specifically, we let 
 \begin{center}
 \begin{itemize}
 	\item[1.] $\beta_{p}\sim \mbox{GP}(0, \tau^{\beta}_pc^\beta_{p})\mbox{ for }p = 1,...,P$, where $\tau^{\beta}_p \sim \mbox{IG}(a_\beta, b_\beta)$ and $c^\beta_p(t, t')=f(\kappa^\beta_{p}, |t-t'|)$;
 	\item[2.] $\theta_{i}\sim \mbox{GP}(0, \tau^{\theta}c^\theta)\mbox{ for }i = 1,...,N$, where $\tau^{\theta}\sim \mbox{IG}(a_\theta, b_\theta)$ and $c^\theta(t, t')=f(\kappa^\theta, |t-t'|)$;
 	\item[3.] $d_{r}\sim \mbox{GP}(0, \tau^{d}_r c^d_r)\mbox{ for }r = 1,...,R$, where $\tau_r^{d} \sim \mbox{IG}(a_d, b_d)$ and  $c^d_r(t, t')=f(\kappa^d_{r}, |t-t'|)$;
-	\item[4.] $u_{ir}\sim\mbox{GP}(0, I_T)\mbox{ for }i = 1,...,N \mbox{ and } r=1,...,R$;
-	\item[5.] $\epsilon_{ij} \sim \mbox{N}(0, \sigma_e^2)$, where $\sigma_e^2 \sim \mbox{IG}(a_\sigma, b_\sigma)$,
+	\item[4.] $u_{ir}\sim\mbox{GP}(0, \boldsymbol{\tau}^u_{r})\mbox{ for }i = 1,...,N \mbox{ and } r=1,...,R$, where $ \boldsymbol{\tau}^u_{r}$ is a $T\times T$ diagonal matrix with the diagonal entries $({\tau}^u_{r1},\ldots, {\tau}^u_{rT})$ and ${\tau}^u_{rt}\sim \mbox{IG}(a_u, b_u)$;
+	\item[5.] $\epsilon_{ij} \sim \mbox{N}(0, \sigma_e^2)$, where $\sigma_e^2 \sim \mbox{IG}(a_\sigma, b_\sigma)$. 
 \end{itemize}
 \end{center}
-where $\beta_{p}= [\beta^1_{p},\ldots,\beta^T_{p}]^\prime$ and the rest of vectors defined in the same manner,  ($c^\beta, c^\theta, c^d$) are the $T\times T$ dimensional GP covariance matrices corresponding to the respective parameters, and $I_T$ is $T\times T$ identity matrix. Since the multiplicative random effect is measured by ${u^t_{i}}^\prime D^{t}u^t_{j}$, we assign the temporal correlation structure and shirinkage parameter both to $d^t_{r}$ to prevent from non-identifiability issue. \\ \newline
- In the existing literatures \citep{bhattacharya2011sparse,durante2013nonparametric,durante2014bayesian}, Gaussian process (GP) has specified form of covariance functions, squared exponential correlation function, which is appropriate for modelling very smooth functions. Moreover, the parameter $\kappa$ that characterize length-scale of the process is fixed as a input variable. However, smoothness is not necessarily required for discrete-time network modeling, and in practice, prior knowledge on how much the networks are correlated over time is hardly available. In that sense, choosing the right value of $\kappa$ can be a big challenge, especially when the pre-specified $\kappa$ determines the entire smoothness of functions. To better capture the network correlations over time as well as to allow large amount of flexibility, we instead estimate the value of $\kappa$ using the standard Exponential covariance function:
+The $\beta_{p}$, $\theta_{i}$, and $d_r$ vectors are all $T$-dimensional and have $T\times T$ covariance matrices with GP parameters $c^\beta, c^\theta,$ and  $c^d$, respectively. The inverse-Gamma hyperparameters are $a$ (shape) and $b$ (scale), which may vary across $\beta, \theta, d,$ and  $u$. %Since the multiplicative random effect is measured by ${u^t_{i}}^\prime D^{t}u^t_{j}$, we assign the temporal correlation structure and shirinkage parameter both to $d^t_{r}$ to prevent from non-identifiability issue. 
+\\ \newline
+We parameterize the covariance matrices using the standard Exponential covariance function:
 \begin{equation*}
-f(\kappa, |t-t'|) = \mbox{exp}\left(-\frac{|t-t'|}{\kappa}\right),
+f(\kappa, d) = \mbox{exp}\left(-\frac{d}{\kappa}\right),
 \end{equation*}
-with the prior given as $\kappa \sim \mbox{half-Cauchy}(0, 5)$---a relatively weakly-informative prior. Note that when timepoints are evenly spaced such as monthly or annually, the covariance matrix becomes symmetric Toeplitz matrix, a matrix in which each descending diagonal from left to right is constant.  Following the convention, we compute the inverse of Toeplitz matrices using Trench and Durbin methods \citep{golub2012matrix}. 
+where $d$ is the distance between two time points and the prior for $\kappa$ is given as $\kappa \sim \mbox{half-Cauchy}(0, 5)$---a relatively weakly-informative prior. When time points are evenly spaced as in our dataset, the covariance matrix is a symmetric Toeplitz matrix, a matrix in which each descending diagonal from left to right is constant. To aid computational efficiency, we compute the inverse of Toeplitz matrices using Trench and Durbin methods \citep{golub2012matrix}. \\ \newline
+Some authors \citep{bhattacharya2011sparse,durante2013nonparametric,durante2014bayesian} use the squared exponential covariance function $f(\kappa, d) = \mbox{exp}(-d^2/{\kappa})$, which is appropriate for modelling very smooth functions. Moreover, the parameter $\kappa$ that characterizes length-scale of the process is fixed as an input variable in these works. However, smoothness is not necessarily required for discrete-time network modeling, and in practice, prior knowledge on how much the networks are correlated over time is unavailable. Thus, choosing appropriate value of $\kappa$ can be a challenge and the DAME model addresses this by estimating $\kappa$.
+
 \subsection{Posterior Computation}\label{subsec: posterior computation}
-We take a Bayesian approach to make inference for the parameters of the DAME. Posterior computation is performed via simple Gibbs sampler to update the vector of time-varying regression coefficients and the vector of additive and multiplicative latent factors, while we use Metropolis-Hastings to sample the pair of variance and length parameters ($\tau, \kappa$) in Gaussian process. Using the conjugate prior distributions, this section provides a Gibbs sampling scheme that approximates the joint posterior distribution $P(\beta,  \theta, d, u, \tau^{\beta},\tau^{\theta}, \tau^{d}, \kappa^\beta, \kappa^\theta, \kappa^d, \sigma_e^2|\mathbf{Y}, \mathbf{X}, a_\beta, b_\beta, a_\theta, b_\theta, a_d, b_d, a_\sigma, b_\sigma)$. \\ \newline
-Let $E^t$ denote the $N \times N$ matrix of random noises, where the $(i, j)^{th}$ entry is defined as $E^t_{ij} = y^t_{ij}-\big(\sum\limits_{p=1}^P \beta^t_{p}X^t_{ijp}+\theta^t_{i}+\theta^t_{j}+{u^t_{i}}^\prime D^tu^t_{j}\big)$. Given that the distribution of the observed network $\mathbf{Y}= \{Y^1,...,Y^T\}$ conditional on all the parameters can be written as
+We take a Bayesian approach to infer the parameters of the DAME. Posterior computation is performed via a Gibbs sampler to update the vector of time-varying regression coefficients and the vector of additive and multiplicative latent factors, while we use Metropolis-Hastings to sample the pair of variance and length parameters ($\tau, \kappa$) in Gaussian process. This section provides a details of our MCMC updates.\\ \newline
+Let $E^t$ denote the $N \times N$ matrix of random noise, where the $(i, j)^{th}$ entry is defined as $E^t_{ij} = y^t_{ij}-\big(\sum\limits_{p=1}^P \beta^t_{p}X^t_{ijp}+\theta^t_{i}+\theta^t_{j}+{u^t_{i}}^\prime D^tu^t_{j}\big)$. Since the distribution of the observed network $\mathbf{Y}= \{Y^1,...,Y^T\}$ conditional on all the parameters can be written as
 \begin{equation}
 	P(\boldsymbol{Y}|\boldsymbol{X}, {\beta}, {\theta}, {d}, {u},\sigma_e^2)\propto  \prod_{t=1}^T\prod_{i>j}(\sigma_e^2)^{-\frac{1}{2}}\mbox{exp}\{-\frac{1}{2\sigma_e^2}||E^t_{ij}||^2\},
 \end{equation}
-we sequentially update each parameter $(\sigma_e^2,$ $\tau^{\beta},$ $\tau^{\theta}, $ $\tau^{d},$ $\kappa^\beta, \kappa^\theta, \kappa^d,$ $\beta, $ $\theta,$ $d,$ $u)$ from its full conditional distribution in the following sampling scheme:
+we sequentially update each parameter $(\sigma_e^2,$ $\tau^{\beta},$ $\tau^{\theta}, $ $\tau^{d},$ $\tau^{u},$ $\kappa^\beta, \kappa^\theta, \kappa^d,$ $\beta, $ $\theta,$ $d,$ $u)$ from its full conditional distribution in the following sampling scheme, in which IG and MVN stand for inverse-Gamma and multivariate normal:
 	\begin{itemize}
 		\item [1.] Sample $\sigma_e^2 \sim \mbox{IG}\big(\frac{T\cdot N(N-1)}{4}+a_\sigma, \frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}(E^t_{ij})^2 + b_\sigma\big)$;
 		\item [2.] For each $p \in \{1,...,P\}$ in random order, sample $\beta_{p}$ as follows:
 		\begin{enumerate} 
-			\item [(a)] Sample ($\tau^{\beta}_p ,  \kappa^\beta_p$) using bivariate Metropolis-Hastings algorithm
+			\item [(a)] Sample ($\tau^{\beta}_p ,  \kappa^\beta_p$) using a bivariate Metropolis-Hastings algorithm (refer to Equation (7) in supplementary material)
 			\item [(b)] Sample $\beta_{p} \sim \mbox{MVN}_T\big(\tilde{\mu}_{\beta_p}, \tilde{\Sigma}_{\beta_p} \big)$ with 
 			$$\tilde{\Sigma}_{\beta_p} = \Big((\tau^{\beta}_pc^\beta_p)^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}{X^{t2}_{ijp}}\}_{t=1}^{t=T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{\beta_p} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-p]}X^t_{ijp})\}_{t=1}^{t=T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\beta_p},$$ 
 			where $E^{t}_{ij[-p]}=E^t_{ij}+\beta^t_{p}X^{t}_{ijp}$.						
 		\end{enumerate}
 		\item [3.] Sample $\theta_{i}$ as follows:
 		\begin{enumerate}
-			\item [(a)] Sample ($\tau^{\theta},  \kappa^\theta$) using bivariate Metropolis-Hastings algorithm
-			\item [(b)] For each $i \in \{1,...,N\}$ in random order, sample $\theta_{i} \sim \mbox{MVN}_T\big(\tilde{\mu}_{\theta_i}, \tilde{\Sigma}_{\theta_i} \big)$ wiwth
+			\item [(a)] Sample ($\tau^{\theta},  \kappa^\theta$) using bivariate Metropolis-Hastings algorithm (refer to Equation (8) in supplementary material)
+			\item [(b)] For each $i \in \{1,...,N\}$ in random order, sample $\theta_{i} \sim \mbox{MVN}_T\big(\tilde{\mu}_{\theta_i}, \tilde{\Sigma}_{\theta_i} \big)$ with
 			$$\tilde{\Sigma}_{\theta_i} = \Big((\tau^\theta c^\theta)^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)^{-1} \mbox{ and }
 			\tilde{\mu}_{\theta_i} = \Big(\frac{\{\sum_{i=i, j\neq i}E^{t}_{ij[-i]}\}_{t=1}^{t=T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\theta_i},$$ where $E^{t}_{ij[-i]}=E^t_{ij}+\theta^t_{i}.$
 		\end{enumerate}
 		\item [4.] For each $r \in \{1,...,R\}$ in random order, sample $d_{r}$ as follows:
 		\begin{enumerate}
-			\item [(a)] Sample  ($\tau_r^{d},  \kappa_r^d$)  using univariate Metropolis-Hastings algorithm 
+			\item [(a)] Sample  ($\tau_r^{d},  \kappa_r^d$)  using univariate Metropolis-Hastings algorithm (refer to Equation (9) in supplementary material)
 			\item [(b)] Sample $d_{r} \sim \mbox{MVN}_T\big(\tilde{\mu}_{d_r}, \tilde{\Sigma}_{d_r} \big)$ with
 			$$\tilde{\Sigma}_{d_r} = \Big((\tau_r^d{c_r^d})^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}({u^t_{ir}u^t_{jr}})^2\}_{t=1}^{t=T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{d_r} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-r]}u^t_{ir}u^t_{jr})\}_{t=1}^{t=T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{d_r}),$$
 			where $E^{t}_{ij[-r]}=E^t_{ij}+{u^t_{ir}}^\prime d^t_{r}u^t_{jr}$.
 		\end{enumerate}		
 		\item [5.] For each $t \in \{1,...,T\}$ and $i \in \{1,...,N\}$ in random order, sample $u^t_{i}$ as follows:
 		\begin{enumerate}
-					\item [(a)] Sample $u^t_{i}\sim \mbox{MVN}_R\big(\tilde{\mu}_{u^t_{i}}, \tilde{\Sigma}_{u^t_{i}} \big)$ with 
-			$$\tilde{\Sigma}_{u^t_{i}} = \Big(1+\frac{\sum_{j\neq i}D^tu^t_{j}{u^t_{j}}^\prime D^t}{\sigma_e^2}\Big)^{-1}\mbox{ and } \tilde{\mu}_{u^t_{i}} = \Big(\frac{\{\sum_{i=i, j\neq i}(E^{t}_{ij[-u]}{u^t_{j}}^\prime D^t)'\}}{{\sigma_e^2}}\Big)\tilde{\Sigma}_{u^t_{i}},$$ 
-			where $E^{t}_{ij[-u]}=E^t_{ij}+{u^t_{i}}^\prime D^tu^t_{j},$
+			\item[(a)] For each $r \in \{1,...,R\}$, sample $\tau_{rt}^{u} \sim \mbox{IG}(\frac{N}{2}+a_u, \frac{1}{2}\sum\limits_{i=1}^N (u^t_{ir})^2 + b_u)$ and construct $R\times R$ covariance matrix $\boldsymbol{\tau}^u_t = \mbox{diag}(\tau_{1t}^{u},\ldots, \tau_{Rt}^{u})$
+					\item [(b)] Sample $u^t_{i}\sim \mbox{MVN}_R\big(\tilde{\mu}_{u^t_{i}}, \tilde{\Sigma}_{u^t_{i}} \big)$ with 
+			$$\tilde{\Sigma}_{u^t_{i}} = \Big((\boldsymbol{\tau}^u_t)^{-1}+\frac{\sum_{j\neq i}D^tu^t_{j}{u^t_{j}}^\prime D^t}{\sigma_e^2}\Big)^{-1}\mbox{ and } \tilde{\mu}_{u^t_{i}} = \Big(\frac{\{\sum_{i=i, j\neq i}(E^{t}_{ij[-u]}{u^t_{j}}^\prime D^t)'\}}{{\sigma_e^2}}\Big)\tilde{\Sigma}_{u^t_{i}},$$ 
+			where $E^{t}_{ij[-u]}=E^t_{ij}+{u^t_{i}}^\prime D^tu^t_{j}.$
 		\end{enumerate}			
 	\end{itemize}
-	where $IG$ denotes inverse-Gamma distribution and $MVN$ denotes multivariate normal distribution.
-	Note that between every steps 1--5, $\mathbf{E} = \{E^1,\ldots, E^T\}$ has to be calculated again using the previously updated values, so that the next update is conditioned on the current values of all the other parameters. For the parameters which we know the full conditional distributions, we achieve easy implementation and fast computation via Markov Chain Monte Carlo (MCMC) with Gibbs samping. For joint sampling of $\kappa$ and $\tau$, we use the simplest case of Metropolis-Hastings algorithm using Normal proposals, where the detailed derivations can be found in the supplementary material of the paper.
+	Note that after steps 2 through 5, $\mathbf{E} = \{E^1,\ldots, E^T\}$ has to be calculated again using the previously updated values, so that the next update is conditioned on the current values of all the other parameters. 
 \subsection{Varying Number of Nodes}\label{subsec: varying number of nodes}
-In many longitudinal networks, new node can join the network or existing node can disappear at any timepoint, and modeling the composition of nodes itself is a critical feature of dynamic network models. For example, continuous-time network models which are built upon survival analysis \citep{snijders2010introduction,butts2008relational,vu2011continuous,hunter2011dynamic,perry2013point} naturally allow the number of nodes vary over time from the model formulation itself, while the stochastic actor oriented model (SAOM) \citep{snijders2010introduction} manually added some data specification options to allow `joiners' and `leavers', by specifying structural zeros for all elements of the variables from actors (or nodes) who are absent at a given timepoint. Nevertheless, statistical methods to allow varying size of nodes have yet to be adapted to the most of exisiting dynamic latent distance models \citep{sarkar2005dynamic,sewell2015latent,friel2016interlocking}, possibly due to their reliance on Markovian dependence to model the temporal evolution of networks. Although not assuming any Markovian properties, none of dynamic latent factor models \citep{durante2013nonparametric,hoff2008modeling,minhas2016inferential} has been applied to longitudinal networks where the number of nodes change over time. The common practice is to model the dataset assuming fixed size of nodes over time and rely on imputations for missing values.\\ \newline
-In our paper, we propose a straightforward method to allow nodes to join or leave the network, similar to the one used in \cite{snijders2010introduction}. We define structural missing values where missing is not at random as `structural zeros'. For example, when a country or company does not exist or disappears until/after specific timepoint, no single covariates is observed before or after then, thus becoming structural zeros. In such cases, imputation could be either impossible or problematic and estimating the nodal additive or multiplicative effects for the non-existing period may be of no use. Even when imputation is possible, including the imputed values to estimate other (fixed) parameters could also reduce bias. To avoid those issues, we allow the model to differentiate two types of missingness, random missing and structural zeros, and handle the latter separately from the treatment of missing data.  \\ \newline
-The dynamic additive and multiplicative effects model takes the $N\times T$ matrix of availability $A$ as an input, where $(n, t)^{th}$ element denotes the the availability of node $n$ at time $t$. This matrix must contain all actors $N$ who are part of the network at any observation time $t \in \{1,...,T\}$. The indicator variable $A_{nt}$ is then defined as below.
+In many longitudinal networks, new nodes can join the network or existing nodes can disappear at any timepoint, so allowing for varying number of nodes is a critical feature of dynamic network models. For example, continuous-time network models which are built upon survival analysis \citep{butts2008relational,vu2011continuous} naturally allow the number of nodes to vary over time, and the stochastic actor oriented model of \cite{snijders2010introduction} adds data specification options to allow `joiners' and `leavers', by specifying structural zeros for all elements of the variables from actors (or nodes) who are absent at a given timepoint. Nevertheless, our adaptation of this idea to the current setting is novel in the literature as far as we know.\\ \newline
+Our idea is similar to the one used in \cite{snijders2010introduction}: We code a node that has not yet joined or that has dropped out as a `structural zero'. More precisely, we define the $N\times T$ matrix of availability $A$ as an input to the model, where the $(n, t)${th} element is then defined as
 \begin{equation*}
 A_{nt} =\begin{cases}
 1, & \mbox{node $n$ is available at timepoint $t$}\\
 0, & \mbox{node $n$ is not available at timepoint $t$.}\\
 \end{cases}
 \end{equation*}
-While random missing values (i.e. $A_{nt} = 1$) are imputed with posterior estimates and used in every steps of parameter estimation, those with structural zeros (i.e. $A_{nt} = 0$) are not imputed and left as missing, and the corresponding additive effect estimates $\theta^t_{n}$ and latent position estimates $u^t_{n}$ are specified as `not available (NA)'. Furthermore, other parameters including the fixed effects $\{\beta_{p}\}_{p=1}^P$ are estimated excluding the entries of structural zeros. Through this simple and straightforward approach, we can effectively model dynamic networks of varying number of nodes over time, which provides flexibility in fitting the model to large networks. 
+Here, $N$ is the number of actors who are part of the network at any time $1\leq t \leq T$. While missing values corresponding to nodes $n$ and times $t$ for which $A_{nt} = 1$ are updated along with parameter values at each MCMC iteration, when $A_{nt} = 0$ the corresponding additive effect estimates $\theta^t_{n}$ and latent position estimates $u^t_{n}$ are specified as `not available (NA)'. Furthermore, other parameters including the fixed effects $\{\beta_{p}\}_{p=1}^P$ are estimated excluding the entries of structural zeros. 
 
 \section{Simulation Study}\label{sec: simulation study}
 We provide a simulation study with the aim to evaluate the performance of the proposed model on the ability to capture some important properties of the true data and correctly reconstruct the true underlying processes from the model estimates. There are two objectives in this simulation study: 1) show that understanding the correct covariance structure plays a key role in the model performance, in case of network that is highly correlated across time, and 2) prove that the eigenvalue formulation of the multiplicative random effects (i.e. $u^\prime Du$) has the benefit of revealing negative transitivity effects.
@@ -176,61 +178,59 @@ where $\rho(\cdot)$ is the Spearman correlation between two vectors, and $\mbox{
  Figure 1 compares the lagged degree correlations of our model and the independence model ---without estimating Gaussian process covariance parameters (and fix all $\kappa = 0$), which are constructed from their respective posterior estimates. This comparison highlights the good performance of the DAME, in correctly estimating the true temporal correlation across the timepoints. These can be noticed by comparing with the true degree correlations, where the independence model always exhibit lower posterior estimates than the true correlations.
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=1\textwidth]{plots/correlation_histogram.pdf}	
+		\includegraphics[width=1\textwidth]{plots_paper/correlations-1.png}	
 	\caption {Histogram of posterior lagged degree correlations (from lag 1 to lag 3): the DAME (red) and independence model (blue), with the observed lagged degree correlations (blue lines)}
 	\label{figure:correlationstudy}
 \end{figure}
 \subsection{Capturing Transitivity} \label{subsec: negative transitivity}
-Similar to Section \ref{subsec: correlation}, we generated  $\mathbf{Y}$ with $N=20$, $T=10$, $P=1$ (intercept only), $R=2$, and $(a, b) = (2, 1)$ for all inverse-Gamma hyperparameters. On the other hand, considering that our new goal is not to estimate temporal correlations but to represent positive or negative transitivity, this time we modify two settings: 1) set $(\kappa^\beta, \kappa^\theta, \kappa^d) = (0.001, 0.001, 0.001)$ such that all paramters and the resulting dynamic network is nearly independent over time, and 2) force $d^t_{r} > 0$ or $d^t_{r} <0$ for all $r=1,2$ and $t=1,...,10$ such that the generated network exibits positive or negative transitive feature, respectively. Again, we ran 6,000 MCMC iterations and discarded the first 1,000, with thinning = 10, however, we fixed $\kappa$'s at the true values and did not estimate the covariance paramters such that the difference in performance only comes from the multiplicative effects formulations, $u^\prime Du$ and $u^\prime u$. If we estimated $\kappa$'s for this comparison, the difference in results may not only arise from the formulation of multiplicative effects, but also possibly come from lack of correlation structure in $u^\prime u$ because our modeling framework do not assign any correlation on $u$'s.   \\ \newline 
-Figure 2 shows a graphical comparison between the two formulations of the multiplicative random effects with respect to the second and third moments of degree (i.e. degree($\hat{Y}^2$) and degree($\hat{Y}^3$), respectively), for a randomly chosen node (node 2). For the case of positive transitivity ($d > 0$), our model and its alternative (without $D$ term) do not show significant differences; both formulations achieve great performance in replicating the first, second, and third moments of node 2's degree. On the contrary, when we fit the network with negative transitivity ($d < 0$), the two formulations reveal noticeable differences. While the DAME can still recover the true degree in all three moments, the model without $D$ term shows inaccuracy in simulating a network that is close to the true data, especially in higher moments. Not only the $u^\prime u$ model introduces bias, but also it shows lower precision than our model. This notable difference strongly supports our argument that $u^\prime Du$ should be preferred over $u^\prime u$, as a standard form of multiplicative random effects.
+Similar to Section \ref{subsec: correlation}, we generated  $\mathbf{Y}$ with $N=20$, $T=10$, $P=1$ (intercept only), $R=2$, and $\forall (a, b) = (2, 1)$. On the other hand, considering that our new goal is not to estimate temporal correlations but to represent positive or negative transitivity, this time we modify two settings: 1) set $(\kappa^\beta, \kappa^\theta, \kappa^d) = (0.001, 0.001, 0.001)$ such that all paramters and the resulting dynamic network is nearly independent over time, and 2) fix $d^t_{r} = \pm 2$ for $r=1,2$ and $t=1,...,10$ such that the generated network exibits positive, mixed, or negative transitive feature, respectively. Again, we ran 6,000 MCMC iterations and discarded the first 1,000, with thinning = 10, however, we fixed $\kappa$'s at the true values and did not estimate the covariance paramters such that the difference in performance only comes from the multiplicative effects formulations---$u^\prime Du$ and $u^\prime u$. If we estimated $\kappa$'s for this comparison, the difference in results may not only arise from the formulation of multiplicative effects, but also possibly come from lack of correlation structure in $u^\prime u$ because our modeling framework do not assign any correlation on $u$'s.   \\ \newline 
+Figure 2 shows a graphical comparison between the two formulations of the multiplicative random effects with respect to the second and third moments of degree (i.e. degree($\hat{Y}^2$) and degree($\hat{Y}^3$), respectively), for a randomly chosen node (node 2). For the case of positive transitivity ($\forall d^t_{r} =+2$), our model and its alternative (without $D$ term) do not show significant differences; both formulations achieve great performance in replicating the first, second, and third moments of node 2's degree. On the contrary, when we fit the network with mixed ($\forall d^t_{r=1} =-2$ and $\forall d^t_{r=2} =+2$) or negative transitivity ($\forall d^t_{r} =-2$), the two formulations reveal noticeable differences. While the DAME can still recover the true degree in all three moments, the model without $D$ term shows inaccuracy in simulating a network that is close to the true data. Not only the $u^\prime u$ model introduces bias, but also it shows significanlty lower precision than our model. In addition, the difference becomes larger as the network tends toward stronger negative transitivity. These findings strongly support our argument that $u^\prime Du$ should be preferred over $u^\prime u$, as a standard form of multiplicative random effects.
 \begin{figure}[H]
 	\centering
-			\includegraphics[width=1\textwidth]{plots/Degreeplot.pdf}	
-						\includegraphics[width=1\textwidth]{plots/Degreeplot2.pdf}	
-	\caption {Posterior distribution of the first (left), second (middle), and third (right) moment degrees for node 2 using positive transitive network (upper) and negative transitive network (lower): the DAME (red) and without $D$ model (green), with the observed moment degrees (blue dots)}
+			\includegraphics[width=0.73\textwidth]{plots_paper/bothpositive2-1.png}	
+						\includegraphics[width=0.73\textwidth]{plots_paper/mixed2-1.png}	
+						\includegraphics[width=0.73\textwidth]{plots_paper/bothnegative2-1.png}	
+	\caption {Posterior distribution of the first (left), second (center), and third (right) moment degrees for node 2 using positive transitive network (upper), mixed transitive network (upper), and negative transitive network (lower): the DAME (red) and without $D$ model (green), with the observed moment degrees (blue dots)}
 	\label{figure:negativitystudy}
 \end{figure}
 \section{Analysis of the United Nations Voting Network}\label{sec: UNvoting}
 \subsection{Data}\label{subsec: data processing}
-Votes in the United Nations General Assembly (UNGA) have been analyzed in many political science papers \citep{voeten2000clashes,voeten2004resisting,bearce2007intergovernmental,mattes2015leadership,bailey2017estimating}, and became one of the standard data sources to measure the state preferences. Unfortunately, to our knowledge, the existing studies ignored two important features of the dataset. First, votes are highly correlated across timepoints, because they are the reflections from history. \cite{bailey2017estimating} proposed a dynamic ordinal spatial IRT (item response theory) model and allowed for better inter-temporal comparisons, however, their model limited the temporal dependence to be lag 1 (i.e. Markovian assumption --- votes at time $(t+1)$ is only dependent on votes at time $t$). Second, although the researchers have viewed ``voting" as dyadic behavior and thus used dyadic similarity indicators such as affinity or S scores \citep{gartzke1998kant,signorino1999tau}, to our knowledge, the United Nations voting data has never been analyzed using the dynamic network models. \\ \newline
-To overcome the limitations and provide the new insight, we apply the DAME to the voting behavior of 74 countries in the United Nations (UN) General Assembly roll-call votes over the 32 year period, from 1983 through 2014. Full list of the 74 countries included in this analysis and their abbreiviationsare listed in Table \ref{table:importantvotes} in Appendix A. These data were obtained from \cite{12379_2016}, where we use the subset of the votes called `important votes', the votes identified as important by U.S. State Department report Voting Practices in the United Nations. Throughout 1983 to 2014, the number of important votes on average is 12 per year, ranges from 6 to 28. Specifically, we construct the response $\mathbf{Y} = \{Y^1,\ldots, Y^{32}\}$, where each $Y^t$ is $74 \times 74$ matrix, using the variable `agree3unimportant' in the original dataset, which is a voting similarity index (0--1) computed using 3 category vote data (Y = “yes” or approval for an issue; A = abstain; N = “no” or disapproval for an issue)\footnote{voting similarity index between the two countries $i$ and $j$ at year $t$ is calculated as (Number of votes $i$ and $j$ agreed at year $t$) / (Number of votes $i$ and $j$ both participated at year $t$)}. Note that abstention is counted as half-agreement with a yes or no vote, while two abstention is treated as full-agreement. For basic summary of Unite Nations voting data including the average number of common votes and the averge proportion of agreement or voting similarity index per year, see Table \ref{table:EDA} in Appendix B. \\ \newline
+Votes in the United Nations General Assembly (UNGA) have been analyzed in many political science papers \citep{voeten2000clashes,voeten2004resisting,bearce2007intergovernmental,mattes2015leadership,bailey2017estimating}, and became the standard data sources to measure the state preferences. The study of state preferences in international politics is one of the most important topics for students of international relations \citep{wendt_1994}. With regard to policy implications, for instance, states are the key actors at the global stage, knowing their preferences towards each other and tastes on difference issues, helps us predict future foreign policies and state behaviors. 
+Unfortunately, the existing studies ignored three important features of the dataset. First, votes are highly correlated across timepoints, because they are the reflections from history. \cite{bailey2017estimating} proposed a dynamic ordinal spatial IRT (item response theory) model and allowed for better inter-temporal comparisons, however, their model limited the temporal dependence to be lag 1 (i.e. Markovian assumption---votes at time $(t+1)$ is only dependent on votes at time $t$). Second, although the researchers have viewed ``voting" as dyadic behavior and thus used dyadic similarity indicators such as affinity or S scores \citep{gartzke1998kant,signorino1999tau}, to our knowledge, the United Nations voting data has never been analyzed using the dynamic network models. Third, third-order dependence has not been modeled in the literature despite the fact that voting decisions are not limited to dyadic calculations---country A's decision to vote along the line with country B might well be influenced by a country C's decision. \\ \newline
+To overcome the limitations and provide the new insight, we apply the DAME to the voting behavior in the United Nations (UN) General Assembly roll-call votes, from 1983 through 2014. The countries included in this analysis were determined by taking intersection of countries available for each variables (e.g. votes, polity score, GDP) and then dropping countries with missings (NA's) over 10 years, while the remaning missings were imputed using previous year's data. Full list of countries and their abbreiviations are listed in Table \ref{table:importantvotes} in Appendix A. Specifically, the voting data was obtained from \cite{12379_2016}, where we use the subset of the votes called `important votes', the votes identified as important by U.S. State Department report Voting Practices in the United Nations\footnote{For example, in 2001, important votes include `Israeli Actions in the Occupied Territories', `Peaceful Settlement of the Question of Palestine', `U.S. Embargo Against Cuba', and `Nuclear Disarmament'.}. We did not use all votes in that \textcolor{red}{for non-important votes, countries simply tend to `agree' such that their votes do not represent state preference}. Throughout 1983 to 2014, the number of important votes on average is 12 per year, ranges from 6 to 28. We constructed the response $\mathbf{Y} = \{Y^1,\ldots, Y^{32}\}$, where each $Y^t$ is $97\times 97$ matrix, using the variable `agree3unimportant' in the original dataset, which is a voting similarity index (0--1) computed using 3 category vote data (Y = “yes” or approval for an issue; A = abstain; N = “no” or disapproval for an issue)\footnote{Voting similarity index between the two countries $i$ and $j$ at year $t$ is calculated as (Number of votes $i$ and $j$ agreed at year $t$) / (Number of votes $i$ and $j$ both participated at year $t$)}. Note that abstention is counted as half-agreement with a yes or no vote \citep*{12379_2016}, while two abstention is treated as full-agreement. For basic summary of Unite Nations voting data including the average number of common votes and the averge proportion of agreement or voting similarity index per year, see Table \ref{table:EDA} in Appendix B. \\ \newline
 As an exploratory data analysis, Table \ref{table:corr} illustrates the lagged degree correlation (defined in Equation (4)) of the dataset, which is used in Section \ref{subsec: correlation}, to measure how much Unite Nations voting data is correlated over time. There exists strong positive correlation in how countries vote in the United Nations General Assembly over time, and as the distance between two timepoints become larger the correlation gets weaker. This provides solid evidence that our model with Gaussian process assumption is one of the appropriate appraoches to effectively analyze this dataset.
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|} 
 		\hline
 		{Lag}	& 1 & 2& 3& 4& 5& 6& 7&8&9&10 \\ \hline
-		Correlation & 0.800&0.745&0.669&0.589&0.541&0.430&0.365&0.246&0.218& 0.203\\\hline
+		Correlation & 0.732&0.623&0.513&0.435&0.395&0.315&0.263&0.158&0.164& 0.203\\\hline
 	\end{tabular}
 	\caption {Lagged degree correlation of United Nations Voting Data}
 	\label{table:corr}
 \end{table}
-\newline Next, to dynamically model the voting network in relation to other variables reflecting international relations,  we combine $P=5$ different dyadic variables from the Correlates of War (COW) data \citep{gibler2008international}, Polity IV data \citep{marshall2014polity} and the International Monetary Fund (IMF)'s Direction of Trade Statistics (DOTS) and International Financial Statistics (IFS) data, and construct the observed edge covariates $\mathbf{X}$. For every $p=1,...,5$, we set the explanatory variable $X^t_{ijp}$ as below:
+\newline Next, to dynamically model the voting network in relation to other variables reflecting international relations, we combine $P=5$ different dyadic variables from the Correlates of War (COW) data \citep{gibler2008international}, Polity IV data \citep{marshall2014polity} and the International Monetary Fund (IMF)'s Direction of Trade Statistics (DOTS) and International Financial Statistics (IFS) data, and construct the observed edge covariates $\mathbf{X}$. For every $p=1,...,5$, we set the explanatory variable $X^t_{ijp}$ as below.
 \begin{itemize}
 	\item [1.] $\mbox{Intercept}^t_{ij}$: constant 1,
 	\item [2.] log($\mbox{distance})^t_{ij}$: log of the geographic distance between country $i$ and country $j$,
 	\item [3.] $\mbox{Alliance}^t_{ij}$: 1 if country $i$ and country $j$ have alliance, and 0 otherwise,
 	\item [4.] $\mbox{Polity difference}^t_{ij}$: absolute difference in polity IV number between country $i$ and country $j$,
-	\item [5.] $\mbox{Lower trade-to-GDP ratio}^t_{ij}$: index of economic dependence using bilateral trade weighted by each country's domestic product (GDP), defined in \cite{gartzke2000preferences} $$min\Big(\frac{\mbox{Trade}_{ijt}}{\mbox{GDP}_{it}}, \frac{\mbox{Trade}_{ijt}}{\mbox{GDP}_{jt}}\Big),$$
+	\item [5.] $\mbox{Lower trade-to-GDP ratio}^t_{ij}$: index of economic dependence using bilateral trade weighted by each country's gross domestic product (GDP), as defined in \cite{gartzke2000preferences} $$min\Big(\frac{\mbox{Trade}_{ijt}}{\mbox{GDP}_{it}}, \frac{\mbox{Trade}_{ijt}}{\mbox{GDP}_{jt}}\Big),$$
 	\item [6.] $\mbox{Common language}^t_{ij}$: indicator of whether country $i$ and country $j$ share the same language,
 \end{itemize}
-where all covariates are symmetric $X^t_{ijp}=X^t_{jip}$. Note that intercept is included to account for the baseline degree of agreement at each timepoint. Two variables,  log($\mbox{distance}$) and common language are time-invariant covariates, although their coefficients may vary over time.\\\newline
+where all covariates are symmetric $X^t_{ijp}=X^t_{jip}$. Note that intercept is included to account for the baseline degree of agreement at each timepoint. Two variables, log($\mbox{distance}$) and common language are time-invariant covariates, although their coefficients may vary over time. Correlations between the five covariates (except the intercept) are attached in Appendix C.\\\newline
 Moreover, we specified the matrix of availability $A$ introduced in Section \ref{subsec: varying number of nodes} to reflect six countries' nonparticipation in the United Nations Genearl Assembly: 
 \begin{itemize}
 	\item[1.]  North Korea (PRK) have structural zeros from $t = 1$ to $t = 8$:\\
 	- North Korea did not vote until North Korea and South Korea have simultaneously admitted to United Nations in 1991.
 	\item[2.] South Korea (ROK) have structural zeros from $t = 1$ to $t = 8$:\\
 	- South Korea did not vote until North Korea and South Korea have simultaneously admitted to United Nations in 1991.
-	\item [3.] Ukraine (UKR)  has structural zeros from $t=1$ to $t = 9$: \\
-	- Previously Ukrainian Soviet Socialist Republic, the country changed its name to Ukraine on 1991 and started voting with new name from 1992.
-	\item [4.] Russia (RUS) has structural zeros from $t=1$ to $t =9$:\\
+	\item [3.] Russia (RUS) has structural zeros from $t=1$ to $t =9$:\\
 - Russia succeeded the Soviet Union's seat, including its permanent membership on the Security Council in the United Nations after the dissolution of the Soviet Union in 1991. 
-	\item [5.] Georgia (GRG) has structural zeros from $t = 1$ to $t = 10$:\\
-	-  Georgia, one of the former Soviet Republics, was admitted to United Nations on 1992, thus no voting records until 1992.
-	\item [6.] Iraq (IRQ) has structural zeros from $t = 13$ to $t = 21$:\\
-	- The country did not participate the UNGA roll-call votes during 1995 - 2003. Since 1990, Iraq was under severe sanctions from the international community including the United Nations.
+	\item [4.] Iraq (IRQ) has structural zeros from $t =13$ to $t = 21$:\\
+	- The country did not participate the UNGA roll-call votes during 1995--2003. Under the rule of Saddam, Iraq was under severe sanctions from the international community including the United Nations since 1990.
 \end{itemize}
-Therefore, any missing values corresponding the country and missing period are treated as structural zeros. In Section \ref{subsec: varying number of nodes}, we mentioned that other non-structural missing values are treated as random missing (and thus imputed), however, this dataset does not include any random missings. 
+Therefore, any missing values corresponding the country and missing period are treated as structural zeros. As in Section \ref{subsec: varying number of nodes}, other non-structural missing values are treated as random missing (and thus imputed). 
 \subsection{Reduced-Rank Structure of Voting Network}\label{subsec: reduced rank}
 In this section, we demonstrate the special low-rank structure of the voting network, which can be generalized into any other similarly constructed agreement networks. First, for simplicity, we assume static network by fixing $T = 1$ and consider the $N \times N$ adjacency matrix $V^1$ representing the network consists of single vote. Since each entry of $V^1$ denotes a voting similarity index (0-1) computed using 3 categories (“yes”, ``abstain", and “no”), the $(i, j)^{th}$ element $V^1_{ij}$ can only have three possible values,
 \begin{equation*}
@@ -252,20 +252,20 @@ where $r(A)$ is the rank of matrix $A$ and $d = \mbox{dim}(\mathcal{C}_A \cap \m
 which is the maximum dimension of latent factors the DAME model could fit, although small value of $R$ (e.g. $R=2$ or $3$) are preferred in general. \fi 
 Although it is worth understanding the constraint behind single votes, this is not a practical issue in modeling United Nations voting network, where we aggregate multiple votes per year (minimum number of important votes per year is 6). When we add $M$ number of matrices representing each vote, the aggregated matrix $V^1+V^2+...+V^M$ gets closer to the full rank thus we no longer need to worry about the maximum dimension of the latent factors in fitting the DAME model. Moreover, including the observed covariates $X$ and additive random effects $\theta$ also relax the reduced rank structure, since the multiplicative latent effect $u^\prime Du$ is modeled after we subtract those effects from the response matrix or array (See Section \ref{sec: DAME}). Accounting for large variability in the observed covariates and additive random effects, the residuals no longer maintains the perfect transivity structure.
 \subsection{Model Validation}\label{subsec: Model Validation}
-To perform a model validation as well as to understand the role of different effects at the same time, we fitted four different dynamic AME models, one with additive and multiplicative effects, one with only multiplicative effects, one with only additive effects, and the last without any random effects, where all four models included 6 fixed effects in Section \ref{subsec: data processing}. We constructed 95\% credible intervals for degree statistics of the model-simulated response $\hat{\mathbf{Y}}$ at every $10^{th}$ sample after burn-in. \\ \newline
+To perform a model validation as well as to understand the role of different effects at the same time, we fitted four different dynamic AME models, one with additive and multiplicative effects, one with only multiplicative effects, one with only additive effects, and the last without any random effects, where all four models included 6 fixed effects in Section \ref{subsec: data processing}. We constructed 95\% credible intervals for degree statistics of the model-simulated response $\hat{\mathbf{Y}}$ at every $20^{th}$ sample after burn-in. \\ \newline
 Figure \ref{figure:modelvalidation} shows the posterior predictive plots for the country ``Israel" comparing the four models. First of all, there is huge benefit of correcting the bias when we add additive effects, compared to the model with no random effects. Next, when we compare between AE (additive only) and ME (multiplicative only), it is apparent that that the multiplicative effects significantly reduced the interval of estimates. This happens since the additive effects have very small variances ($\approx0$) while the multiplicative effects have larger variance estimates, which significantly lowered the error variance estimates $\hat\sigma_e^2$ that plays a big role in the precision of simulated data. Our model with both additive and multiplicative effects seems to perform similar to the ME model (in this aggregated plot), however, further analysis showed that the DAME still outperform the ME model in terms of both accuracy and precision. Overall, not only the DAME model showed the most accurate estimates over time, but it also had the narrowest 95\% credible intervals among the four. This finding emphasizes the importance of including the additive and multiplicative term in the model, capturing some features not explicable by fixed effects and maximizing model performance. More results using the full DAME model are demonstrated in Section \ref{subsec: UNresult}.
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=1\textwidth]{plots/ISR31.png}	
+		\includegraphics[width=1\textwidth]{plots_paper/ISR79.png}	
 	\end{center}
 	\caption {Posterior predictive boxplots based on 95\% credible intervals for degree staitstics of Israel (ISR), comparing three models: the DAME (red), only multiplicative effects (green), only additive effects (blue), and no random effects (blue), with the blue dots represent the country's observed degree statistic over 32 years.}
 	\label{figure:modelvalidation}
 \end{figure}
 \subsection{Parameter Estimation and Interpretation}\label{subsec: UNresult}
-In this section, we apply the model with the dimension of latent factors chosen as $R=2$, based on some preliminary experiments where increasing the dimension of latent factors did not significantly improve the model fitting. For example, when $R=3$, the last value of estimated eigenvalue $d_{3\cdot}$ is very close to zero for the most of the timepoints $t=1,...,32$. Thus, we present the results from the same settings as Section \ref{subsec: Model Validation}, which are $6,000$ Gibbs iterations with a burn-in of $1,000$, where every $10^{th}$ sample was taken as a thinning. All inverse-Gamma hyperparameters $(a, b) = (2, 1)$, and the covariance parameters $(\kappa, \tau)$ were estimated, following Section \ref{subsec: posterior computation}. Figure \ref{figure:interceptplot} shows the posterior estimates of the fixed effect coefficients $\{\beta_p\}_{p=1}^6$ with their 95\% credible intervals. \textcolor{red}{Interpretation of fixed effect plot} 
+In this section, we apply the model with the dimension of latent factors chosen as $R=2$, based on some preliminary experiments where increasing the dimension of latent factors did not significantly improve the model fitting. For example, when $R=3$, the last value of estimated eigenvalue $d_{3\cdot}$ is very close to zero for the most of the timepoints $t=1,...,32$. Thus, we present the results from the same settings as Section \ref{subsec: Model Validation}, which are $20,000$ Gibbs iterations with a burn-in of $2,000$, where every $20^{th}$ sample was taken as a thinning. All inverse-Gamma hyperparameters $(a, b) = (2, 1)$, and the covariance parameters $(\kappa, \tau)$ were estimated, following Section \ref{subsec: posterior computation}. Figure \ref{figure:interceptplot} shows the posterior estimates of the fixed effect coefficients $\{\beta_p\}_{p=1}^6$ with their 95\% credible intervals. \textcolor{red}{Interpretation of fixed effect plot} 
 \begin{figure}[ht]
 	\begin{center}
-		\includegraphics[width=1\textwidth]{plots/betaplot_full.pdf}
+		\includegraphics[width=1\textwidth]{plots_paper/betaplot-1.png}
 	\end{center}
 	 	\caption {Posterior mean for the fixed effect coefficients $\{\beta_p\}_{p=1}^6$  (colored line): Intercept, log(distance), Alliance, Polity difference, Lower trade-to-GDP ratio, and Common Language, and their corresponding 95\% credible intervals (grey areas). }
 	\label{figure:interceptplot}
@@ -273,18 +273,18 @@ In this section, we apply the model with the dimension of latent factors chosen 
  \newpage
  \begin{figure}[ht]
  	\begin{center}
- 		\includegraphics[width=1\textwidth]{plots/theta_reduced.pdf}	
+ 		\includegraphics[width=1\textwidth]{plots_paper/thetaplot-1.png}	
  	\end{center}
  	\caption {Posterior mean estimates for the additive random effect estimates $\theta$.}
  	\label{figure:thetaplot}
  \end{figure}
-\noindent After controlling for the observed covariates, we move on to the analysis of random effects, both additive and multiplicative ones. For clear visualization, we only present the results from 23 countries, where the countries are chosen based on the most active countries during the ten year period of 2004 -- 2014 \citep{hoff2015multilinear}. Here, the action types include negative material actions, positive material actions, negative verbal actions and positive verbal actions. The 23 countries are marked with $*$ in Appendix A. Figure \ref{figure:thetaplot} is the posterior mean estimates of each node or country's additive random effects which capture the node-specific and within-dyad dependence. \textcolor{red}{Interpretation of additive random effects}\\ \newpage
-\noindent The estimated latent factor coordinates in Figure \ref{figure:UDplot}, which can be viewed as the weighted latent positions of nodes for every 4 years between 1983 and 2014, demonstrate the remaining higher-order network dependencies in United Nations voting behaviors. To determine the posterior estimates of $u$ and $D$ without identifiability issue, we calculated posterior mean of the multiplicative random effect matrix $u^\prime Du$ and applied eigen-decomposition to the posterior mean matrix. $D$ is then the diagonal matrix with eigenvalues, and $u$ becomes the eigenvectors. For this specific plot, we multiplied $d_r$ and $u_{r}$ for each dimension such that the plots reflect the magnitude of eigenvalues.  As mentioned in Section \ref{subsec: reduced rank}, it turned out that none of the eigenvalues were negative, implying that there is no negative transitivity effect in United Nations voting behaviors. \textcolor{red}{Interpretations --- What shoud be said about this multiplicative effect plots?} As illustrated, the model estimated additive and multiplicative latent effects and the movement of latent positions reveal that United Nations voting network reflects interesting and meaningful foreign policy positions and alliance of various countries, even after controlling for other covariates that are considered critical in the international relation studies.
+\noindent After controlling for the observed covariates, we move on to the analysis of random effects, both additive and multiplicative ones. For clear visualization, we only present the results from 21 countries, where the countries are chosen based on the most active countries during the ten year period of 2004 -- 2014 \citep{hoff2015multilinear}. Here, the action types include negative material actions, positive material actions, negative verbal actions and positive verbal actions. The 21 countries are marked with $*$ in Appendix A. Figure \ref{figure:thetaplot} is the posterior mean estimates of each node or country's additive random effects which capture the node-specific and within-dyad dependence. \textcolor{red}{Interpretation of additive random effects}\\ \newpage
+\noindent The estimated latent factor coordinates in Figure \ref{figure:UDplot}, which can be viewed as the latent positions of nodes for every 4 years between 1983 and 2014, demonstrate the remaining higher-order network dependencies in United Nations voting behaviors. To determine the posterior estimates of $u$ without identifiability issue, we calculated posterior mean of the multiplicative random effect matrix $u^\prime Du$ and applied eigen-decomposition to the posterior matrix. $D$ is then the diagonal matrix of $R$-number of eigenvalues, and $u$ becomes the corresponding eigenvectors. For this specific plot, we applied Procrustes transformation on each posterior estimate of $u$ and obtained the 95\% confidence regions. \textcolor{red}{Interpretations --- What shoud be said about this multiplicative effect plots?} As illustrated, the model estimated additive and multiplicative latent effects and the movement of latent positions reveal that United Nations voting network reflects interesting and meaningful foreign policy positions and alliance of various countries, even after controlling for other covariates that are considered critical in the international relation studies.
   \begin{figure}[ht]
   	\begin{center}  
-  		 \includegraphics[width=1\textwidth]{plots/UDU_4thyears_reduced.pdf}
+  		 \includegraphics[width=1\textwidth]{plots_paper/UDU-1.png}
   		  		  		    		  	\end{center}
-  	\caption {Latent coordinates of the 23 selected countries for every 4 years between 1983 and 2014, obtained from eigen-decomposition of posterior mean of the latent factor matrix $u^\prime Du$. The X-coordinates correspond to $d^t_1\times u^t_{i1}$ and the Y-coordinates correspond to $d^t_2\times u^t_{i2}$.}
+  	\caption {Latent coordinates (posterior median) and their corresponding 95\% confidence regions of the 21 selected countries for every 4 years between 1983 and 2014, obtained from eigen-decomposition of posterior mean of the latent factor matrix $u^\prime Du$. }
   	\label{figure:UDplot}
   \end{figure}
 \newpage
@@ -303,47 +303,59 @@ We have demonstrated such effectiveness of our model by modeling the United Nati
 	\hline
 	Abbreviation&Country or area name &	Abbreviation&Country or area name\\
 	\hline
-			AFG* & Afghanistan & LEB* & Lebanon\\
-			ARG& Argentina&MAL&Malaysia\\
-			AUL* & Australia&MEX &Mexico \\
-			AUS & Austria&MOR & Morocco\\
-			BAH & Bahrain&NEW & New Zealand \\
-			BNG&  Bangladesh&NIG &      Nigeria\\
-			BOL& Bolivia&NOR &Norway \\
-			BRA &Brazil&NTH &  Netherlands\\
-			BUL & Bulgaria&OMA & Oman\\
-				CAN & Canada&PAK* & Pakistan\\
-			CAO & Cameroon&PAN & Panama\\
-			CHL & Chile&PAR & Paraguay\\
-				CHN* & China&PER & Peru\\
-				COL & Colombia&PHI & Philippines\\
-				COS & Costa Rica&POR & Portugal\\
-				CYP & Cyprus&PRK* & North Korea\\
-				DEN & Denmark&QAT & Qatar\\
-				ECU &Ecuador &ROK* & South Korea\\
-				EGY* & Egypt&RUS* & Russia\\
-				FIN & Finland&SAU & Saudi Arabia\\
-				FRN* & France&SEN &Senegal \\
-				GMY* & Germany&SIN &Singapore \\
-				GRC & Greece&SPN & Spain\\
-				GRG* & Georgia&SRI &   Sri Lanka\\
-				GUA &Guatemala&SUD* &Sudan\\
-				HON &Honduras&SWD &    Sweden\\
-				IND* & India&SYR* & Syrian Arab Republic \\
-				INS & Indonesia&THI &   Thailand\\
-				IRE & Ireland&TRI & Trinidad and Tobago\\
-				IRN* & Iran (Islamic Republic of)&TUN & Tunisia\\
-				IRQ* & Iraq&TUR*& Turkey\\
-				ISR* & Israel&UAE & United Arab Emirates\\
-				ITA & Italy&UKG* & United Kingdom\\
-				JOR & Jordan&UKR* & Ukraine\\
-				JPN* & Japan&URU & Uruguay\\
-				KEN & Kenya&USA* & United States of America\\
-				KUW & Kuwait&ZAM & Zambia\\
+			AFG* & Afghanistan & 	KUW & Kuwait\\
+				ALB & Albania & LEB* & Lebanon\\
+			ALG & Algeria & LIB &Libya \\
+		ANG & Angola 	& MAA&  Mauritania\\
+		ARG& Argentina	&MEX &Mexico \\
+		AUL* & Australia&MLI&Mali\\
+		BAH & Bahrain	&MOR & Morocco\\
+	BEN & Benin 	&MZM & Mozambique\\
+			BFO & Burkina Faso 	&NEW & New Zealand \\
+	BNG&  Bangladesh	& NIC& Nicaragua\\
+			BOL& Bolivia	& NIG &      Nigeria\\
+		BRA &Brazil&NIR & Niger\\
+				BUI & Burundi &NOR &Norway \\
+		BUL & Bulgaria	&NTH &  Netherlands\\
+		CAN & Canada	& OMA & Oman\\
+		CAO & Cameroon	&PAK* & Pakistan\\
+		CEN & Central African Republic	&PAN & Panama\\
+			CHL & Chile &PAR & Paraguay\\
+			CHN* & China	& PER & Peru \\
+		COL & Colombia	&PHI & Philippines\\
+			CON & Congo		&POL & Poland\\
+			COS & Costa Rica&POR & Portugal\\
+			DEN& Denmark	 & PRK* & North Korea\\
+			DOM & Dominican Republic	&QAT & Qatar\\
+		ECU &Ecuador 	&ROK* & South Korea\\
+			EGY* & Egypt	&RUS* & Russia\\
+				FIN & Finland	&RWA & Rwanda\\
+			FRN* & France&SAL & El Salvador\\
+			GAB & Gabon 	&SAU & Saudi Arabia\\
+			GAM & Gambia	&SEN &Senegal \\
+				GMY* & Germany& SIE&Sierra Leone \\
+			 	GHA & Ghana	&SPN & Spain\\
+			GRC & Greece&SUD* &Sudan \\
+				GUA & Guatemala &SUR&Suriname\\
+				GUI &Guinea&SYR* & Syrian Arab Republic\\
+		GUY & Guyana	&TAZ & Tanzania\\
+				HAI & Haiti  &TOG & Togo\\
+					HON &Honduras&TRI & Trinidad and Tobago\\
+			HUN & Hungary 	&TUN & Tunisia\\
+				IND* & India&TUR*& Turkey\\
+			INS & Indonesia		&UAE & United Arab Emirates\\
+	IRN* & Iran (Islamic Republic of)		& UGA & Uganda\\
+			IRQ* & Iraq &UKG* & United Kingdom\\
+				ISR* & Israel&URU & Uruguay\\
+			ITA & Italy		&USA* & United States of America\\
+		JAM& Jambia	&VEN & Venezuela\\
+			JOR & Jordan	&ZAM & Zambia\\
+			JPN* & Japan	&ZIM & Zimbabwe\\		
+				KEN & Kenya&&\\
 				\hline
-	\label{table:importantvotes}
 \end{tabular}
-	\caption {List of 74 countries included in the analysis}
+	\label{table:importantvotes}
+	\caption {List of 97 countries included in the analysis}
 \end{table}
 \subsection*{Appendix B: Summary of UN Voting Network}
 \begin{table}[ht]
@@ -351,21 +363,38 @@ We have demonstrated such effectiveness of our model by modeling the United Nati
 	\begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|} 
 		\hline
 		{Year}	& 1983 & 1984& 1985& 1986 & 1987& 1988& 1989&1990&1991\\ \hline
-		Joint votes & 7.447&7.501&8.371&9.424&8.532&5.273&13.213&7.557&9.039\\\hline
-		Agreement & 0.694& 0.716 & 0.733 & 0.761 & 0.728 & 0.773 & 0.767 & 0.817 & 0.818\\\hline\hline 
+		Joint votes & 7.384&7.441&8.129&9.201&8.283&5.121&12.605&7.361&8.559\\\hline
+		Agreement & 0.696& 0.724& 0.725 & 0.748& 0.725& 0.773 & 0.798& 0.832& 0.836\\\hline\hline 
 		{Year}	& 1992&1993& 1994 & 1995& 1996& 1997 & 1998& 1999& 2000\\ \hline
-		Joint votes  &14.424&11.317&13.922&26.541&9.920&10.460&9.105&11.808&9.276\\\hline
-		Agreement & 0.804&0.766& 0.785 & 0.814 & 0.763& 0.803 & 0.770& 0.833 & 0.747\\\hline\hline
+		Joint votes  &13.458&11.013&13.447&24.932&9.655&10.026&8.427&10.776&8.970\\\hline
+		Agreement & 0.806&0.773& 0.785& 0.827& 0.765& 0.805& 0.776& 0.829 & 0.768\\\hline\hline
 		{Year}	&2001&2002&2003&2004&2005& 2006& 2007& 2008&  2009\\ \hline
-		Joint votes &9.568&13.511&12.538&8.812&9.546&11.467&11.362&11.652&11.602\\\hline
-		Agreement &0.706 & 0.805& 0.731& 0.819& 0.754& 0.709& 0.715&0.670&0.721\\
+		Joint votes &9.191&12.826&12.142&8.432&8,855&10.956&10.681&10.845&10.946\\\hline
+		Agreement &0.729& 0.816& 0.755& 0.835& 0.783& 0.733& 0.739&0.700&0.750\\
 		\hline\hline
 		Year & 2010& 2011&2012&2013&2014&&&&\\\hline
-		Joint votes&12.678&9.679&7.892&10.758&12.626&&&&\\\hline
-		Agreement&  0.722& 0.735& 0.714 &0.739&0.810&&&&\\\hline
+		Joint votes&12.289&9.067&7.575&10.171&12.048&&&&\\\hline
+		Agreement&  0.744& 0.751& 0.733&0.754&0.847&&&&\\\hline
 	\end{tabular}
 	\caption {Summary of United Nations Voting Data: Average number of common votes (upper) and averge proportion of agreement or voting similarity index (lower) per year}
 	\label{table:EDA}
+\end{table}
+\subsection*{Appendix C: Correlation between Independent Variables}
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{ |c|ccccc|} 
+		\hline
+	correlation & 	log(distance) & polity &   alliance &  Trade/GDP  &  language\\
+	 \hline
+			log(distance)& 1.000& 0.136&  -0.508&-0.355&-0.286\\
+			polity&0.136&1.000& -0.264&-0.095&-0.142\\
+			alliance& -0.508&-0.264&1.000&0.275& 0.417\\
+			Trade/GDP&  -0.355& -0.095& 0.275& 1.000& 0.100\\
+			language& -0.286&-0.142& 0.417& 0.100& 1.000\\
+					\hline
+	\end{tabular}
+	\caption {Summary of United Nations Voting Data: Average number of common votes (upper) and averge proportion of agreement or voting similarity index (lower) per year}
+	\label{table:correlation}
 \end{table}
 \end{document}
 
