@@ -1,0 +1,232 @@
+\begin{thebibliography}{}
+
+\bibitem[Bailey et~al., 2017]{bailey2017estimating}
+Bailey, M.~A., Strezhnev, A., and Voeten, E. (2017).
+\newblock Estimating dynamic state preferences from united nations voting data.
+\newblock {\em Journal of Conflict Resolution}, 61(2):430--456.
+
+\bibitem[Bearce and Bondanella, 2007]{bearce2007intergovernmental}
+Bearce, D.~H. and Bondanella, S. (2007).
+\newblock Intergovernmental organizations, socialization, and member-state
+  interest convergence.
+\newblock {\em International Organization}, 61(4):703--733.
+
+\bibitem[Bhattacharya and Dunson, 2011]{bhattacharya2011sparse}
+Bhattacharya, A. and Dunson, D.~B. (2011).
+\newblock Sparse bayesian infinite factor models.
+\newblock {\em Biometrika}, 98(2):291--306.
+
+\bibitem[Butts, 2008]{butts2008relational}
+Butts, C.~T. (2008).
+\newblock A relational event framework for social action.
+\newblock {\em Sociological Methodology}, 38(1):155--200.
+
+\bibitem[Durante and Dunson, 2014a]{durante2014bayesian2}
+Durante, D. and Dunson, D. (2014a).
+\newblock Bayesian logistic gaussian process models for dynamic networks.
+\newblock In {\em Artificial Intelligence and Statistics}, pages 194--201.
+
+\bibitem[Durante and Dunson, 2013]{durante2013nonparametric}
+Durante, D. and Dunson, D.~B. (2013).
+\newblock Nonparametric bayes dynamic modeling of relational data.
+\newblock {\em arXiv preprint arXiv:1311.4669}.
+
+\bibitem[Durante and Dunson, 2014b]{durante2014bayesian}
+Durante, D. and Dunson, D.~B. (2014b).
+\newblock Bayesian dynamic financial networks with time-varying predictors.
+\newblock {\em Statistics \& Probability Letters}, 93:19--26.
+
+\bibitem[Friel et~al., 2016]{friel2016interlocking}
+Friel, N., Rastelli, R., Wyse, J., and Raftery, A.~E. (2016).
+\newblock Interlocking directorates in irish companies using a latent space
+  model for bipartite networks.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  113(24):6629--6634.
+
+\bibitem[Gartzke, 1998]{gartzke1998kant}
+Gartzke, E. (1998).
+\newblock Kant we all just get along? opportunity, willingness, and the origins
+  of the democratic peace.
+\newblock {\em American Journal of Political Science}, pages 1--27.
+
+\bibitem[Gartzke, 2000]{gartzke2000preferences}
+Gartzke, E. (2000).
+\newblock Preferences and the democratic peace.
+\newblock {\em International Studies Quarterly}, 44(2):191--212.
+
+\bibitem[Gibler, 2008]{gibler2008international}
+Gibler, D.~M. (2008).
+\newblock {\em International military alliances, 1648-2008}.
+\newblock CQ Press.
+
+\bibitem[Golub and Van~Loan, 2012]{golub2012matrix}
+Golub, G.~H. and Van~Loan, C.~F. (2012).
+\newblock {\em Matrix computations}, volume~3.
+\newblock JHU Press.
+
+\bibitem[Hanneke et~al., 2010]{hanneke2010discrete}
+Hanneke, S., Fu, W., Xing, E.~P., et~al. (2010).
+\newblock Discrete temporal models of social networks.
+\newblock {\em Electronic Journal of Statistics}, 4:585--605.
+
+\bibitem[He and Hoff, 2017]{he2017multiplicative}
+He, Y. and Hoff, P.~D. (2017).
+\newblock Multiplicative coevolution regression models for longitudinal
+  networks and nodal attributes.
+\newblock {\em arXiv preprint arXiv:1712.02497}.
+
+\bibitem[Hoff, 2008]{hoff2008modeling}
+Hoff, P. (2008).
+\newblock Modeling homophily and stochastic equivalence in symmetric relational
+  data.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  657--664.
+
+\bibitem[Hoff et~al., 2014]{hoff2014amen}
+Hoff, P., Fosdick, B., Volfovsky, A., and Stovel, K. (2014).
+\newblock amen: Additive and multiplicative effects modeling of networks and
+  relational data.
+\newblock {\em R package version 0.999. URL: http://CRAN. R-project.
+  org/package= amen}.
+
+\bibitem[Hoff, 2005]{hoff2005bilinear}
+Hoff, P.~D. (2005).
+\newblock Bilinear mixed-effects models for dyadic data.
+\newblock {\em Journal of the american Statistical association},
+  100(469):286--295.
+
+\bibitem[Hoff, 2009]{hoff2009multiplicative}
+Hoff, P.~D. (2009).
+\newblock Multiplicative latent factor models for description and prediction of
+  social networks.
+\newblock {\em Computational and mathematical organization theory},
+  15(4):261--272.
+
+\bibitem[Hoff, 2011]{hoff2011hierarchical}
+Hoff, P.~D. (2011).
+\newblock Hierarchical multilinear models for multiway data.
+\newblock {\em Computational Statistics \& Data Analysis}, 55(1):530--543.
+
+\bibitem[Hoff, 2015]{hoff2015multilinear}
+Hoff, P.~D. (2015).
+\newblock Multilinear tensor regression for longitudinal relational data.
+\newblock {\em The annals of applied statistics}, 9(3):1169.
+
+\bibitem[Hoff et~al., 2011]{hoff2011separable}
+Hoff, P.~D. et~al. (2011).
+\newblock Separable covariance arrays via the tucker product, with applications
+  to multivariate relational data.
+\newblock {\em Bayesian Analysis}, 6(2):179--196.
+
+\bibitem[Hoff et~al., 2002]{hoff2002latent}
+Hoff, P.~D., Raftery, A.~E., and Handcock, M.~S. (2002).
+\newblock Latent space approaches to social network analysis.
+\newblock {\em Journal of the american Statistical association},
+  97(460):1090--1098.
+
+\bibitem[Kim et~al., 2017]{kim2017review}
+Kim, B., Lee, K., Xue, L., and Niu, X. (2017).
+\newblock A review of dynamic network models with latent variables.
+\newblock {\em arXiv preprint arXiv:1711.10421}.
+
+\bibitem[Marshall et~al., 2014]{marshall2014polity}
+Marshall, M.~G., Jaggers, K., and Gurr, T.~R. (2014).
+\newblock Polity iv annual time-series, 1800--2013.
+\newblock {\em Center for International Development and Conflict Management at
+  the University of Maryland College Park}.
+
+\bibitem[Mattes et~al., 2015]{mattes2015leadership}
+Mattes, M., Leeds, B.~A., and Carroll, R. (2015).
+\newblock Leadership turnover and foreign policy change: Societal interests,
+  domestic institutions, and voting in the united nations.
+\newblock {\em International Studies Quarterly}, 59(2):280--290.
+
+\bibitem[Minhas et~al., 2016a]{minhas2016inferential}
+Minhas, S., Hoff, P.~D., and Ward, M.~D. (2016a).
+\newblock Inferential approaches for network analyses: Amen for latent factor
+  models.
+\newblock {\em arXiv preprint arXiv:1611.00460}.
+
+\bibitem[Minhas et~al., 2016b]{minhas2016new}
+Minhas, S., Hoff, P.~D., and Ward, M.~D. (2016b).
+\newblock A new approach to analyzing coevolving longitudinal networks in
+  international relations.
+\newblock {\em Journal of Peace Research}, 53(3):491--505.
+
+\bibitem[Sarkar and Moore, 2005]{sarkar2005dynamic}
+Sarkar, P. and Moore, A.~W. (2005).
+\newblock Dynamic social network analysis using latent space models.
+\newblock {\em ACM SIGKDD Explorations Newsletter}, 7(2):31--40.
+
+\bibitem[Sarkar et~al., 2007]{sarkar2007latent}
+Sarkar, P., Siddiqi, S.~M., and Gordon, G.~J. (2007).
+\newblock A latent space approach to dynamic embedding of co-occurrence data.
+\newblock In {\em AISTATS}, pages 420--427.
+
+\bibitem[Sewell and Chen, 2015]{sewell2015latent}
+Sewell, D.~K. and Chen, Y. (2015).
+\newblock Latent space models for dynamic networks.
+\newblock {\em Journal of the American Statistical Association},
+  110(512):1646--1657.
+
+\bibitem[Sewell and Chen, 2016]{sewell2016latent}
+Sewell, D.~K. and Chen, Y. (2016).
+\newblock Latent space models for dynamic networks with weighted edges.
+\newblock {\em Social Networks}, 44:105--116.
+
+\bibitem[Signorino and Ritter, 1999]{signorino1999tau}
+Signorino, C.~S. and Ritter, J.~M. (1999).
+\newblock Tau-b or not tau-b: measuring the similarity of foreign policy
+  positions.
+\newblock {\em International Studies Quarterly}, 43(1):115--144.
+
+\bibitem[Snijders et~al., 2010]{snijders2010introduction}
+Snijders, T.~A., Van~de Bunt, G.~G., and Steglich, C.~E. (2010).
+\newblock Introduction to stochastic actor-based models for network dynamics.
+\newblock {\em Social networks}, 32(1):44--60.
+
+\bibitem[Voeten, 2000]{voeten2000clashes}
+Voeten, E. (2000).
+\newblock Clashes in the assembly.
+\newblock {\em International organization}, 54(2):185--215.
+
+\bibitem[Voeten, 2004]{voeten2004resisting}
+Voeten, E. (2004).
+\newblock Resisting the lonely superpower: Responses of states in the united
+  nations to us dominance.
+\newblock {\em Journal of Politics}, 66(3):729--754.
+
+\bibitem[Voeten et~al., 2016]{12379_2016}
+Voeten, E., Strezhnev, A., and Bailey, M. (2016).
+\newblock United nations general assembly voting data.
+
+\bibitem[Vu et~al., 2011]{vu2011continuous}
+Vu, D.~Q., Hunter, D., Smyth, P., and Asuncion, A.~U. (2011).
+\newblock Continuous-time regression models for longitudinal networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  2492--2500.
+
+\bibitem[Ward et~al., 2013]{ward2013gravity}
+Ward, M.~D., Ahlquist, J.~S., Rozenas, A., et~al. (2013).
+\newblock Gravity’s rainbow: A dynamic latent space model for the world trade
+  network.
+\newblock {\em Network Science}, 1(01):95--118.
+
+\bibitem[Ward and Hoff, 2007]{ward2007persistent}
+Ward, M.~D. and Hoff, P.~D. (2007).
+\newblock Persistent patterns of international commerce.
+\newblock {\em Journal of Peace Research}, 44(2):157--175.
+
+\bibitem[Wendt, 1994]{wendt_1994}
+Wendt, A. (1994).
+\newblock Collective identity formation and the international state.
+\newblock {\em American Political Science Review}, 88(2):384–396.
+
+\bibitem[Xu and Hero~III, 2013]{xu2013dynamic}
+Xu, K.~S. and Hero~III, A.~O. (2013).
+\newblock Dynamic stochastic blockmodels: Statistical models for time-evolving
+  networks.
+\newblock In {\em International Conference on Social Computing,
+  Behavioral-Cultural Modeling, and Prediction}, pages 201--210. Springer.
+
+\end{thebibliography}

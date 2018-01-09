@@ -497,7 +497,6 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     row = rowMeans(Y[tp, , ] - mu, na.rm = TRUE)
     row[is.na(row)] = 0
     YA = mu + outer(row, row, "+")
-    diag(Y[tp, , ]) = 1
     Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]]
     diag(Y[tp, , ]) = 0
     beta[tp, 1] = mu
@@ -513,6 +512,7 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
   uppertri = upper.tri(diag(N))
   tau_r = rep(1, R)
   tau_u = matrix(N, Time, R)
+
   # starting the Gibbs sampler
   for (iter in 1:(burn + nscan)) {
     if (iter %% 500 == 0) print(iter)
@@ -771,7 +771,6 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
     row = rowMeans(Y[tp, , ] - mu, na.rm = TRUE)
     row[is.na(row)] = 0
     YA = mu + outer(row, row, "+")
-    diag(Y[tp, , ]) = 1
     Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]]
     diag(Y[tp, , ]) = 0
     beta[tp, 1] = mu
@@ -1078,8 +1077,7 @@ DLFM_Dunson_fixed = function(Y, X, RE = c("additive", "multiplicative"), R = 2, 
     row = rowMeans(Y[tp, , ] - mu, na.rm = TRUE)
     row[is.na(row)] = 0
     YA = mu + outer(row, row, "+")
-    diag(Y[tp, , ]) = 1
-    Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]] 
+    Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]]
     diag(Y[tp, , ]) = 0
     beta[tp, 1] = mu
     theta[tp, ] = row
@@ -1276,8 +1274,7 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
     row = rowMeans(Y[tp, , ] - mu, na.rm = TRUE)
     row[is.na(row)] = 0
     YA = mu + outer(row, row, "+")
-    diag(Y[tp, , ]) = 1
-    Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]] 
+    Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]]
     diag(Y[tp, , ]) = 0
     beta[tp, 1] = mu
     theta[tp, ] = row

@@ -150,10 +150,10 @@ set.seed(s+200)
 	}	
 Xnew = array(1, dim = c(Time , N, N, 1))
 set.seed(s)
-M1 = DLFM_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 4000, nscan = 20000, odens = 40, plot =FALSE, kappas = rep(0.001, 4))
+M1 = DLFM_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 4000, nscan = 20000, odens = 40,kappas = rep(0.001, 4))
 
 set.seed(s)
-M3 = DLFM_Dunson_fixed(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 2000, nscan = 10000, odens = 20, plot =FALSE, kappas = rep(0.001, 4))
+M3 = DLFM_Dunson_fixed(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 2000, nscan = 10000, odens = 20, kappas = rep(0.001, 4))
 
 }
 Degrees = vapply(1:Time, function(tp) {rowSums(Ys[tp,,])}, rep(0, N))
