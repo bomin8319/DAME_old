@@ -114,7 +114,7 @@ To effectively model the temporal evolutions, we parameterize the covariance mat
 \begin{equation*}
 f(\kappa, d) = \mbox{exp}\left(-\frac{d}{\kappa}\right),
 \end{equation*}
-where $d$ is the Euclidean distance between two timepoints and the prior for $\kappa$ is given as $\kappa \sim \mbox{half-Cauchy}(0, 5)$---a relatively weakly-informative prior. When the timepoints are evenly spaced, the covariance matrix is a symmetric Toeplitz matrix, a matrix in which each descending diagonal from left to right is constant. To aid computational efficiency, we compute the inverse of Toeplitz matrices using Trench and Durbin methods \citep{golub2012matrix}. \\ \newline
+where $d$ is the Euclidean distance between two timepoints and the prior for $\kappa$ is given as $\kappa \sim \mbox{half-Cauchy}(\gamma)$ with fixed hyperparameter $\gamma=5$---a relatively weakly-informative prior. When the timepoints are evenly spaced, the covariance matrix is a symmetric Toeplitz matrix, a matrix in which each descending diagonal from left to right is constant. To aid computational efficiency, we compute the inverse of Toeplitz matrices using Trench and Durbin methods \citep{golub2012matrix}. \\ \newline
 Some papers \citep{bhattacharya2011sparse,durante2013nonparametric,durante2014bayesian} use the squared exponential covariance function $f(\kappa, d) = \mbox{exp}(-d^2/{\kappa})$, which is appropriate for modeling very smooth functions. In addition, the parameter $\kappa$ that characterizes length-scale of the process is fixed as an input variable in these works. However, smoothness is not necessarily required for discrete-time network modeling, and in practice, prior knowledge on how much the networks are correlated over time is unavailable. Choosing appropriate value of $\kappa$ can be a challenge and thus the DAME model addresses this issue by estimating $\kappa$. 
 
 \subsection{Posterior Computation}\label{subsec: posterior computation}
@@ -130,30 +130,30 @@ we sequentially update each parameter from its full conditional distribution in 
 		\item [1.] Sample $\sigma_e^2 \sim \mbox{IG}\big(\frac{T\cdot N(N-1)}{4}+a_\sigma, \frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}(E^t_{ij})^2 + b_\sigma\big)$;
 		\item [2.] For each $p \in \{1,\ldots,P\}$ in random order, sample $\beta_{p}$ as follows:
 		\begin{enumerate} 
-			\item [(a)] Sample ($\tau^{\beta}_p ,  \kappa^\beta_p$) using a bivariate Metropolis-Hastings algorithm (refer to Equation (7) in supplementary material)
+			\item [(a)] Sample ($\tau^{\beta}_p ,  \kappa^\beta_p$) using the Metropolis-Hastings algorithm (refer to Equation (3) in the supplementary material)
 			\item [(b)] Sample $\beta_{p} \sim \mbox{MVN}_T\big(\tilde{\mu}_{\beta_p}, \tilde{\Sigma}_{\beta_p} \big)$ with 
-			$$\tilde{\Sigma}_{\beta_p} = \Big((\tau^{\beta}_pc^\beta_p)^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}{X^{t2}_{ijp}}\}_{t=1}^{t=T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{\beta_p} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-p]}X^t_{ijp})\}_{t=1}^{t=T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\beta_p},$$ 
+			$$\tilde{\Sigma}_{\beta_p} = \Big((\tau^{\beta}_pc^\beta_p)^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}{X^{t2}_{ijp}}\}_{t=1}^{T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{\beta_p} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-p]}X^t_{ijp})\}_{t=1}^{T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\beta_p},$$ 
 			where $E^{t}_{ij[-p]}=E^t_{ij}+\beta^t_{p}X^{t}_{ijp}$.						
 		\end{enumerate}
 		\item [3.] Sample $\theta_{i}$ as follows:
 		\begin{enumerate}
-			\item [(a)] Sample ($\tau^{\theta},  \kappa^\theta$) using bivariate Metropolis-Hastings algorithm (refer to Equation (8) in supplementary material)
+			\item [(a)] Sample ($\tau^{\theta},  \kappa^\theta$) using the Metropolis-Hastings algorithm (refer to Equation (4) in the supplementary material)
 			\item [(b)] For each $i \in \{1,\ldots,N\}$ in random order, sample $\theta_{i} \sim \mbox{MVN}_T\big(\tilde{\mu}_{\theta_i}, \tilde{\Sigma}_{\theta_i} \big)$ with
 			$$\tilde{\Sigma}_{\theta_i} = \Big((\tau^\theta c^\theta)^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)^{-1} \mbox{ and }
-			\tilde{\mu}_{\theta_i} = \Big(\frac{\{\sum_{i=i, j\neq i}E^{t}_{ij[-i]}\}_{t=1}^{t=T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\theta_i},$$ where $E^{t}_{ij[-i]}=E^t_{ij}+\theta^t_{i}.$
+			\tilde{\mu}_{\theta_i} = \Big(\frac{\{\sum_{i=i, j\neq i}E^{t}_{ij[-i]}\}_{t=1}^{T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\theta_i},$$ where $E^{t}_{ij[-i]}=E^t_{ij}+\theta^t_{i}.$
 		\end{enumerate}
 		\item [4.] For each $r \in \{1,\ldots,R\}$ in random order, sample $d_{r}$ as follows:
 		\begin{enumerate}
-			\item [(a)] Sample  ($\tau_r^{d},  \kappa_r^d$)  using univariate Metropolis-Hastings algorithm (refer to Equation (9) in supplementary material)
+			\item [(a)] Sample  ($\tau_r^{d},  \kappa_r^d$) using the Metropolis-Hastings algorithm (refer to Equation (5) in the supplementary material)
 			\item [(b)] Sample $d_{r} \sim \mbox{MVN}_T\big(\tilde{\mu}_{d_r}, \tilde{\Sigma}_{d_r} \big)$ with
-			$$\tilde{\Sigma}_{d_r} = \Big((\tau_r^d{c_r^d})^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}({u^t_{ir}u^t_{jr}})^2\}_{t=1}^{t=T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{d_r} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-r]}u^t_{ir}u^t_{jr})\}_{t=1}^{t=T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{d_r}),$$
+			$$\tilde{\Sigma}_{d_r} = \Big((\tau_r^d{c_r^d})^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}({u^t_{ir}u^t_{jr}})^2\}_{t=1}^{T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{d_r} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-r]}u^t_{ir}u^t_{jr})\}_{t=1}^{T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{d_r}),$$
 			where $E^{t}_{ij[-r]}=E^t_{ij}+{u^t_{ir}}^\prime d^t_{r}u^t_{jr}$.
 		\end{enumerate}		
 		\item [5.] For each $t \in \{1,\ldots,T\}$ and $i \in \{1,\ldots,N\}$ in random order, sample $u^t_{i}$ as follows:
 		\begin{enumerate}
 			\item[(a)] For each $r \in \{1,\ldots,R\}$, sample $\tau_{rt}^{u} \sim \mbox{IG}(\frac{N}{2}+a_u, \frac{1}{2}\sum\limits_{i=1}^N (u^t_{ir})^2 + b_u)$ and construct $R\times R$ covariance matrix $\boldsymbol{\tau}^u_t = \mbox{diag}(\tau_{1t}^{u},\ldots, \tau_{Rt}^{u})$
 					\item [(b)] Sample $u^t_{i}\sim \mbox{MVN}_R\big(\tilde{\mu}_{u^t_{i}}, \tilde{\Sigma}_{u^t_{i}} \big)$ with 
-			$$\tilde{\Sigma}_{u^t_{i}} = \Big((\boldsymbol{\tau}^u_t)^{-1}+\frac{\sum_{j\neq i}D^tu^t_{j}{u^t_{j}}^\prime D^t}{\sigma_e^2}\Big)^{-1}\mbox{ and } \tilde{\mu}_{u^t_{i}} = \Big(\frac{\{\sum_{i=i, j\neq i}(E^{t}_{ij[-u]}{u^t_{j}}^\prime D^t)'\}}{{\sigma_e^2}}\Big)\tilde{\Sigma}_{u^t_{i}},$$ 
+			$$\tilde{\Sigma}_{u^t_{i}} = \Big((\boldsymbol{\tau}^u_t)^{-1}+\frac{\sum_{j\neq i}D^tu^t_{j}{u^t_{j}}^\prime D^t}{\sigma_e^2}\Big)^{-1}\mbox{ and } \tilde{\mu}_{u^t_{i}} = \Big(\frac{\sum_{i=i, j\neq i}(E^{t}_{ij[-u]}{u^t_{j}}^\prime D^t)'}{{\sigma_e^2}}\Big)\tilde{\Sigma}_{u^t_{i}},$$ 
 			where $E^{t}_{ij[-u]}=E^t_{ij}+{u^t_{i}}^\prime D^tu^t_{j}.$
 		\end{enumerate}			
 	\end{itemize}

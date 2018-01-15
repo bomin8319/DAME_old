@@ -68,9 +68,9 @@ set.seed(s+2000)
 	}
 Xnew = array(1, dim = c(Time , N, N, 1))
 set.seed(s)
-M1 = DLFM_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, plot =FALSE, kappas = rep(0.001, 4))
+M1 = DAME_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, kappas = rep(0.001, 4))
 set.seed(s)
-M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, plot =FALSE)
+M2 = DAME_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
 }
 Degrees = vapply(1:Time, function(tp) {rowSums(Ys[tp,,])}, rep(0, N))
 p = list()

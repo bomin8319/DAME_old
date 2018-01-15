@@ -1,0 +1,170 @@
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=27mm,
+	right=30mm,
+	top=30mm,
+	bottom= 30mm
+}
+%\linespread{2}
+\usepackage{lipsum}\usepackage{geometry}
+\usepackage{tabu}
+\usepackage{adjustbox}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage[toc,page]{appendix}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{tikz}
+\usepackage{amsthm}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=0.5pt] (char) {#1};}}
+\usetikzlibrary{fit,positioning}
+\usepackage{authblk}
+\usepackage[algo2e]{algorithm2e}
+\usepackage{algorithmic}  
+\usepackage{algorithm}
+\usepackage{comment}
+\usepackage{array,longtable,booktabs,siunitx}
+\usepackage{array}% http://ctan.org/pkg/array
+\usepackage{natbib}
+\RequirePackage{natbib}
+\makeatletter
+\g@addto@macro{\endtabular}{\rowfont{}}% Clear row font
+\makeatother
+\newcommand{\rowfonttype}{}% Current row font
+\newcommand{\rowfont}[1]{% Set current row font
+	\gdef\rowfonttype{#1}#1%
+}
+\newcolumntype{L}{>{\rowfonttype}l}
+\title{Supplementary Materials for \\``Dynamic Additive and Multiplicative Effects (DAME) Model with Application to the United Nations Voting Behaviors"}
+%\author{Bomin Kim}
+\author[1]{Bomin Kim}
+\author[1]{Xiaoyue Niu}
+\author[1]{David Hunter}
+\author[2]{Xun Cao}
+\affil[1]{Department of Statistics, The Pennsylvania State University}
+\affil[2]{Department of Political Science, The Pennsylvania State University}
+\date{}
+\begin{document}
+	\maketitle
+\section{Metropolis-Hastings algorithm for GP parameters}
+For Gaussian process parameters---variance parameter $\tau$ and length-scale parameter $\kappa$, we use the Metropolis-Hastings algorithm with a proposal density $Q$ being the truncated Normal distribution with support $(0, \infty)$. Given the proposal distribution variance $\sigma^2_Q = (\sigma^2_{Q1}, \sigma^2_{Q2})$, we sample the new values $\tau^\prime$ and $\kappa^\prime$ from
+\begin{equation}
+\begin{aligned}
+\tau^\prime &\sim \mbox{truncnorm}(\tau, \sigma^2_{Q1})\\
+\kappa^\prime &\sim \mbox{truncnorm}(\kappa,\sigma^2_{Q2}).
+\end{aligned}
+\end{equation}
+We then accept the new proposed value $(\tau^\prime, \kappa^\prime)$ with probability equal to:
+\begin{equation}
+\begin{split}
+& \mbox{Acceptance Probability}=
+\begin{cases}  \frac{P(\tau|\tau^\prime)P(\kappa|\kappa^\prime)P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x,\gamma)}{P(\tau^\prime|\tau)P(\kappa^\prime|\kappa)P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x,\gamma)}\quad\text{if}  <1\\
+1 \quad \text{else}
+\end{cases},
+\end{split}
+\end{equation}
+where $x$ is the $T$-length vector of interest (e.g. $\beta_p, \theta, d$), $\tau$ has a prior $\tau \sim \mbox{IG}(a_x, b_x)$, and $\kappa$ has a prior $\kappa \sim \mbox{half-cauchy}(\gamma)$. If a sample from Uniform(0,1) is less than the acceptance probability, we accept the proposed value. Otherwise, we reject.
+For any $x$, the probability from Q-ratio is $\frac{P(\tau|\tau^\prime)P(\kappa|\kappa^\prime)}{P(\tau^\prime|\tau)P(\kappa^\prime|\kappa)}$---i.e., ratio of truncated normal densities---while the posterior part $\frac{P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x,\gamma)}{P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x,\gamma)}$ may vary. Below are the derivation of acceptance ratio for each of the variables.
+\begin{itemize}
+	\item [1.] $(\tau^\beta_p, \kappa^\beta_p), \mbox{ for } p=1,\ldots,P$:
+	\begin{equation}
+	\begin{aligned}
+	\frac{P(\tau^{\beta\prime}_p, \kappa^{\beta\prime}_p|\beta_p, a_\beta, b_\beta,\gamma)}{P(\tau^\beta_p, \kappa^\beta_p|\beta_p, a_\beta, b_\beta,\gamma)}=&\frac{P(\tau^{\beta\prime}_p, \kappa^{\beta\prime}_p, \beta_p| a_\beta, b_\beta,\gamma)}{P(\tau^\beta_p, \kappa^\beta_p,\beta_p|a_\beta, b_\beta,\gamma)}\\=&\frac{P(\tau^{\beta\prime}_p|a_\beta, b_\beta)P(\kappa^{\beta\prime}_p|\gamma)P( \beta_p|\tau^{\beta\prime}_p, \kappa^{\beta\prime}_p) }{P(\tau^{\beta}_p|a_\beta, b_\beta)P(\kappa^{\beta}_p|\gamma)P( \beta_p|\tau^{\beta}_p, \kappa^{\beta}_p)},
+	\end{aligned}
+	\end{equation}
+	\item [2.] $(\tau^\theta, \kappa^\theta)$
+	\begin{equation}
+	\begin{aligned}
+	\frac{P(\tau^{\theta\prime}, \kappa^{\theta\prime}|\boldsymbol{\theta}, a_\theta, b_\theta,\gamma)}{P(\tau^\theta, \kappa^\theta|\boldsymbol{\theta}, a_\theta, b_\theta,\gamma)}=&\frac{P(\tau^{\theta\prime}, \kappa^{\theta\prime}, \boldsymbol{\theta}| a_\theta, b_\theta,\gamma)}{P(\tau^\theta, \kappa^\theta,\boldsymbol{\theta}|a_\theta, b_\theta,\gamma)}\\=&\frac{P(\tau^{\theta\prime}|a_\theta, b_\theta)P(\kappa^{\theta\prime}|\gamma)\prod_{i=1}^N P(\theta_i|\tau^{\theta\prime}, \kappa^{\theta\prime}) }{P(\tau^{\theta}|a_\theta, b_\theta)P(\kappa^{\theta}|\gamma)\prod_{i=1}^NP( \theta_i|\tau^{\theta}, \kappa^{\theta})},\\
+	\end{aligned}
+	\end{equation}
+	\item [3.] $(\tau_r^d, \kappa_r^d),$ for $r=1,\ldots,R$:
+	\begin{equation}
+	\begin{aligned}
+	\frac{P(\tau_r^{d\prime}, \kappa_r^{d\prime}|d_r, a_d, b_d,\gamma)}{P(\tau_r^d, \kappa^d|d_r, a_d, b_d,\gamma)}=&\frac{P(\tau_r^{d\prime}, \kappa_r^{d\prime}, d_r| a_d, b_d,\gamma)}{P( \tau_r^d, \kappa_r^d,d_r| a_d, b_d,\gamma)}\\=&\frac{P(\tau_r^{d\prime}| a_d, b_d)P(\kappa_r^{d\prime}|\gamma)P(d_r|\tau_r^{d\prime}, \kappa_r^{d\prime}) }{P(\tau_r^d| a_d, b_d)P(\kappa_r^{d}|\gamma)P( d_r| \tau_r^{d},\kappa_r^{d})}.
+	\end{aligned}
+	\end{equation}
+\end{itemize}
+\section{Proofs on Posterior Computation}
+\subsection{Noise error variance $\sigma_e^2$} \label{sigma2}
+\begin{equation}
+\begin{aligned}
+&P(\sigma_e^2|\mathbf{Y}, a_\sigma, b_\sigma) \propto P(\mathbf{Y}|\mathbf{X}, \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2)\times P(\sigma_e^2|a_\sigma, b_\sigma)\\
+&\propto\prod\limits_{t=1}^T\prod\limits_{i> j}(\sigma_e^2)^{-\frac{1}{2}}\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}||y^t_{ij}-\big(\sum\limits_{p=1}^P \beta^t_{p}X^t_{ijp}+\theta^t_{i}+\theta^t_{j}+{u^t_{i}}^\prime D^tu^t_{j}\big)||^2\Big\}\times (\sigma_e^2)^{-a_\sigma-1}\mbox{exp}\Big\{\frac{1}{\sigma_e^2}b_\sigma\Big\}\\
+&=(\sigma_e^2)^{-\frac{T}{2}\cdot\frac{N(N-1)}{2}-a_\sigma-1}\times\mbox{exp}\Big\{-\frac{1}{\sigma_e^2}\Big(\frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}||y^t_{ij}-\big(\sum\limits_{p=1}^P \beta^t_{p}X^t_{ijp}+\theta^t_{i}+\theta^t_{j}+{u^t_{i}}^\prime D^tu^t_{j}\big)||^2+b_\sigma\Big)\Big\}\\
+&\sim \mbox{IG}\big(\frac{T\cdot N(N-1)}{4}+a_\sigma,\quad \frac{1}{2}\sum\limits_{t=1}^T\sum\limits_{i> j}(E^t_{ij})^2+b_\sigma\big)	
+\end{aligned}
+\end{equation} 
+\subsection{Fixed effect $\beta_p$} 
+			\begin{equation}
+			\begin{aligned}
+			&P(\beta_p|\mathbf{Y}, \mathbf{X}, \kappa^\beta_p, \tau^\beta_p) \propto P(\mathbf{Y}|\mathbf{X}, \beta_p, \boldsymbol{\beta}_{[-p]}, \boldsymbol{\theta}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2) \times P(\beta_p|\kappa^\beta_p, \tau^\beta_p) \\
+			&\propto\prod\limits_{i>j}\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}||E_{ij[-p]}-X_{ijp}\beta_p||^2\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big(\beta'_p(\tau^{\beta}_pc^\beta_p)^{-1}\beta_p\big)\Big\} \\ &\quad\quad\mbox{ where } E_{ij[-p]} = \{E^t_{ij[-p]}\}_{t=1}^T \mbox{ (with }E^{t}_{ij[-p]}=E^t_{ij}+\beta^t_{p}X^{t}_{ijp})\mbox{ and } X_{ijp} = \{X^t_{ijp}\}_{t=1}^T\\
+			&\propto\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{i>j}-2(E_{ij[-p]}X_{ijp})'\beta_p+\beta'_p\big(\mbox{diag}(\sum\limits_{i>j}{X^2_{ijp}})\big)\beta_p\Big)\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big(\beta'_p(\tau^{\beta}_pc^\beta_p)^{-1}\beta_p\big)\Big\}\\
+			&\propto\mbox{exp}\Big\{-\frac{1}{2}\Big(\beta'_p\big((\tau^{\beta}_pc^\beta_p)^{-1}+\frac{\mbox{diag}(\sum_{i>j}{X^2_{ijp}})}{\sigma_e^2}\big)\beta_p-\frac{2}{\sigma_e^2}\big(\sum_{i>j}(E_{ij[-p]}X_{ijp})'\beta_p\big)\Big)\Big\}\\
+			& \sim \mbox{MVN}_T\big(\tilde{\mu}_{\beta_p}, \tilde{\Sigma}_{\beta_p} \big),\\
+		&\mbox{ where } \tilde{\Sigma}_{\beta_p} = \Big((\tau^{\beta}_pc^\beta_p)^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}{X^{t2}_{ijp}}\}_{t=1}^{T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{\beta_p} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-p]}X^t_{ijp})\}_{t=1}^{T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\beta_p}.
+			\end{aligned}
+			\end{equation} 
+
+\subsection{Additive random effect $\theta_i$} \label{theta}		
+		\begin{equation}
+		\begin{aligned}
+		&p(\theta_{i}|\mathbf{Y}, \kappa^\theta, \tau^\theta) \propto \prod\limits_{\substack{i=i, j\neq i}}p(\mathbf{Y}|\mathbf{X},\boldsymbol{\beta},  \theta_{i}, \boldsymbol{\theta}_{[-i]}, \boldsymbol{d}, \boldsymbol{u},\sigma_e^2) \times p(\theta_{i}|\kappa^\theta, \tau^\theta) \\
+		&\propto\prod\limits_{\substack{i=i, j\neq i}}\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}||E_{ij[-i]}-\theta_{i}||^2\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big(\theta'_{i}{(\tau^\theta c^\theta)}^{-1}\theta_{i}\big)\Big\}\\
+		& \quad\quad\mbox{where } E_{ij[-i]}=\{E^t_{ij[-i]}\}_{t=1}^T \mbox{ with } E^t_{ij[-i]}=E^t_{ij}+\theta^t_{i}\\
+		&\propto\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{\substack{i=i, j\neq i}}-2(E_{ij[-i]})'\theta_{i}+\theta'_{i}\big(\sum\limits_{\substack{i=i, j\neq i}}I_T\big)\theta_{i}\Big)\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big(\theta'_{i}{(\tau^\theta c^\theta)}^{-1}\theta_{i}\big)\Big\}\\
+		&\propto\mbox{exp}\Big\{-\frac{1}{2}\Big(\theta'_{i}\big({(\tau^\theta c^\theta)}^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\big)\theta_{i}-\frac{2}{\sigma_e^2}\big(\sum_{i=i, j\neq i}(E_{ij[-i]})'\theta_{i}\big)\Big)\Big\}\\
+		& \sim \mbox{MVN}_T\big(\tilde{\mu}_{\theta_i}, \tilde{\Sigma}_{\theta_i} \big),\\
+		& \mbox{ where } \tilde{\Sigma}_{\theta_i} = \Big((\tau^\theta c^\theta)^{-1}+\frac{(N-1)I_T}{\sigma_e^2}\Big)^{-1} \mbox{ and }
+		\tilde{\mu}_{\theta_i} = \Big(\frac{\{\sum_{i=i, j\neq i}E^{t}_{ij[-i]}\}_{t=1}^{T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{\theta_i}.
+		\end{aligned}
+		\end{equation} 
+
+\subsection{Multiplicative random effect $d_r$}\label{d}
+	\begin{equation}
+	\begin{aligned}
+	&P(d_r|\mathbf{Y}, \tau_r^d, \kappa_r^d) \propto P(\mathbf{Y}|\mathbf{X}, \boldsymbol{\beta}, \boldsymbol{\theta}, d_r, \boldsymbol{d}_{[-r]}, \boldsymbol{u},\sigma_e^2) \times P(d_r| \tau_r^d, \kappa_r^d) \\
+	&\propto\prod\limits_{i>j}\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}||E_{ij[-r]}-u_{ir}^\prime d_ru_{jr}||^2\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big(d'_r(\tau_r^dc_r^d)^{-1}d_r\big)\Big\}\\ &\quad\quad\mbox{ where } E_{ij[-r]} = \{E^t_{ij[-r]}\}_{t=1}^T \mbox{ (with }E^{t}_{ij[-r]}=E^t_{ij}+{u^t_{ir}}^\prime d_r^t u^t_{ir})\mbox{ and } u_{ir}^\prime d_ru_{jr} = \{{u^t_{ir}}^\prime d_r^t u^t_{ir}\}_{t=1}^T\\
+	&\propto\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{i>j}-2(E_{ij[-r]}u_{ir}u_{jr})'d_r+d'_r\big(\mbox{diag}(\sum\limits_{i>j}({u_{ir}u_{jr}})^2)\big)d_r\Big)\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big(d'_r(\tau_r^dc_r^d)^{-1}d_r\big)\Big\}\\
+	&\propto\mbox{exp}\Big\{-\frac{1}{2}\Big(d'_r\big((\tau_r^dc_r^d)^{-1}+\frac{\mbox{diag}(\sum_{i>j}({u_{ir}u_{jr}})^2)}{\sigma_e^2}\big)d_r-\frac{2}{\sigma_e^2}\big(\sum_{i>j}(E_{ij[-r]}u_{ir}u_{jr})'d_r\big)\Big)\Big\}\\
+	& \sim \mbox{MVN}_T\big(\tilde{\mu}_{d_r}, \tilde{\Sigma}_{d_r} \big)\\
+	& \mbox{ where }\tilde{\Sigma}_{d_r} = \Big((\tau_r^d{c_r^d})^{-1}+\frac{\mbox{diag}\big(\{\sum_{i>j}({u^t_{ir}u^t_{jr}})^2\}_{t=1}^{T}\big)}{\sigma_e^2}\Big)^{-1} \mbox{ and } \tilde{\mu}_{d_r} =  \Big(\frac{\{\sum_{i>j}(E^{t}_{ij[-r]}u^t_{ir}u^t_{jr})\}_{t=1}^{T}}{\sigma_e^2}\Big)\tilde{\Sigma}_{d_r}).
+	\end{aligned}
+	\end{equation} 
+
+\subsection{Multiplicative random effect $u^t_i$}\label{u}
+\subsubsection{Variance parameter $\tau^u_{rt}$}
+	\begin{equation}
+	\begin{aligned}
+	&P(\tau^u_{rt}|\boldsymbol{u}^t_r, a_u, b_u) \propto \prod_{i = 1}^N P(u^t_{ir}|\tau^u_{rt}r) \times P(\tau^u_{rt}|a_u, b_u) \\
+	&\propto\prod_{i = 1}^N |\tau^u_{rt}|^{-\frac{1}{2}}\mbox{exp}\Big\{-\frac{1}{2\tau^u_{rt}}\big(u^{t\prime}_{ir}u^t_{ir}\big)\Big\}\times (\tau^u_{rt})^{-a_u-1}\mbox{exp}\Big\{-\frac{1}{\tau^u_{rt}}b_u\Big\}\\
+	&\propto(\tau^u_{rt})^{-\frac{N}{2}-a_u-1}\mbox{exp}\Big\{-\frac{1}{\tau^u_{rt}}\Big(\frac{1}{2}\sum_{i = 1}^N ({u^t_{ir}})^2+b_u\Big)\Big\}\\
+	&\sim \mbox{IG}(\frac{N}{2}+a_u,\quad \frac{1}{2}\sum_{i = 1}^N ({u^t_{ir}})^2+b_u).
+	\end{aligned}
+	\end{equation}
+	\subsubsection{Latent vector $u_i^t$}
+	\begin{equation}
+	\begin{aligned}
+	&P(u_i^t|\mathbf{Y}, \boldsymbol{\tau}_t^u) \propto P(\mathbf{Y}| \boldsymbol{\beta}, \boldsymbol{\theta}, \boldsymbol{d}, u_i^t, \boldsymbol{u}_{[-ti]},\sigma_e^2) \times P(u_i^t| \boldsymbol{\tau}_t^u) \\
+	&\propto\prod\limits_{i=i, j\neq i}\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}||E^{t}_{ij[-u]}-{u^t_{j}}'D^tu^t_{i}||^2\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big({u_i^t}^\prime(\boldsymbol{\tau}_t^u)^{-1}u_i^t\big)\Big\}\\
+	&\quad\quad\mbox{ where } E^t_{ij[-u]}=E^t_{ij}+{u^t_{i}}'D^tu^t_{j}\\
+	&\propto\mbox{exp}\Big\{-\frac{1}{2\sigma_e^2}\Big(\sum\limits_{i=i, j\neq i}-2(E^{t}_{ij[-u]}{u^t_{j}}'D^t)u^t_i+{u^t_i}'\big(\sum\limits_{j\neq i}D^tu^t_{j}{u^t_{j}}'D^t\big)u^t_i\Big)\Big\}\times \mbox{exp}\Big\{-\frac{1}{2}\big({u_i^t}^\prime(\boldsymbol{\tau}_t^u)^{-1}u_i^t\big)\Big\}\\
+	&\propto\mbox{exp}\Big\{-\frac{1}{2}\Big({u_i^t}^\prime\big((\boldsymbol{\tau}_t^u)^{-1}+\frac{\sum_{j\neq i}D^tu^t_{j}{u^t_{j}}'D^t}{\sigma_e^2}\big)u^t_i-\frac{2}{\sigma_e^2}\big(\sum_{i=i, j\neq i}(E^{t}_{ij[-u]}{u^t_{j}}'D^t\big)^\prime u^t_i\Big)\Big\}\\
+	& \sim \mbox{MVN}_R\big(\tilde{\mu}_{u^t_{i}}, \tilde{\Sigma}_{u^t_{i}} \big),
+	\\
+	& \mbox{ where }
+	\tilde{\Sigma}_{u^t_{i}} = \Big((\boldsymbol{\tau}^u_t)^{-1}+\frac{\sum_{j\neq i}D^tu^t_{j}{u^t_{j}}^\prime D^t}{\sigma_e^2}\Big)^{-1}\mbox{ and } \tilde{\mu}_{u^t_{i}} = \Big(\frac{\sum_{i=i, j\neq i}(E^{t}_{ij[-u]}{u^t_{j}}^\prime D^t)'}{{\sigma_e^2}}\Big)\tilde{\Sigma}_{u^t_{i}}.
+	\end{aligned}
+	\end{equation} 
+
+\end{document}
+

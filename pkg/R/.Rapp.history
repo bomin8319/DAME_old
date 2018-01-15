@@ -147,3 +147,361 @@ tau_p = 1/rgamma(1, 2, 1)#
     tau_i = 1/rgamma(1, 2, 1)#
     tau_r = 1/rgamma(2,2,1)
 matrix(1/rgamma(Time*R, 2, 1), Time, R)
+library(devtools)
+document()
+#simulation 1#
+library(devtools)#
+setwd('/Users/bomin8319/Desktop/DAME/pkg/R')
+load(/Users/bomin8319/Desktop/DAME/pkg/R/core.R)
+load('/Users/bomin8319/Desktop/DAME/pkg/R/core.R')
+library(fields)#
+library(matrixStats)#
+library(mvtnorm)#
+library(FastGP)#
+library(LaplacesDemon)#
+library(MCMCpack)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)#
+#
+nsim = 1#
+kappas = rep(10, 4)#
+Time = 10#
+N = 20#
+R = 2#
+dist_ij = c()#
+ for (i in 1:Time) {#
+ for (j in 1:Time) {#
+ dist_ij = c(dist_ij, abs(i-j))#
+ }#
+ }#
+dist_ij = matrix(dist_ij, Time, Time)#
+BETA = lapply(1:4, function(m){matrix(0, 1, Time)})#
+THETA = lapply(1:4, function(m){matrix(0, N, Time)})#
+UDUstat = lapply(1:4, function(m){matrix(0, 2, Time)})#
+Error = rep(0, 5)#
+Error2 = rep(0, 5)#
+Error3 = rep(0, 5)#
+Error4 = rep(0, 5)#
+Kappa = rep(0, 3)#
+#
+for (s in 1:nsim){#
+print(s)#
+set.seed(s+2000)#
+    tau_p = 1/rgamma(1, 2, 1)#
+    tau_i = 1/rgamma(1, 2, 1)#
+    tau_r = 1/rgamma(2, 2, 1)#
+    tau_u = matrix(1/rgamma(Time*R, 2, 1), Time, R)#
+	beta = sapply(1:1, function(p){rmvnorm(1, rep(0, Time), tau_p * matrix(Exponential(dist_ij, kappas[p]), Time, Time, byrow = TRUE))})#
+	theta = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_i * matrix(Exponential(dist_ij, kappas[2]), Time, Time, byrow = TRUE))}) #
+	U1 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,1]*diag(Time))}) #
+	U2 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,2]*diag(Time))})#
+	U = lapply(1:Time , function(tp){cbind(U1[tp,], U2[tp,])})#
+	D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), tau_r[r] * matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#while (sum(c(D) > 0) > 0) {#
+	#  D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#}#
+	s2 = 1 / rgamma(1, 2, 1)#
+	U2= array(0, dim = c(Time, N, R))#
+    for (tp in 1:Time) { U2[tp, , ] = U[[tp]]}#
+	UDU = lapply(1:Time , function(tp){U[[tp]] %*% diag(D[tp,]) %*% t(U[[tp]])})#
+	UDUstats = t(sapply(1:Time , function(tp){c(sum(UDU[[tp]][upper.tri(UDU[[tp]])]), sd(UDU[[tp]][upper.tri(UDU[[tp]])]))}))#
+	Ys = array(NA, dim = c(Time , N, N))#
+	Errormat = array(0, dim = c(Time, N, N))#
+	errors = rnorm(Time * N * (N-1) / 2, 0, sqrt(s2))#
+	for (tp in 1:Time) {#
+	  Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]#
+	  Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))#
+	Ys[tp, , ] = Reduce("+", lapply(1:1, function(p) {#
+                    1 * beta[tp, p]#
+                  })) + outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]#
+	diag(Ys[tp,,]) = 0   #
+	}#
+Xnew = array(1, dim = c(Time , N, N, 1))#
+set.seed(s)#
+M1 = DLFM_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, plot =FALSE, kappas = rep(0.001, 4))#
+set.seed(s)#
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, plot =FALSE)#
+}
+s
+set.seed(s+2000)#
+    tau_p = 1/rgamma(1, 2, 1)#
+    tau_i = 1/rgamma(1, 2, 1)#
+    tau_r = 1/rgamma(2, 2, 1)#
+    tau_u = matrix(1/rgamma(Time*R, 2, 1), Time, R)#
+	beta = sapply(1:1, function(p){rmvnorm(1, rep(0, Time), tau_p * matrix(Exponential(dist_ij, kappas[p]), Time, Time, byrow = TRUE))})#
+	theta = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_i * matrix(Exponential(dist_ij, kappas[2]), Time, Time, byrow = TRUE))}) #
+	U1 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,1]*diag(Time))}) #
+	U2 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,2]*diag(Time))})#
+	U = lapply(1:Time , function(tp){cbind(U1[tp,], U2[tp,])})#
+	D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), tau_r[r] * matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#while (sum(c(D) > 0) > 0) {#
+	#  D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#}#
+	s2 = 1 / rgamma(1, 2, 1)#
+	U2= array(0, dim = c(Time, N, R))#
+    for (tp in 1:Time) { U2[tp, , ] = U[[tp]]}#
+	UDU = lapply(1:Time , function(tp){U[[tp]] %*% diag(D[tp,]) %*% t(U[[tp]])})#
+	UDUstats = t(sapply(1:Time , function(tp){c(sum(UDU[[tp]][upper.tri(UDU[[tp]])]), sd(UDU[[tp]][upper.tri(UDU[[tp]])]))}))#
+	Ys = array(NA, dim = c(Time , N, N))#
+	Errormat = array(0, dim = c(Time, N, N))#
+	errors = rnorm(Time * N * (N-1) / 2, 0, sqrt(s2))#
+	for (tp in 1:Time) {#
+	  Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]#
+	  Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))#
+	Ys[tp, , ] = Reduce("+", lapply(1:1, function(p) {#
+                    1 * beta[tp, p]#
+                  })) + outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]#
+	diag(Ys[tp,,]) = 0   #
+	}
+Xnew = array(1, dim = c(Time , N, N, 1))
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+names(M2)
+plot(M2$kappas[,1], type = 'l')
+plot(M2$kappas[,2], type = 'l')
+plot(M2$kappas[,3], type = 'l')
+plot(M2$kappas[,4], type = 'l')
+plot(M2$kappas[,5], type = 'l')
+plot(M2$tau[,5], type = 'l')
+plot(M2$tau[,4], type = 'l')
+plot(M2$tau[,3], type = 'l')
+plot(M2$tau[,2], type = 'l')
+plot(M2$tau[,1], type = 'l')
+plot(M2$tau[,5], type = 'l')
+load('/Users/bomin8319/Desktop/DAME/pkg/R/core2.R')
+rm(list=ls())
+load('/Users/bomin8319/Desktop/DAME/pkg/R/core2.R')
+source('~/Desktop/DAME/pkg/R/core2.R', chdir = TRUE)
+DLFM_MH
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+s
+s = 1
+set.seed(s+2000)#
+    tau_p = 1/rgamma(1, 2, 1)#
+    tau_i = 1/rgamma(1, 2, 1)#
+    tau_r = 1/rgamma(2, 2, 1)#
+    tau_u = matrix(1/rgamma(Time*R, 2, 1), Time, R)#
+	beta = sapply(1:1, function(p){rmvnorm(1, rep(0, Time), tau_p * matrix(Exponential(dist_ij, kappas[p]), Time, Time, byrow = TRUE))})#
+	theta = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_i * matrix(Exponential(dist_ij, kappas[2]), Time, Time, byrow = TRUE))}) #
+	U1 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,1]*diag(Time))}) #
+	U2 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,2]*diag(Time))})#
+	U = lapply(1:Time , function(tp){cbind(U1[tp,], U2[tp,])})#
+	D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), tau_r[r] * matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#while (sum(c(D) > 0) > 0) {#
+	#  D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#}#
+	s2 = 1 / rgamma(1, 2, 1)#
+	U2= array(0, dim = c(Time, N, R))#
+    for (tp in 1:Time) { U2[tp, , ] = U[[tp]]}#
+	UDU = lapply(1:Time , function(tp){U[[tp]] %*% diag(D[tp,]) %*% t(U[[tp]])})#
+	UDUstats = t(sapply(1:Time , function(tp){c(sum(UDU[[tp]][upper.tri(UDU[[tp]])]), sd(UDU[[tp]][upper.tri(UDU[[tp]])]))}))#
+	Ys = array(NA, dim = c(Time , N, N))#
+	Errormat = array(0, dim = c(Time, N, N))#
+	errors = rnorm(Time * N * (N-1) / 2, 0, sqrt(s2))#
+	for (tp in 1:Time) {#
+	  Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]#
+	  Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))#
+	Ys[tp, , ] = Reduce("+", lapply(1:1, function(p) {#
+                    1 * beta[tp, p]#
+                  })) + outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]#
+	diag(Ys[tp,,]) = 0   #
+	}#
+Xnew = array(1, dim = c(Time , N, N, 1))
+nsim = 1#
+kappas = rep(10, 4)#
+Time = 10#
+N = 20#
+R = 2#
+dist_ij = c()#
+ for (i in 1:Time) {#
+ for (j in 1:Time) {#
+ dist_ij = c(dist_ij, abs(i-j))#
+ }#
+ }#
+dist_ij = matrix(dist_ij, Time, Time)#
+BETA = lapply(1:4, function(m){matrix(0, 1, Time)})#
+THETA = lapply(1:4, function(m){matrix(0, N, Time)})#
+UDUstat = lapply(1:4, function(m){matrix(0, 2, Time)})#
+Error = rep(0, 5)#
+Error2 = rep(0, 5)#
+Error3 = rep(0, 5)#
+Error4 = rep(0, 5)#
+Kappa = rep(0, 3)
+set.seed(s+2000)#
+    tau_p = 1/rgamma(1, 2, 1)#
+    tau_i = 1/rgamma(1, 2, 1)#
+    tau_r = 1/rgamma(2, 2, 1)#
+    tau_u = matrix(1/rgamma(Time*R, 2, 1), Time, R)#
+	beta = sapply(1:1, function(p){rmvnorm(1, rep(0, Time), tau_p * matrix(Exponential(dist_ij, kappas[p]), Time, Time, byrow = TRUE))})#
+	theta = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_i * matrix(Exponential(dist_ij, kappas[2]), Time, Time, byrow = TRUE))}) #
+	U1 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,1]*diag(Time))}) #
+	U2 = sapply(1:N, function(i){rmvnorm(1, rep(0, Time), tau_u[,2]*diag(Time))})#
+	U = lapply(1:Time , function(tp){cbind(U1[tp,], U2[tp,])})#
+	D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), tau_r[r] * matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#while (sum(c(D) > 0) > 0) {#
+	#  D = sapply(1:2, function(r){rmvnorm(1, rep(0, Time), matrix(Exponential(dist_ij, kappas[3]), Time, Time, byrow = TRUE))})#
+	#}#
+	s2 = 1 / rgamma(1, 2, 1)#
+	U2= array(0, dim = c(Time, N, R))#
+    for (tp in 1:Time) { U2[tp, , ] = U[[tp]]}#
+	UDU = lapply(1:Time , function(tp){U[[tp]] %*% diag(D[tp,]) %*% t(U[[tp]])})#
+	UDUstats = t(sapply(1:Time , function(tp){c(sum(UDU[[tp]][upper.tri(UDU[[tp]])]), sd(UDU[[tp]][upper.tri(UDU[[tp]])]))}))#
+	Ys = array(NA, dim = c(Time , N, N))#
+	Errormat = array(0, dim = c(Time, N, N))#
+	errors = rnorm(Time * N * (N-1) / 2, 0, sqrt(s2))#
+	for (tp in 1:Time) {#
+	  Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]#
+	  Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))#
+	Ys[tp, , ] = Reduce("+", lapply(1:1, function(p) {#
+                    1 * beta[tp, p]#
+                  })) + outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]#
+	diag(Ys[tp,,]) = 0   #
+	}#
+Xnew = array(1, dim = c(Time , N, N, 1))
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+source('~/Desktop/DAME/pkg/R/core2.R', chdir = TRUE)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+var.new
+u = log(runif(1))#
+      temp = GPpost(var.new[1], matrix(beta[,p], ncol = 1), var.new[2], dist_ij, a, b) -#
+        GPpost(var.old[1], matrix(beta[,p], ncol = 1), var.old[2], dist_ij, a, b)
+GPpost(var.new[1], matrix(beta[,p], ncol = 1), var.new[2], dist_ij, a, b)
+dinvgamma
+library(fields)#
+library(matrixStats)#
+library(mvtnorm)#
+library(FastGP)#
+library(LaplacesDemon)#
+library(MCMCpack)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)
+dinvgamma
+library(LaplaCesDemon)
+library(LaplacesDemon)
+dinvgamma
+LaplacesDemon::dinvgamma
+Q
+source('~/Desktop/DAME/pkg/R/core2.R', chdir = TRUE)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+GPpost(var.new[1], matrix(beta[,p], ncol = 1), var.new[2], dist_ij, a, b) -#
+        GPpost(var.old[1], matrix(beta[,p], ncol = 1), var.old[2], dist_ij, a, b)
+Q
+source('~/Desktop/DAME/pkg/R/core2.R', chdir = TRUE)
+GPpost(var.new[1], matrix(beta[,p], ncol = 1), var.new[2], dist_ij, a, b) -#
+        GPpost(var.old[1], matrix(beta[,p], ncol = 1), var.old[2], dist_ij, a, b)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+names(M2)
+plot(M1$kappas[,1], type = 'l')
+plot(M2$kappas[,1], type = 'l')
+plot(M2$kappas[,2], type = 'l')
+plot(M2$kappas[,3], type = 'l')
+plot(M2$kappas[,4], type = 'l')
+plot(M2$kappas[,5], type = 'l')
+plot(M2$tau[,5], type = 'l')
+plot(M2$tau[,4], type = 'l')
+plot(M2$tau[,3], type = 'l')
+plot(M2$tau[,2], type = 'l')
+plot(M2$tau[,1], type = 'l')
+plot(M2$tau[,5], type = 'l')
+plot(M2$tau[,4], type = 'l')
+plot(M2$tau[,3], type = 'l')
+plot(M2$tau[,2], type = 'l')
+plot(M2$tau[,1], type = 'l')
+plot(M2$kappas[,3], type = 'l')
+plot(M2$kappas[,1], type = 'l')
+plot(M2$kappas[,2], type = 'l')
+plot(M2$kappas[,3], type = 'l')
+colMeans(M2$tau)
+colMeans(M2$kappas)
+plot(M2$kappas[,4], type = 'l')
+load('/Users/bomin8319/Desktop/DAME/pkg/R/core.R')
+source('~/Desktop/DAME/pkg/R/core.R', chdir = TRUE)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+setwd('/Users/bomin8319/Desktop/DAME/pkg/R')
+load_all()
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+#simulation 1#
+library(devtools)#
+setwd('/Users/bomin8319/Desktop/DAME/pkg/R')#
+load_all()#
+library(fields)#
+library(matrixStats)#
+library(mvtnorm)#
+library(FastGP)#
+library(LaplacesDemon)#
+library(MCMCpack)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+document()
+install()
+library(DLFM2)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+#simulation 1#
+library(devtools)#
+setwd('/Users/bomin8319/Desktop/DAME/pkg/R')#
+load_all()#
+library(fields)#
+library(matrixStats)#
+library(mvtnorm)#
+library(FastGP)#
+library(LaplacesDemon)#
+library(MCMCpack)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+#simulation 1#
+library(devtools)#
+setwd('/Users/bomin8319/Desktop/DAME/pkg/R')#
+load_all()#
+library(fields)#
+library(matrixStats)#
+library(mvtnorm)#
+library(FastGP)#
+library(LaplacesDemon)#
+library(MCMCpack)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+source('~/Desktop/DAME/pkg/R/core.R', chdir = TRUE)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+colMeans(M2$tau)
+colMeans(M2$kapaps)
+colMeans(M2$kapap)
+names(M2)
+colMeans(M2$kappas)
+plot(M2$kappas[,1], type = )
+library(devtools)
+document()
+check()
+document()
+check()
+document()
+check()
+install()
+document()
+install()
+document()
+install()
+install.packages("DAME")
+o ls(envir=loadNamespace("DAME"), all.names=TRUE)
+obs<-ls(envir=loadNamespace("DAME"), all.names=TRUE)
+obs
+dumb(obs, file = "core.R", envir=loadNamespace("DAME"))
+dump(obs, file = "core.R", envir=loadNamespace("DAME"))
+library(FastGP)
+rcpp_log_dmvnorm
+document()
+library(devtools)
+document()
+library(devtools)
+document()

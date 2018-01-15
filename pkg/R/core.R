@@ -1,410 +1,187 @@
-#' @useDynLib DLFM2
-#' @importFrom stats cor lm median rgamma rnorm runif
-#' @import grDevices
-#' @import Rcpp
-#' @importFrom graphics abline axis hist par text
-#' @importFrom fields Exponential
-#' @importFrom FastGP rcppeigen_invert_matrix rcpp_rmvnorm rcppeigen_get_chol rcpp_log_dmvnorm
-#' @importFrom matrixcalc is.positive.definite
-#' @importFrom Matrix nearPD
-#' @importFrom LaplacesDemon dhalfcauchy rhalfcauchy dinvgamma
-NULL
-
-#' @title rs2_fc2
-#' @description Sample the variance in Normal error
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param UDU Time-length list of UDU
-#' @param Y relational array of relations
-#' @param a inverse-gamma shape parameter
-#' @param b inverse-gamma scale parameter
-#'
-#' @return One sample estimate of sigma^2 from inverse-gamma distribution
-#'
-#' @export
-rs2_fc2 = function(XB, theta, UDU, Y, a, b) {
-    Time = nrow(theta)
-    N = ncol(theta)
-    uppertri = upper.tri(diag(N))
-    E = lapply1(1:Time, function(tp) {
-        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+") - UDU[[tp]]
-    })
-    sums = sum(vapply(E, function(x){sum(x[uppertri]^2, na.rm = TRUE)}, c(1)))
-    missings = sum(vapply(E, function(x){sum(is.na(x[uppertri]))}, c(1)))
-    samp = rgamma(1, a + (Time * N * (N-1) / 2 - missings) / 2, b + sums / 2)
-    return(1 / samp)
-}
-
-#' @title rtaup_fc
-#' @description Sample the variance in beta
-#'
-#' @param beta a p by 1 vector of coefficients
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param a inverse-gamma shape parameter
-#' @param b inverse-gamma scale parameter
-#'
-#' @return One sample estimate of tau_p from inverse-gamma distribution
-#'
-#' @export
-rtaup_fc = function(beta, cinv, a, b) {
-    Time = nrow(beta)
-    P = ncol(beta)
-    samp = c()
-    for (p in 1:P) {
-        sums = t(beta[, p]) %*% cinv[[p]] %*% beta[, p]
-        samp[p] = rgamma(1, a + Time / 2, b + sums / 2)
-    }
-    return(1 / samp)
-}
-
-#' @title rtaui_fc
-#' @description Sample the variance in theta
-#'
-#' @param theta a Time by n vector of nodal effects
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param a inverse-gamma shape parameter
-#' @param b inverse-gamma scale parameter
-#'
-#' @return One sample estimate of tau_i from inverse-gamma distribution
-#'
-#' @export
-rtaui_fc = function(theta, cinv, a, b) {
-    Time = nrow(theta)
-    N = ncol(theta)
-    sums = sum(vapply(1:N, function(i) {t(theta[, i]) %*% cinv %*% theta[, i]}, c(1)))
-    samp = rgamma(1, a + Time * N / 2, b + sums / 2)
-    return(1 / samp)
-}
-
-
-#' @title rtauut_fc
-#' @description Sample the variance in d
-#'
-#' @param U current value of U
-#' @param a inverse-gamma shape parameter
-#' @param b inverse-gamma scale parameter
-#'
-#' @return One sample estimate of tau_r from inverse-gamma distribution
-#'
-#' @export
-rtauut_fc = function(U, a, b) {
-    Time = dim(U)[1]
-    N = dim(U)[2]
-    R = dim(U)[3]
-    tau_u = matrix(0, Time, R)
-    for (tp in 1:Time) {
-    	sums = vapply(1:R, function(r) {sum(c(U[tp,,r]^2), na.rm = TRUE)}, c(1))
-    	missings = sum(is.na(c(U[tp,,1]^2)))
-        samp = rgamma(R, a + (N - missings) / 2, b + sums / 2)
-		tau_u[tp,] = 1/samp
-    }    
-    return(tau_u)
-}
-
-#' @title rtaur_fc
-#' @description Sample the variance in d
-#'
-#' @param d current value of d
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param a inverse-gamma shape parameter
-#' @param b inverse-gamma scale parameter
-#'
-#' @return One sample estimate of tau_r from inverse-gamma distribution
-#'
-#' @export
-rtaur_fc = function(d, cinv, a, b) {
-  Time = dim(d)[1]
-  R = dim(d)[2]
-  sums = vapply(1:R, function(r) {t(d[, r]) %*% cinv[[r]] %*% d[, r]}, c(1))
-  samp = rgamma(R, a + Time * R / 2, b + sums / 2)
-  return(1 / samp)
-}
-
-#' @title rbeta_fc
-#' @description Sample beta
-#'
-#' @param X Time x n x n x p covariate array
-#' @param beta a p by 1 vector of coefficients
-#' @param theta a T x n matrix of nodal effects
-#' @param UDU Time-length list of UDU
-#' @param Y relational array of relations
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param tau_p scale parameter of Gaussian process covariance
-#' @param s2 variance of normal error
-#'
-#' @return One sample estimate of beta from normal distribution
-#'
-#' @export
-rbeta_fc = function(X, beta, theta, UDU, Y, cinv, tau_p, s2) {
-    Time = nrow(theta)
-    P = ncol(beta)
-    N = ncol(theta)
-    uppertri = upper.tri(diag(N))
-    Xp2 = c()
-    E_p = c()
-    beta = beta
-    E = lapply1(1:Time, function(tp) {
-        Y[tp, , ] - outer(theta[tp,], theta[tp,], "+") - UDU[[tp]]
-    })
-    for (p in sample(1:P)){
-        for (tp in 1:Time) {
-            if (P == 1) {
-                XB_p = matrix(0, N, N)
-            } else {
-                XB_p = Reduce('+', lapply1((1:P)[-p], function(k) {
-                    X[tp, , , k] * beta[tp, k]
-                }))
-            }
-            Xp2[tp] = sum(X[tp, , , p][uppertri]^2, na.rm = TRUE)
-            E_p[tp] = sum((E[[tp]] - XB_p)[uppertri] * X[tp, , , p][uppertri], na.rm = TRUE)
-        }
-        invvar = rcppeigen_invert_matrix(cinv[[p]] / tau_p[p] + diag(Xp2, Time, Time) / s2)
-        mu = E_p / s2
-        beta[, p] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
-    }
-    return(beta)
-}
-
-#' @title rtheta_fc
-#' @description Sample theta with structural NA
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param UDU Time-length list of UDU
-#' @param Y relational array of relations
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param tau_i scale parameter of Gaussian process covariance
-#' @param s2 variance of normal error
-#'
-#' @return One sample estimate of theta from normal distribution
-#'
-#' @export
-rtheta_fc = function(XB, theta, UDU, Y, cinv, tau_i, s2){
-    Time = nrow(theta)
-    N = ncol(theta)
-    
-    theta = theta
-    E = lapply1(1:Time, function(tp) {
-        Y[tp, , ] - XB[[tp]] - UDU[[tp]]
-    })
-    
-    for (i in sample(1:N)) {
-        E_i = vapply(1:Time, function(tp) {
-            sum(E[[tp]][i, -i] - theta[tp, -i], na.rm = TRUE)
-        }, c(1))
-        
-        invvar = rcppeigen_invert_matrix(cinv / tau_i + (N-1) * diag(Time) / s2)
-        mu = E_i / s2
-        theta[, i] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
-    }
-    return(theta)
-}
-
-#' @title rd_fc
-#' @description Sample d with structural NA
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param U current value of U
-#' @param d current value of d
-#' @param Y relational array of relations
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param s2 variance of normal error
-#' @param meaningful_NA position of structural NA
-#'
-#' @return One sample estimate of d from normal distribution
-#'
-#' @export
-rd_fc = function(XB, theta, U, d, Y, cinv, s2, meaningful_NA){
-    Time = nrow(theta)
-    R = ncol(d)
-    N = ncol(theta)
-    uppertri = upper.tri(diag(N))
-    UUr2 = c()
-    E_r2 = c()
-    d = d
-    E = lapply1(1:Time, function(tp) {
-        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
-    })
-    
-    for (r in 1:R) {
-        for (tp in 1:Time) {
-            UUr = U[tp, , r] %*% t(U[tp, , r])
-            if (R > 2) {
-                UDU_r = U[tp, , -r] %*% diag(d[tp, -r]) %*% t(U[tp, , -r])
-            } else {
-                if (R == 2) {
-                    UDU_r = d[tp, -r] * U[tp, , -r] %*% t(U[tp, , -r])
-                } else {
-                    UDU_r =  matrix(0, N, N)
-                }
-            }
-            UUr[meaningful_NA[[tp]]] = NA
-            EU =  (E[[tp]] - UDU_r) * UUr
-            UUr2[tp] = sum(UUr[uppertri]^2, na.rm = TRUE)
-            E_r2[tp] = sum(EU[uppertri], na.rm = TRUE)
-        }
-        invvar = rcppeigen_invert_matrix(cinv + diag(UUr2, Time, Time) / s2)
-        mu = E_r2 / s2
-        d[, r] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
-    }
-    return(d)
-}
-
-
-#' @title rd_fc2
-#' @description Sample d with structural NA
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param U current value of U
-#' @param d current value of d
-#' @param Y relational array of relations
-#' @param cinv inverse of Gaussian process covariance matrix
-#' @param s2 variance of normal error
-#' @param tau_r scale parameter of Gaussian process covariance
-#' @param meaningful_NA position of structural NA
-#'
-#' @return One sample estimate of d from normal distribution
-#'
-#' @export
-rd_fc2 = function(XB, theta, U, d, Y, cinv, s2, tau_r, meaningful_NA){
-  Time = nrow(theta)
-  R = ncol(d)
-  N = ncol(theta)
-  uppertri = upper.tri(diag(N))
-  UUr2 = c()
-  E_r2 = c()
-  d = d
-  E = lapply1(1:Time, function(tp) {
-    Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
-  })
-  
-  for (r in 1:R) {
-    for (tp in 1:Time) {
-      UUr = U[tp, , r] %*% t(U[tp, , r])
-      if (R > 2) {
-        UDU_r = U[tp, , -r] %*% diag(d[tp, -r]) %*% t(U[tp, , -r])
-      } else {
-        if (R == 2) {
-          UDU_r = d[tp, -r] * U[tp, , -r] %*% t(U[tp, , -r])
-        } else {
-          UDU_r =  matrix(0, N, N)
-        }
+.__DEVTOOLS__ <-
+<environment>
+.__NAMESPACE__. <-
+<environment>
+.__S3MethodsTable__. <-
+<environment>
+.packageName <-
+"DAME"
+DLFM_Dunson_fixed <-
+function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100, kappas) {		
+  Time = dim(Y)[1]
+  N = dim(Y)[2]
+  P = dim(X)[4]
+  a = gammapriors[1]; b = gammapriors[2]
+  # construct covariance matrix for each variable
+  dist_ij = c()
+  if (dist == "Exponential"){
+    for (i in 1:Time) {
+      for (j in 1:Time) {
+        dist_ij = c(dist_ij, abs(i-j))
       }
-      UUr[meaningful_NA[[tp]]] = NA
-      EU =  (E[[tp]] - UDU_r) * UUr
-      UUr2[tp] = sum(UUr[uppertri]^2, na.rm = TRUE)
-      E_r2[tp] = sum(EU[uppertri], na.rm = TRUE)
     }
-    invvar = rcppeigen_invert_matrix(cinv[[r]]/tau_r[r] + diag(UUr2, Time, Time) / s2)
-    mu = E_r2 / s2
-    d[, r] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
+  } else {
+    for (i in 1:Time) {
+      for (j in 1:Time) {
+        dist_ij = c(dist_ij, (i-j)^2)
+      }
+    }
+  }		
+  dist_ij = matrix(dist_ij, nrow = Time, ncol = Time)
+  cinv = lapply(1:(P+2), function(k) {
+    rcppeigen_invert_matrix(Exponential(dist_ij, kappas[k]))
+  })	
+  # select initial values 
+  beta = matrix(0, Time, P)
+  U = array(0, dim = c(Time, N, R))
+  theta = matrix(0, Time, N)
+  BETAPS = lapply(1:Time, function(tp) {
+    matrix(0, nrow = nscan / odens, ncol = P) 
+  })
+  UDUPS = lapply(1:Time, function(tp) {
+    matrix(0, N, N)
+  })
+  YPSsum = lapply(1:Time, function(tp) {
+    matrix(0, N, N)
+  })
+  s2PS = matrix(0, nrow = nscan / odens, ncol = 1)
+  tauPS = matrix(0, nrow = nscan / odens, ncol = P + 1 + R)
+  thetaPS = lapply(1:Time, function(tp) {
+    matrix(0, nrow = nscan / odens, ncol = N) 
+  })
+  UPS = array(0, dim = c(Time, N, R))
+  Degreestats = lapply(1:Time, function(tp) {
+    matrix(0, nrow = 0, ncol = N)
+  })
+  secondDegreestats = lapply(1:Time, function(tp) {
+    matrix(0, nrow = 0, ncol = N)
+  })
+  thirdDegreestats = lapply(1:Time, function(tp) {
+    matrix(0, nrow = 0, ncol = N)
+  })
+  corrstats = matrix(0, nrow = nscan / odens, ncol = Time - 1)
+  
+  years = sample(1:Time, 1)
+  # to begin with, use 0 for NA's except meaningful ones
+  colnames(avail) = dimnames(Y)[[2]]
+  meaningful_NA_rows = lapply(1:Time, function(tp) {
+    which(avail[tp,]==0) 
+  })
+  meaningful_NA = lapply(1:Time, function(tp) {
+    pre = matrix(0, N, N)
+    pre[meaningful_NA_rows[[tp]],] = NA
+    pre[,meaningful_NA_rows[[tp]]] = NA
+    which(is.na(pre)==TRUE)
+  })
+  meaningful_NA_years = which(vapply(meaningful_NA_rows, function(i) {length(i)}, c(1)) > 0)                 
+  # to begin with, use 0 for NA's
+  for (p in 1:P) {
+    X[, , , p][which(is.na(X[, , , p]))] = 0
+    for (tp in 1:Time) {
+      X[tp, , , p][meaningful_NA[[tp]]] = NA
+      Y[tp, , ][meaningful_NA[[tp]]] = NA
+    }
   }
-  return(d)
+  XB = lapply(1:Time, function(tp) {
+    Reduce('+', lapply(1:P, function(p){
+      X[tp, , , p] * beta[tp, p]
+    }))
+  })
+  na.positions = lapply(1:Time, function(tp) {
+    which(is.na(Y[tp, , ]))
+  })
+  for (tp in 1:Time) {
+    mu = mean(Y[tp, , ], na.rm = TRUE) 
+    row = rowMeans(Y[tp, , ] - mu, na.rm = TRUE)
+    row[is.na(row)] = 0
+    YA = mu + outer(row, row, "+")
+    Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]]
+    diag(Y[tp, , ]) = 0
+    beta[tp, 1] = mu
+    theta[tp, ] = row
+    Y[tp, , ][meaningful_NA[[tp]]] = NA
+   }
+  UDU = UDUPS
+  uppertri = upper.tri(diag(N))
+  tau_u = matrix(N, Time, R)
+
+  # starting the Gibbs sampler
+  for (iter in 1:(burn + nscan)) {
+      if (iter %% 500 == 0) print(iter)
+    s2 = rs2_fc2(XB, theta, UDU, Y, a, b)
+    tau_p = rtaup_fc(beta, cinv[1:P], a, b)
+      beta = rbeta_fc(X, beta, theta, UDU, Y, cinv[1:P], tau_p, s2)
+      XB = lapply(1:Time, function(tp) {
+          Reduce('+', lapply(1:P, function(p){
+              X[tp, , , p] * beta[tp, p]
+          }))
+      })
+      tau_i = rtaui_fc(theta, cinv[[P+1]], a, b)
+      theta = rtheta_fc(XB, theta, UDU, Y, cinv[[P+1]], tau_i, s2)
+      for (tp in meaningful_NA_years) {
+          theta[tp, meaningful_NA_rows[[tp]]] = 0
+      }
+      if (iter > 0.5 * burn) {
+          tau_u = rtauut_fc(U, a, b)
+      }
+      U = ru_fc2(XB, theta, U, Y, tau_u, s2, meaningful_NA_rows)
+      for (tp in meaningful_NA_years) {
+          U[tp, meaningful_NA_rows[[tp]],] = NA
+      }
+      UDU = lapply(1:Time, function(tp) {
+            U[tp, , ] %*% t(U[tp, ,])
+      })
+
+    if (iter > burn & (iter - burn) %% odens == 0) {
+      Errormat = array(0, dim = c(Time, N, N))
+      errors = rnorm(Time * N * (N-1) / 2, 0, sqrt(s2))
+      for (tp in 1:Time) {
+        Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]
+        Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))
+      }
+      YPS = lapply(1:Time, function(tp) {
+        YPSmat = Reduce('+', lapply(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) + 
+          outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]
+        diag(YPSmat) = 0
+        YPSmat
+      })      
+      # replace NA's with YPS
+      for (tp in which(vapply(na.positions, function(i) {length(i)}, c(1)) > 0)) {
+        YPS[[tp]][meaningful_NA[[tp]]] = NA
+        Y[tp, , ][na.positions[[tp]]] = YPS[[tp]][na.positions[[tp]]]
+        YPS[[tp]][na.positions[[tp]]] = 0
+      }
+      id = (iter - burn) / odens
+      s2PS[id,] = s2
+      tauPS[id, ] = c(tau_p, tau_i, tau_u[years,])
+      UPS = UPS + U
+      for (tp in 1:Time) {
+        BETAPS[[tp]][id, ] = beta[tp, ]
+        thetaPS[[tp]][id, ] = theta[tp, ]
+        UDUPS[[tp]] =  UDUPS[[tp]] + UDU[[tp]]
+        YPSsum[[tp]] = YPSsum[[tp]] + YPS[[tp]]
+        Degreestats[[tp]] = rbind(Degreestats[[tp]], rowSums(YPS[[tp]], na.rm = TRUE))
+        secondDegreestats[[tp]] = rbind(secondDegreestats[[tp]], rowSums(YPS[[tp]] %*% YPS[[tp]], na.rm = TRUE))
+        thirdDegreestats[[tp]] = rbind(thirdDegreestats[[tp]], rowSums(YPS[[tp]] %*% YPS[[tp]] %*% YPS[[tp]], na.rm = TRUE))
+      }
+    	Degrees = c(vapply(1:Time, function(tp) { rowSums(YPS[[tp]], na.rm = TRUE)}, rep(0, N)))
+        corrstats[id, ] = vapply(1:(Time-1), function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)
+	}
+  }
+  UDUPM = lapply(UDUPS, function(x) {
+    x / length(s2PS)
+  })
+  U = UPS / length(s2PS)
+  YPM = lapply(YPSsum, function(x) {
+    x / length(s2PS)
+  })
+  final = list(YPM = YPM, BETA = BETAPS, theta = thetaPS, UDU = UDUPM,  
+               U = U, s2 = s2PS, tau = tauPS, corr = corrstats,
+               Degree = Degreestats, secondDegree= secondDegreestats, thirdDegree = thirdDegreestats)
+  return(final)
 }
-
-#' @title ru_fc
-#' @description Sample u with structural NA
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param U current value of U
-#' @param d current value of d
-#' @param Y relational array of relations
-#' @param tau_r scale parameter of Gaussian process covariance
-#' @param s2 variance of normal error
-#' @param meaningful_NA_rows position of structural NA
-#'
-#' @return One sample estimate of d from normal distribution
-#'
-#' @export
-ru_fc = function(XB, theta, U, d, Y, tau_r, s2, meaningful_NA_rows){
-    Time = nrow(theta)
-    R = ncol(d)
-    N = ncol(theta)
-    U = U
-    E = lapply1(1:Time, function(tp) {
-        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
-    })
-    for (tp in 1:Time) {
-        L = diag(d[tp, ])
-        for (i in sample(1:N)) {
-            l = L %*% (apply(U[tp, , ] * E[[tp]][i, ], 2, sum) - U[tp, i, ] * E[[tp]][i, i]) / s2
-            iQ = rcppeigen_invert_matrix(diag(R) / tau_r + L %*% (crossprod(U[tp,,]) - U[tp, i, ] %*% t(U[tp, i, ])) %*% L / s2)
-            U[tp, i, ] = rcpp_rmvnorm(1, iQ, iQ %*% l)
-        }
-    }
-    return(U)
-}
-
-#' @title ru_fc_NA
-#' @description Sample u with structural NA
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param U current value of U
-#' @param d current value of d
-#' @param Y relational array of relations
-#' @param tau_u Gaussian process covariance
-#' @param s2 variance of normal error
-#' @param meaningful_NA_rows position of structural NA
-#'
-#' @return One sample estimate of d from normal distribution
-#'
-#' @export
-ru_fc_NA = function(XB, theta, U, d, Y, tau_u, s2, meaningful_NA_rows){
-    Time = nrow(theta)
-    R = ncol(d)
-    N = ncol(theta)
-    U = U
-    E = lapply1(1:Time, function(tp) {
-        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
-    })
-    for (tp in 1:Time) {
-        L = diag(d[tp, ])
-        if (length(meaningful_NA_rows[[tp]]) > 0) {
-            ilist = sample((1:N)[-meaningful_NA_rows[[tp]]])
-            U2 = U[tp,-meaningful_NA_rows[[tp]],]
-        } else {
-            ilist = sample(1:N)
-            U2 = U[tp, , ]
-        }
-        for (i in ilist) {
-            if (length(meaningful_NA_rows[[tp]]) > 0) {
-                E2 = E[[tp]][i, -meaningful_NA_rows[[tp]]]
-            } else {
-                E2 = E[[tp]][i, ]
-            }
-            l = L %*% (apply(U2 * E2, 2, sum) - U[tp, i, ] * E[[tp]][i, i]) / s2
-            iQ = rcppeigen_invert_matrix(diag(R) / tau_u[tp,] + L %*% (crossprod(U2) - U[tp, i, ] %*% t(U[tp, i, ])) %*% L / s2)
-            U[tp, i, ] = rcpp_rmvnorm(1, iQ, iQ %*% l)
-        }
-    }
-    return(U)
-}
-
-
-#' @title DLFM_fix
-#' @description MCMC algorithm using Gibbs sampling for each variable with structural NA
-#'
-#' @param Y relational array of relations
-#' @param X Time x n x n x p covariate array
-#' @param RE random effect to be included ("additive" and/or "multiplicative)
-#' @param R dimension of the multiplicative effects
-#' @param dist standard Exponential or squared Exponential
-#' @param gammapriors inverse-gamma shape and scale parameters for (s2, beta, theta, d)
-#' @param avail = Time x n matrix reperesenting the availibility of nodes (1 if avail, 0 if structural NA)
-#' @param burn burn in for the Markov chain
-#' @param nscan number of iterations of the Markov chain (beyond burn-in)
-#' @param odens output density for the Markov chain
-#' @param kappas P+2 length vector of GP length parameters
-#'
-#' @return Final estimate of the parameters
-#'
-#' @export
-DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100, kappas) {
+DLFM_fix <-
+function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100, kappas) {
   Time = dim(Y)[1]
   N = dim(Y)[2]
   P = dim(X)[4]
@@ -425,7 +202,7 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     }
   }
   dist_ij = matrix(dist_ij, nrow = Time, ncol = Time)
-  cinv = lapply1(1:(P+1+R), function(k) {
+  cinv = lapply(1:(P+1+R), function(k) {
     rcppeigen_invert_matrix(Exponential(dist_ij, kappas[k]))
   })
   # select initial values
@@ -433,43 +210,43 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
   d = matrix(1, Time, R)
   U = array(0, dim = c(Time, N, R))
   theta = matrix(0, Time, N)
-  BETAPS = lapply1(1:Time, function(tp) {
+  BETAPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = P)
   })
-  UDUPS = lapply1(1:Time, function(tp) {
+  UDUPS = lapply(1:Time, function(tp) {
     matrix(0, N, N)
   })
-  YPSsum = lapply1(1:Time, function(tp) {
+  YPSsum = lapply(1:Time, function(tp) {
     matrix(0, N, N)
   })
   s2PS = matrix(0, nrow = nscan / odens, ncol = 1)
   tauPS = matrix(0, nrow = nscan / odens, ncol = P + 1 + R + R)
-  thetaPS = lapply1(1:Time, function(tp) {
+  thetaPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = N)
   })
-  DPS = lapply1(1:Time, function(tp) {
+  DPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = R)
   })
-  UPS = lapply1(1:Time, function(tp) {
+  UPS = lapply(1:Time, function(tp) {
    c()
   })
-  Degreestats = lapply1(1:Time, function(tp) {
+  Degreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
-  secondDegreestats = lapply1(1:Time, function(tp) {
+  secondDegreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
-  thirdDegreestats = lapply1(1:Time, function(tp) {
+  thirdDegreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
   corrstats = matrix(0, nrow = nscan / odens, ncol = Time - 1)
   years = sample(1:Time, 1)
   # to begin with, use 0 for NA's except meaningful ones
   colnames(avail) = dimnames(Y)[[2]]
-  meaningful_NA_rows = lapply1(1:Time, function(tp) {
+  meaningful_NA_rows = lapply(1:Time, function(tp) {
     which(avail[tp,]==0)
   })
-  meaningful_NA = lapply1(1:Time, function(tp) {
+  meaningful_NA = lapply(1:Time, function(tp) {
     pre = matrix(0, N, N)
     pre[meaningful_NA_rows[[tp]],] = NA
     pre[,meaningful_NA_rows[[tp]]] = NA
@@ -484,12 +261,12 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
       Y[tp, , ][meaningful_NA[[tp]]] = NA
     }
   }
-  XB = lapply1(1:Time, function(tp) {
-    Reduce('+', lapply1(1:P, function(p){
+  XB = lapply(1:Time, function(tp) {
+    Reduce('+', lapply(1:P, function(p){
       X[tp, , , p] * beta[tp, p]
     }))
   })
-  na.positions = lapply1(1:Time, function(tp) {
+  na.positions = lapply(1:Time, function(tp) {
     which(is.na(Y[tp, , ]))
   })
   for (tp in 1:Time) {
@@ -519,8 +296,8 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     s2 = rs2_fc2(XB, theta, UDU, Y, a, b)
     tau_p = rtaup_fc(beta, cinv[1:P], a, b)
     beta = rbeta_fc(X, beta, theta, UDU, Y, cinv[1:P], tau_p, s2)
-    XB = lapply1(1:Time, function(tp) {
-      Reduce('+', lapply1(1:P, function(p){
+    XB = lapply(1:Time, function(tp) {
+      Reduce('+', lapply(1:P, function(p){
         X[tp, , , p] * beta[tp, p]
       }))
     })
@@ -538,7 +315,7 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     for (tp in meaningful_NA_years) {
       U[tp, meaningful_NA_rows[[tp]],] = NA
     }
-    UDU = lapply1(1:Time, function(tp) {
+    UDU = lapply(1:Time, function(tp) {
       if (R <= 1) {
         d[tp, ] * U[tp, , ] %*% t(U[tp, ,])
       } else {
@@ -552,8 +329,8 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
         Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]
         Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))
       }
-      YPS = lapply1(1:Time, function(tp) {
-        YPSmat = Reduce('+', lapply1(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) +
+      YPS = lapply(1:Time, function(tp) {
+        YPSmat = Reduce('+', lapply(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) +
           outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]
         diag(YPSmat) = 0
         YPSmat
@@ -584,10 +361,10 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     }
   }
   
-  UDUPM = lapply1(UDUPS, function(x) {
+  UDUPM = lapply(UDUPS, function(x) {
     x / length(s2PS)
   })
-  eULU = lapply1(1:Time, function(tp) {
+  eULU = lapply(1:Time, function(tp) {
     exclude = meaningful_NA_rows[[tp]]
     if (length(exclude) > 0) {
       eigentp = eigen(UDUPM[[tp]][-exclude, -exclude])
@@ -596,10 +373,10 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     }
     eigentp
   })
-  eR = lapply1(1:Time, function(tp) {
+  eR = lapply(1:Time, function(tp) {
     which(rank(-abs(eULU[[tp]]$val), ties.method = "first") <= R)
   })
-  U =  lapply1(1:Time, function(tp) {
+  U =  lapply(1:Time, function(tp) {
     Uest = eULU[[tp]]$vec[, seq(1, R, length = R), drop = FALSE]
     exclude = meaningful_NA_rows[[tp]]
     if (length(exclude) > 0) {
@@ -609,11 +386,11 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
     }
     Uest
   })
-  L =  lapply1(1:Time, function(tp){
+  L =  lapply(1:Time, function(tp){
     eULU[[tp]]$val[eR[[tp]]]
   })
   
-  YPM = lapply1(YPSsum, function(x) {
+  YPM = lapply(YPSsum, function(x) {
     x / length(s2PS)
   })
   final = list(YPM = YPM, BETA = BETAPS, theta = thetaPS, UDU = UDUPM,
@@ -621,57 +398,8 @@ DLFM_fix = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "E
                Degree = Degreestats, secondDegree= secondDegreestats, thirdDegree = thirdDegreestats)
   return(final)
 }
-
-#' @title GPpost
-#' @description log-posterior distribution of kappa in case of multiple dimensions
-#'
-#' @param kappa current value of kappa
-#' @param parameter parameter which kappa is embedded
-#' @param tau scale parameter of Gaussian process covariance
-#' @param dist_ij matrix of squared distance between all timepoints
-#' @param a inverse-gamma shape parameter
-#' @param b inverse-gamma scale parameter
-#'
-#' @return log- posterior density of kappa
-#'
-#' @export
-GPpost = function(kappa, parameter, tau, dist_ij, a, b) {
-    if (kappa > 0 & tau > 0) {
-        lprior1 = dhalfcauchy(kappa, 5, log = TRUE)
-        lprior2 = sum(dinvgamma(tau, a, b, log = TRUE))
-        Time = nrow(parameter)
-        covfcmat = Exponential(dist_ij, kappa, phi = tau)
-        if (is.positive.definite(covfcmat) == FALSE) {covfcmat = as.matrix(nearPD(covfcmat)$mat)}
-        dims = ncol(parameter)
-        lpost = 0
-        for (col in 1:dims) {
-            lpost = lpost + rcpp_log_dmvnorm(covfcmat, rep(0, Time), c(parameter[,col]), FALSE)
-        }
-        sums = as.vector(lpost + lprior1 + lprior2)
-    } else {
-        sums = -Inf
-    }
-    return(sums)
-}
-
-#' @title DLFM_MH
-#' @description MCMC algorithm using Gibbs sampling for each variable with structural NA
-#'
-#' @param Y relational array of relations
-#' @param X Time x n x n x p covariate array
-#' @param RE random effect to be included ("additive" and/or "multiplicative)
-#' @param R dimension of the multiplicative effects
-#' @param dist standard Exponential or squared Exponential
-#' @param gammapriors inverse-gamma shape and scale parameters for (s2, beta, theta, d)
-#' @param avail = Time x n matrix reperesenting the availibility of nodes (1 if avail, 0 if structural NA)
-#' @param burn burn in for the Markov chain
-#' @param nscan number of iterations of the Markov chain (beyond burn-in)
-#' @param odens output density for the Markov chain
-#'
-#' @return Final estimate of the parameters
-#'
-#' @export
-DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100) {
+DLFM_MH <-
+function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100) {
   Time = dim(Y)[1]
   N = dim(Y)[2]
   P = dim(X)[4]
@@ -693,7 +421,7 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
   }
   dist_ij = matrix(dist_ij, nrow = Time, ncol = Time)
   kappas = rhalfcauchy(P+1+R, scale = 5)
-  cinv = lapply1(1:(P+1+R), function(k) {
+  cinv = lapply(1:(P+1+R), function(k) {
     rcppeigen_invert_matrix(Exponential(dist_ij, kappas[k]))
   })
   # select initial values
@@ -706,44 +434,44 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
   tau_r = rep(1, R)
   tau_u = matrix(N, Time, R)
 
-  BETAPS = lapply1(1:Time, function(tp) {
+  BETAPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = P)
   })
-  UDUPS = lapply1(1:Time, function(tp) {
+  UDUPS = lapply(1:Time, function(tp) {
     matrix(0, N, N)
   })
-  YPSsum = lapply1(1:Time, function(tp) {
+  YPSsum = lapply(1:Time, function(tp) {
     matrix(0, N, N)
   })
   s2PS = matrix(0, nrow = nscan / odens, ncol = 1)
   tauPS = matrix(0, nrow = nscan / odens, ncol = P + 1 + R + R)
   kappaPS = matrix(0, nrow = nscan / odens, ncol = P + 1 + R)
-  thetaPS = lapply1(1:Time, function(tp) {
+  thetaPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = N)
   })
-  DPS = lapply1(1:Time, function(tp) {
+  DPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = R)
   })
-  UPS = lapply1(1:Time, function(tp) {
+  UPS = lapply(1:Time, function(tp) {
    c()
   })
-  Degreestats = lapply1(1:Time, function(tp) {
+  Degreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
-  secondDegreestats = lapply1(1:Time, function(tp) {
+  secondDegreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
-  thirdDegreestats = lapply1(1:Time, function(tp) {
+  thirdDegreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
   corrstats = matrix(0, nrow = nscan / odens, ncol = Time - 1)
   years = sample(1:Time, 1)
   # to begin with, use 0 for NA's except meaningful ones
   colnames(avail) = dimnames(Y)[[2]]
-  meaningful_NA_rows = lapply1(1:Time, function(tp) {
+  meaningful_NA_rows = lapply(1:Time, function(tp) {
     which(avail[tp,]==0)
   })
-  meaningful_NA = lapply1(1:Time, function(tp) {
+  meaningful_NA = lapply(1:Time, function(tp) {
     pre = matrix(0, N, N)
     pre[meaningful_NA_rows[[tp]],] = NA
     pre[,meaningful_NA_rows[[tp]]] = NA
@@ -758,12 +486,12 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
       Y[tp, , ][meaningful_NA[[tp]]] = NA
     }
   }
-  XB = lapply1(1:Time, function(tp) {
-    Reduce('+', lapply1(1:P, function(p){
+  XB = lapply(1:Time, function(tp) {
+    Reduce('+', lapply(1:P, function(p){
       X[tp, , , p] * beta[tp, p]
     }))
   })
-  na.positions = lapply1(1:Time, function(tp) {
+  na.positions = lapply(1:Time, function(tp) {
     which(is.na(Y[tp, , ]))
   })
   for (tp in 1:Time) {
@@ -805,8 +533,8 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
       }
     }
     beta = rbeta_fc(X, beta, theta, UDU, Y, cinv[1:P], tau_p, s2)
-    XB = lapply1(1:Time, function(tp) {
-      Reduce('+', lapply1(1:P, function(p){
+    XB = lapply(1:Time, function(tp) {
+      Reduce('+', lapply(1:P, function(p){
         X[tp, , , p] * beta[tp, p]
       }))
     })
@@ -851,7 +579,7 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
         U[tp, meaningful_NA_rows[[tp]],] = NA
       }
       d = rd_fc2(XB, theta, U, d, Y, cinv[(P+2):(P+1+R)], s2, tau_r, meaningful_NA)
-      UDU = lapply1(1:Time, function(tp) {
+      UDU = lapply(1:Time, function(tp) {
         if (R <= 1) {
           d[tp, ] * U[tp, , ] %*% t(U[tp, ,])
         } else {
@@ -866,8 +594,8 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
         Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]
         Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))
       }
-      YPS = lapply1(1:Time, function(tp) {
-        YPSmat = Reduce('+', lapply1(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) +
+      YPS = lapply(1:Time, function(tp) {
+        YPSmat = Reduce('+', lapply(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) +
           outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]
         diag(YPSmat) = 0
         YPSmat
@@ -898,10 +626,10 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
       corrstats[id, ] = vapply(1:(Time-1), function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)
     }
   }
-  UDUPM = lapply1(UDUPS, function(x) {
+  UDUPM = lapply(UDUPS, function(x) {
     x / length(s2PS)
   })
-  eULU = lapply1(1:Time, function(tp) {
+  eULU = lapply(1:Time, function(tp) {
     exclude = meaningful_NA_rows[[tp]]
     if (length(exclude) > 0) {
       eigentp = eigen(UDUPM[[tp]][-exclude, -exclude])
@@ -910,10 +638,10 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
     }
     eigentp
   })
-  eR = lapply1(1:Time, function(tp) {
+  eR = lapply(1:Time, function(tp) {
     which(rank(-abs(eULU[[tp]]$val), ties.method = "first") <= R)
   })
-  U =  lapply1(1:Time, function(tp) {
+  U =  lapply(1:Time, function(tp) {
     Uest = eULU[[tp]]$vec[, seq(1, R, length = R), drop = FALSE]
     exclude = meaningful_NA_rows[[tp]]
     if (length(exclude) > 0) {
@@ -923,11 +651,11 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
     }
     Uest
   })
-  L =  lapply1(1:Time, function(tp){
+  L =  lapply(1:Time, function(tp){
     eULU[[tp]]$val[eR[[tp]]]
   })
   
-  YPM = lapply1(YPSsum, function(x) {
+  YPM = lapply(YPSsum, function(x) {
     x / length(s2PS)
   })
   final = list(YPM = YPM, BETA = BETAPS, theta = thetaPS, UDU = UDUPM, 
@@ -935,253 +663,8 @@ DLFM_MH = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Ex
                Degree = Degreestats, secondDegree= secondDegreestats, thirdDegree = thirdDegreestats)
   return(final)
 }
-
-#' @title ru_fc2
-#' @description Sample u with structural NA
-#'
-#' @param XB Time-length list of XB matrix
-#' @param theta a T x n matrix of nodal effects
-#' @param U current value of U
-#' @param Y relational array of relations
-#' @param tau_u scale parameter of Gaussian process covariance 
-#' @param s2 variance of normal error
-#' @param meaningful_NA_rows position of structural NA
-#'
-#' @return One sample estimate of d from normal distribution
-#'
-#' @export
-ru_fc2 = function(XB, theta, U, Y, tau_u, s2, meaningful_NA_rows){
-  Time = nrow(theta)
-  R = dim(U)[3]
-  N = ncol(theta)
-  U = U
-  E = lapply1(1:Time, function(tp) {
-    Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
-  })
-  for (tp in 1:Time) {
-      L = diag(R)
-      for (i in sample(1:N)) {
-      l = L %*% (apply(U[tp, , ] * E[[tp]][i, ], 2, sum) - U[tp, i, ] * E[[tp]][i, i]) / s2
-      iQ = rcppeigen_invert_matrix(diag(R) / tau_u[tp,] + L %*% (crossprod(U[tp,,]) - U[tp, i, ] %*% t(U[tp, i, ])) %*% L / s2)
-      U[tp, i, ] = rcpp_rmvnorm(1, iQ, iQ %*% l)
-    }	
-  }
-  return(U)
-}
-
-
-
-#' @title DLFM_Dunson_fixed
-#' @description MCMC algorithm using Gibbs sampling for each variable with structural NA
-#'
-#' @param Y relational array of relations
-#' @param X Time x n x n x p covariate array
-#' @param RE random effect to be included ("additive" and/or "multiplicative)
-#' @param R dimension of the multiplicative effects 
-#' @param dist standard Exponential or squared Exponential 
-#' @param gammapriors inverse-gamma shape and scale parameters for (s2, beta, theta, d)
-#' @param avail = Time x n matrix reperesenting the availibility of nodes (1 if avail, 0 if structural NA)
-#' @param burn burn in for the Markov chain
-#' @param nscan number of iterations of the Markov chain (beyond burn-in)
-#' @param odens output density for the Markov chain
-#' @param kappas P+2 length vector of GP length parameters
-#'
-#' @return Final estimate of the parameters
-#'
-#' @export
-DLFM_Dunson_fixed = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100, kappas) {		
-  Time = dim(Y)[1]
-  N = dim(Y)[2]
-  P = dim(X)[4]
-  a = gammapriors[1]; b = gammapriors[2]
-  # construct covariance matrix for each variable
-  dist_ij = c()
-  if (dist == "Exponential"){
-    for (i in 1:Time) {
-      for (j in 1:Time) {
-        dist_ij = c(dist_ij, abs(i-j))
-      }
-    }
-  } else {
-    for (i in 1:Time) {
-      for (j in 1:Time) {
-        dist_ij = c(dist_ij, (i-j)^2)
-      }
-    }
-  }		
-  dist_ij = matrix(dist_ij, nrow = Time, ncol = Time)
-  cinv = lapply1(1:(P+2), function(k) {
-    rcppeigen_invert_matrix(Exponential(dist_ij, kappas[k]))
-  })	
-  # select initial values 
-  beta = matrix(0, Time, P)
-  U = array(0, dim = c(Time, N, R))
-  theta = matrix(0, Time, N)
-  BETAPS = lapply1(1:Time, function(tp) {
-    matrix(0, nrow = nscan / odens, ncol = P) 
-  })
-  UDUPS = lapply1(1:Time, function(tp) {
-    matrix(0, N, N)
-  })
-  YPSsum = lapply1(1:Time, function(tp) {
-    matrix(0, N, N)
-  })
-  s2PS = matrix(0, nrow = nscan / odens, ncol = 1)
-  tauPS = matrix(0, nrow = nscan / odens, ncol = P + 1 + R)
-  thetaPS = lapply1(1:Time, function(tp) {
-    matrix(0, nrow = nscan / odens, ncol = N) 
-  })
-  UPS = array(0, dim = c(Time, N, R))
-  Degreestats = lapply1(1:Time, function(tp) {
-    matrix(0, nrow = 0, ncol = N)
-  })
-  secondDegreestats = lapply1(1:Time, function(tp) {
-    matrix(0, nrow = 0, ncol = N)
-  })
-  thirdDegreestats = lapply1(1:Time, function(tp) {
-    matrix(0, nrow = 0, ncol = N)
-  })
-  corrstats = matrix(0, nrow = nscan / odens, ncol = Time - 1)
-  
-  years = sample(1:Time, 1)
-  # to begin with, use 0 for NA's except meaningful ones
-  colnames(avail) = dimnames(Y)[[2]]
-  meaningful_NA_rows = lapply1(1:Time, function(tp) {
-    which(avail[tp,]==0) 
-  })
-  meaningful_NA = lapply1(1:Time, function(tp) {
-    pre = matrix(0, N, N)
-    pre[meaningful_NA_rows[[tp]],] = NA
-    pre[,meaningful_NA_rows[[tp]]] = NA
-    which(is.na(pre)==TRUE)
-  })
-  meaningful_NA_years = which(vapply(meaningful_NA_rows, function(i) {length(i)}, c(1)) > 0)                 
-  # to begin with, use 0 for NA's
-  for (p in 1:P) {
-    X[, , , p][which(is.na(X[, , , p]))] = 0
-    for (tp in 1:Time) {
-      X[tp, , , p][meaningful_NA[[tp]]] = NA
-      Y[tp, , ][meaningful_NA[[tp]]] = NA
-    }
-  }
-  XB = lapply1(1:Time, function(tp) {
-    Reduce('+', lapply1(1:P, function(p){
-      X[tp, , , p] * beta[tp, p]
-    }))
-  })
-  na.positions = lapply1(1:Time, function(tp) {
-    which(is.na(Y[tp, , ]))
-  })
-  for (tp in 1:Time) {
-    mu = mean(Y[tp, , ], na.rm = TRUE) 
-    row = rowMeans(Y[tp, , ] - mu, na.rm = TRUE)
-    row[is.na(row)] = 0
-    YA = mu + outer(row, row, "+")
-    Y[tp, , ][na.positions[[tp]]] = YA[na.positions[[tp]]]
-    diag(Y[tp, , ]) = 0
-    beta[tp, 1] = mu
-    theta[tp, ] = row
-    Y[tp, , ][meaningful_NA[[tp]]] = NA
-   }
-  UDU = UDUPS
-  uppertri = upper.tri(diag(N))
-  tau_u = matrix(N, Time, R)
-
-  # starting the Gibbs sampler
-  for (iter in 1:(burn + nscan)) {
-      if (iter %% 500 == 0) print(iter)
-    s2 = rs2_fc2(XB, theta, UDU, Y, a, b)
-    tau_p = rtaup_fc(beta, cinv[1:P], a, b)
-      beta = rbeta_fc(X, beta, theta, UDU, Y, cinv[1:P], tau_p, s2)
-      XB = lapply1(1:Time, function(tp) {
-          Reduce('+', lapply1(1:P, function(p){
-              X[tp, , , p] * beta[tp, p]
-          }))
-      })
-      tau_i = rtaui_fc(theta, cinv[[P+1]], a, b)
-      theta = rtheta_fc(XB, theta, UDU, Y, cinv[[P+1]], tau_i, s2)
-      for (tp in meaningful_NA_years) {
-          theta[tp, meaningful_NA_rows[[tp]]] = 0
-      }
-      if (iter > 0.5 * burn) {
-          tau_u = rtauut_fc(U, a, b)
-      }
-      U = ru_fc2(XB, theta, U, Y, tau_u, s2, meaningful_NA_rows)
-      for (tp in meaningful_NA_years) {
-          U[tp, meaningful_NA_rows[[tp]],] = NA
-      }
-      UDU = lapply1(1:Time, function(tp) {
-            U[tp, , ] %*% t(U[tp, ,])
-      })
-
-    if (iter > burn & (iter - burn) %% odens == 0) {
-      Errormat = array(0, dim = c(Time, N, N))
-      errors = rnorm(Time * N * (N-1) / 2, 0, sqrt(s2))
-      for (tp in 1:Time) {
-        Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]
-        Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))
-      }
-      YPS = lapply1(1:Time, function(tp) {
-        YPSmat = Reduce('+', lapply1(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) + 
-          outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]
-        diag(YPSmat) = 0
-        YPSmat
-      })      
-      # replace NA's with YPS
-      for (tp in which(vapply(na.positions, function(i) {length(i)}, c(1)) > 0)) {
-        YPS[[tp]][meaningful_NA[[tp]]] = NA
-        Y[tp, , ][na.positions[[tp]]] = YPS[[tp]][na.positions[[tp]]]
-        YPS[[tp]][na.positions[[tp]]] = 0
-      }
-      id = (iter - burn) / odens
-      s2PS[id,] = s2
-      tauPS[id, ] = c(tau_p, tau_i, tau_u[years,])
-      UPS = UPS + U
-      for (tp in 1:Time) {
-        BETAPS[[tp]][id, ] = beta[tp, ]
-        thetaPS[[tp]][id, ] = theta[tp, ]
-        UDUPS[[tp]] =  UDUPS[[tp]] + UDU[[tp]]
-        YPSsum[[tp]] = YPSsum[[tp]] + YPS[[tp]]
-        Degreestats[[tp]] = rbind(Degreestats[[tp]], rowSums(YPS[[tp]], na.rm = TRUE))
-        secondDegreestats[[tp]] = rbind(secondDegreestats[[tp]], rowSums(YPS[[tp]] %*% YPS[[tp]], na.rm = TRUE))
-        thirdDegreestats[[tp]] = rbind(thirdDegreestats[[tp]], rowSums(YPS[[tp]] %*% YPS[[tp]] %*% YPS[[tp]], na.rm = TRUE))
-      }
-    	Degrees = c(vapply(1:Time, function(tp) { rowSums(YPS[[tp]], na.rm = TRUE)}, rep(0, N)))
-        corrstats[id, ] = vapply(1:(Time-1), function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)
-	}
-  }
-  UDUPM = lapply1(UDUPS, function(x) {
-    x / length(s2PS)
-  })
-  U = UPS / length(s2PS)
-  YPM = lapply1(YPSsum, function(x) {
-    x / length(s2PS)
-  })
-  final = list(YPM = YPM, BETA = BETAPS, theta = thetaPS, UDU = UDUPM,  
-               U = U, s2 = s2PS, tau = tauPS, corr = corrstats,
-               Degree = Degreestats, secondDegree= secondDegreestats, thirdDegree = thirdDegreestats)
-  return(final)
-}
-
-
-#' @title DLFM_MH_Dunson
-#' @description MCMC algorithm using Gibbs sampling for each variable with structural NA
-#'
-#' @param Y relational array of relations
-#' @param X Time x n x n x p covariate array
-#' @param RE random effect to be included ("additive" and/or "multiplicative)
-#' @param R dimension of the multiplicative effects 
-#' @param dist standard Exponential or squared Exponential 
-#' @param gammapriors inverse-gamma shape and scale parameters for (s2, beta, theta, d)
-#' @param avail = Time x n matrix reperesenting the availibility of nodes (1 if avail, 0 if structural NA)
-#' @param burn burn in for the Markov chain
-#' @param nscan number of iterations of the Markov chain (beyond burn-in)
-#' @param odens output density for the Markov chain
-#'
-#' @return Final estimate of the parameters
-#'
-#' @export
-DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100) {		
+DLFM_MH_Dunson <-
+function(Y, X, RE = c("additive", "multiplicative"), R = 2, dist = "Exponential", gammapriors = c(2, 1), avail = matrix(1, dim(Y)[1], dim(Y)[2]), burn = 1000, nscan = 5000, odens = 100) {		
   Time = dim(Y)[1]
   N = dim(Y)[2]
   P = dim(X)[4]
@@ -1203,7 +686,7 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
   }		
   dist_ij = matrix(dist_ij, nrow = Time, ncol = Time)
   kappas = rhalfcauchy(P+1+R, scale = 5)
-  cinv = lapply1(1:(P+2), function(k) {
+  cinv = lapply(1:(P+2), function(k) {
     rcppeigen_invert_matrix(Exponential(dist_ij, kappas[k]))
   })	
   # select initial values 
@@ -1213,29 +696,29 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
   tau_p = rep(1, P)
   tau_i = 1
   tau_u = matrix(N, Time, R)
-  BETAPS = lapply1(1:Time, function(tp) {
+  BETAPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = P) 
   })
-  UDUPS = lapply1(1:Time, function(tp) {
+  UDUPS = lapply(1:Time, function(tp) {
     matrix(0, N, N)
   })
-  YPSsum = lapply1(1:Time, function(tp) {
+  YPSsum = lapply(1:Time, function(tp) {
     matrix(0, N, N)
   })
   s2PS = matrix(0, nrow = nscan / odens, ncol = 1)
   tauPS = matrix(0, nrow = nscan / odens, ncol = P + 1 + R)
   kappaPS = matrix(0, nrow = nscan / odens, ncol = P + 2)
-  thetaPS = lapply1(1:Time, function(tp) {
+  thetaPS = lapply(1:Time, function(tp) {
     matrix(0, nrow = nscan / odens, ncol = N) 
   })
   UPS = array(0, dim = c(Time, N, R))
-  Degreestats = lapply1(1:Time, function(tp) {
+  Degreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
-  secondDegreestats = lapply1(1:Time, function(tp) {
+  secondDegreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
-  thirdDegreestats = lapply1(1:Time, function(tp) {
+  thirdDegreestats = lapply(1:Time, function(tp) {
     matrix(0, nrow = 0, ncol = N)
   })
   corrstats = matrix(0, nrow = nscan / odens, ncol = Time - 1)
@@ -1243,10 +726,10 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
   years = sample(1:Time, 1)
   # to begin with, use 0 for NA's except meaningful ones
   colnames(avail) = dimnames(Y)[[2]]
-  meaningful_NA_rows = lapply1(1:Time, function(tp) {
+  meaningful_NA_rows = lapply(1:Time, function(tp) {
     which(avail[tp,]==0) 
   })
-  meaningful_NA = lapply1(1:Time, function(tp) {
+  meaningful_NA = lapply(1:Time, function(tp) {
     pre = matrix(0, N, N)
     pre[meaningful_NA_rows[[tp]],] = NA
     pre[,meaningful_NA_rows[[tp]]] = NA
@@ -1261,12 +744,12 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
       Y[tp, , ][meaningful_NA[[tp]]] = NA
     }
   }
-  XB = lapply1(1:Time, function(tp) {
-    Reduce('+', lapply1(1:P, function(p){
+  XB = lapply(1:Time, function(tp) {
+    Reduce('+', lapply(1:P, function(p){
       X[tp, , , p] * beta[tp, p]
     }))
   })
-  na.positions = lapply1(1:Time, function(tp) {
+  na.positions = lapply(1:Time, function(tp) {
     which(is.na(Y[tp, , ]))
   })
   for (tp in 1:Time) {
@@ -1302,8 +785,8 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
           }
       }
       beta = rbeta_fc(X, beta, theta, UDU, Y, cinv[1:P], tau_p, s2)
-      XB = lapply1(1:Time, function(tp) {
-          Reduce('+', lapply1(1:P, function(p){
+      XB = lapply(1:Time, function(tp) {
+          Reduce('+', lapply(1:P, function(p){
               X[tp, , , p] * beta[tp, p]
           }))
       })
@@ -1331,7 +814,7 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
           U[tp, meaningful_NA_rows[[tp]],] = NA
       }
             
-      UDU = lapply1(1:Time, function(tp) {
+      UDU = lapply(1:Time, function(tp) {
           U[tp, , ] %*% t(U[tp, ,])
       })
  
@@ -1342,8 +825,8 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
               Errormat[tp, , ][upper.tri(Errormat[tp, , ])] = errors[((tp-1)*N*(N-1)/2+1):(tp*N*(N-1)/2)]
               Errormat[tp, , ] = (Errormat[tp, , ] + t(Errormat[tp, , ]))
           }
-          YPS = lapply1(1:Time, function(tp) {
-              YPSmat = Reduce('+', lapply1(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) +
+          YPS = lapply(1:Time, function(tp) {
+              YPSmat = Reduce('+', lapply(1:P, function(p) {X[tp, , , p] * beta[tp, p]})) +
               outer(theta[tp, ], theta[tp, ], "+") + UDU[[tp]] + Errormat[tp,,]
               diag(YPSmat) = 0
               YPSmat
@@ -1374,11 +857,11 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
     }
   }
   
-  UDUPM = lapply1(UDUPS, function(x) {
+  UDUPM = lapply(UDUPS, function(x) {
     x / length(s2PS)
   })
   U = UPS / length(s2PS)
-  YPM = lapply1(YPSsum, function(x) {
+  YPM = lapply(YPSsum, function(x) {
     x / length(s2PS)
   })
   final = list(YPM = YPM, BETA = BETAPS, theta = thetaPS, UDU = UDUPM, 
@@ -1386,4 +869,268 @@ DLFM_MH_Dunson = function(Y, X, RE = c("additive", "multiplicative"), R = 2, dis
                Degree = Degreestats, secondDegree= secondDegreestats, thirdDegree = thirdDegreestats)
   return(final)
 }
-
+GPpost <-
+function(kappa, parameter, tau, dist_ij, a, b) {
+    if (kappa > 0 & tau > 0) {
+        lprior1 = dhalfcauchy(kappa, 5, log = TRUE)
+        lprior2 = sum(LaplacesDemon::dinvgamma(tau, a, b, log = TRUE))
+        Time = nrow(parameter)
+        covfcmat = Exponential(dist_ij, kappa, phi = tau)
+        if (is.positive.definite(covfcmat) == FALSE) {covfcmat = as.matrix(nearPD(covfcmat)$mat)}
+        dims = ncol(parameter)
+        lpost = 0
+        for (col in 1:dims) {
+            lpost = lpost + rcpp_log_dmvnorm(covfcmat, rep(0, Time), c(parameter[,col]), FALSE)
+        }
+        sums = as.vector(lpost + lprior1 + lprior2)
+    } else {
+        sums = -Inf
+    }
+    return(sums)
+}
+rbeta_fc <-
+function(X, beta, theta, UDU, Y, cinv, tau_p, s2) {
+    Time = nrow(theta)
+    P = ncol(beta)
+    N = ncol(theta)
+    uppertri = upper.tri(diag(N))
+    Xp2 = c()
+    E_p = c()
+    beta = beta
+    E = lapply(1:Time, function(tp) {
+        Y[tp, , ] - outer(theta[tp,], theta[tp,], "+") - UDU[[tp]]
+    })
+    for (p in sample(1:P)){
+        for (tp in 1:Time) {
+            if (P == 1) {
+                XB_p = matrix(0, N, N)
+            } else {
+                XB_p = Reduce('+', lapply((1:P)[-p], function(k) {
+                    X[tp, , , k] * beta[tp, k]
+                }))
+            }
+            Xp2[tp] = sum(X[tp, , , p][uppertri]^2, na.rm = TRUE)
+            E_p[tp] = sum((E[[tp]] - XB_p)[uppertri] * X[tp, , , p][uppertri], na.rm = TRUE)
+        }
+        invvar = rcppeigen_invert_matrix(cinv[[p]] / tau_p[p] + diag(Xp2, Time, Time) / s2)
+        mu = E_p / s2
+        beta[, p] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
+    }
+    return(beta)
+}
+rd_fc <-
+function(XB, theta, U, d, Y, cinv, s2, meaningful_NA){
+    Time = nrow(theta)
+    R = ncol(d)
+    N = ncol(theta)
+    uppertri = upper.tri(diag(N))
+    UUr2 = c()
+    E_r2 = c()
+    d = d
+    E = lapply(1:Time, function(tp) {
+        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
+    })
+    
+    for (r in 1:R) {
+        for (tp in 1:Time) {
+            UUr = U[tp, , r] %*% t(U[tp, , r])
+            if (R > 2) {
+                UDU_r = U[tp, , -r] %*% diag(d[tp, -r]) %*% t(U[tp, , -r])
+            } else {
+                if (R == 2) {
+                    UDU_r = d[tp, -r] * U[tp, , -r] %*% t(U[tp, , -r])
+                } else {
+                    UDU_r =  matrix(0, N, N)
+                }
+            }
+            UUr[meaningful_NA[[tp]]] = NA
+            EU =  (E[[tp]] - UDU_r) * UUr
+            UUr2[tp] = sum(UUr[uppertri]^2, na.rm = TRUE)
+            E_r2[tp] = sum(EU[uppertri], na.rm = TRUE)
+        }
+        invvar = rcppeigen_invert_matrix(cinv + diag(UUr2, Time, Time) / s2)
+        mu = E_r2 / s2
+        d[, r] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
+    }
+    return(d)
+}
+rd_fc2 <-
+function(XB, theta, U, d, Y, cinv, s2, tau_r, meaningful_NA){
+  Time = nrow(theta)
+  R = ncol(d)
+  N = ncol(theta)
+  uppertri = upper.tri(diag(N))
+  UUr2 = c()
+  E_r2 = c()
+  d = d
+  E = lapply(1:Time, function(tp) {
+    Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
+  })
+  
+  for (r in 1:R) {
+    for (tp in 1:Time) {
+      UUr = U[tp, , r] %*% t(U[tp, , r])
+      if (R > 2) {
+        UDU_r = U[tp, , -r] %*% diag(d[tp, -r]) %*% t(U[tp, , -r])
+      } else {
+        if (R == 2) {
+          UDU_r = d[tp, -r] * U[tp, , -r] %*% t(U[tp, , -r])
+        } else {
+          UDU_r =  matrix(0, N, N)
+        }
+      }
+      UUr[meaningful_NA[[tp]]] = NA
+      EU =  (E[[tp]] - UDU_r) * UUr
+      UUr2[tp] = sum(UUr[uppertri]^2, na.rm = TRUE)
+      E_r2[tp] = sum(EU[uppertri], na.rm = TRUE)
+    }
+    invvar = rcppeigen_invert_matrix(cinv[[r]]/tau_r[r] + diag(UUr2, Time, Time) / s2)
+    mu = E_r2 / s2
+    d[, r] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
+  }
+  return(d)
+}
+rs2_fc2 <-
+function(XB, theta, UDU, Y, a, b) {
+    Time = nrow(theta)
+    N = ncol(theta)
+    uppertri = upper.tri(diag(N))
+    E = lapply(1:Time, function(tp) {
+        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+") - UDU[[tp]]
+    })
+    sums = sum(vapply(E, function(x){sum(x[uppertri]^2, na.rm = TRUE)}, c(1)))
+    missings = sum(vapply(E, function(x){sum(is.na(x[uppertri]))}, c(1)))
+    samp = rgamma(1, a + (Time * N * (N-1) / 2 - missings) / 2, b + sums / 2)
+    return(1 / samp)
+}
+rtaui_fc <-
+function(theta, cinv, a, b) {
+    Time = nrow(theta)
+    N = ncol(theta)
+    sums = sum(vapply(1:N, function(i) {t(theta[, i]) %*% cinv %*% theta[, i]}, c(1)))
+    samp = rgamma(1, a + Time * N / 2, b + sums / 2)
+    return(1 / samp)
+}
+rtaup_fc <-
+function(beta, cinv, a, b) {
+    Time = nrow(beta)
+    P = ncol(beta)
+    samp = c()
+    for (p in 1:P) {
+        sums = t(beta[, p]) %*% cinv[[p]] %*% beta[, p]
+        samp[p] = rgamma(1, a + Time / 2, b + sums / 2)
+    }
+    return(1 / samp)
+}
+rtaur_fc <-
+function(d, cinv, a, b) {
+  Time = dim(d)[1]
+  R = dim(d)[2]
+  sums = vapply(1:R, function(r) {t(d[, r]) %*% cinv[[r]] %*% d[, r]}, c(1))
+  samp = rgamma(R, a + Time * R / 2, b + sums / 2)
+  return(1 / samp)
+}
+rtauut_fc <-
+function(U, a, b) {
+    Time = dim(U)[1]
+    N = dim(U)[2]
+    R = dim(U)[3]
+    tau_u = matrix(0, Time, R)
+    for (tp in 1:Time) {
+    	sums = vapply(1:R, function(r) {sum(c(U[tp,,r]^2), na.rm = TRUE)}, c(1))
+    	missings = sum(is.na(c(U[tp,,1]^2)))
+        samp = rgamma(R, a + (N - missings) / 2, b + sums / 2)
+		tau_u[tp,] = 1/samp
+    }    
+    return(tau_u)
+}
+rtheta_fc <-
+function(XB, theta, UDU, Y, cinv, tau_i, s2){
+    Time = nrow(theta)
+    N = ncol(theta)
+    
+    theta = theta
+    E = lapply(1:Time, function(tp) {
+        Y[tp, , ] - XB[[tp]] - UDU[[tp]]
+    })
+    
+    for (i in sample(1:N)) {
+        E_i = vapply(1:Time, function(tp) {
+            sum(E[[tp]][i, -i] - theta[tp, -i], na.rm = TRUE)
+        }, c(1))
+        
+        invvar = rcppeigen_invert_matrix(cinv / tau_i + (N-1) * diag(Time) / s2)
+        mu = E_i / s2
+        theta[, i] = rcpp_rmvnorm(1, invvar, invvar %*% mu)
+    }
+    return(theta)
+}
+ru_fc <-
+function(XB, theta, U, d, Y, tau_r, s2, meaningful_NA_rows){
+    Time = nrow(theta)
+    R = ncol(d)
+    N = ncol(theta)
+    U = U
+    E = lapply(1:Time, function(tp) {
+        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
+    })
+    for (tp in 1:Time) {
+        L = diag(d[tp, ])
+        for (i in sample(1:N)) {
+            l = L %*% (apply(U[tp, , ] * E[[tp]][i, ], 2, sum) - U[tp, i, ] * E[[tp]][i, i]) / s2
+            iQ = rcppeigen_invert_matrix(diag(R) / tau_r + L %*% (crossprod(U[tp,,]) - U[tp, i, ] %*% t(U[tp, i, ])) %*% L / s2)
+            U[tp, i, ] = rcpp_rmvnorm(1, iQ, iQ %*% l)
+        }
+    }
+    return(U)
+}
+ru_fc_NA <-
+function(XB, theta, U, d, Y, tau_u, s2, meaningful_NA_rows){
+    Time = nrow(theta)
+    R = ncol(d)
+    N = ncol(theta)
+    U = U
+    E = lapply(1:Time, function(tp) {
+        Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
+    })
+    for (tp in 1:Time) {
+        L = diag(d[tp, ])
+        if (length(meaningful_NA_rows[[tp]]) > 0) {
+            ilist = sample((1:N)[-meaningful_NA_rows[[tp]]])
+            U2 = U[tp,-meaningful_NA_rows[[tp]],]
+        } else {
+            ilist = sample(1:N)
+            U2 = U[tp, , ]
+        }
+        for (i in ilist) {
+            if (length(meaningful_NA_rows[[tp]]) > 0) {
+                E2 = E[[tp]][i, -meaningful_NA_rows[[tp]]]
+            } else {
+                E2 = E[[tp]][i, ]
+            }
+            l = L %*% (apply(U2 * E2, 2, sum) - U[tp, i, ] * E[[tp]][i, i]) / s2
+            iQ = rcppeigen_invert_matrix(diag(R) / tau_u[tp,] + L %*% (crossprod(U2) - U[tp, i, ] %*% t(U[tp, i, ])) %*% L / s2)
+            U[tp, i, ] = rcpp_rmvnorm(1, iQ, iQ %*% l)
+        }
+    }
+    return(U)
+}
+ru_fc2 <-
+function(XB, theta, U, Y, tau_u, s2, meaningful_NA_rows){
+  Time = nrow(theta)
+  R = dim(U)[3]
+  N = ncol(theta)
+  U = U
+  E = lapply(1:Time, function(tp) {
+    Y[tp, , ] - XB[[tp]] - outer(theta[tp,], theta[tp,], "+")
+  })
+  for (tp in 1:Time) {
+      L = diag(R)
+      for (i in sample(1:N)) {
+      l = L %*% (apply(U[tp, , ] * E[[tp]][i, ], 2, sum) - U[tp, i, ] * E[[tp]][i, i]) / s2
+      iQ = rcppeigen_invert_matrix(diag(R) / tau_u[tp,] + L %*% (crossprod(U[tp,,]) - U[tp, i, ] %*% t(U[tp, i, ])) %*% L / s2)
+      U[tp, i, ] = rcpp_rmvnorm(1, iQ, iQ %*% l)
+    }	
+  }
+  return(U)
+}

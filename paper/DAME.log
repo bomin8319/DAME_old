@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 JAN 2018 17:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  15 JAN 2018 17:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1565,14 +1565,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 121--123
 
  []
 
-
-Overfull \hbox (2.18492pt too wide) detected at line 135
-[] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 ^^\[]c[]\OT1/cmr/m/n/10 )[] + [][][][]
-[] = [][][][]\OML/cmm/m/it/10 ;
- []
-
 [4]
-Overfull \hbox (28.19185pt too wide) detected at line 149
+Overfull \hbox (24.5648pt too wide) detected at line 149
 [] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 ^^\[][]\OT1/cmr/m/n/10 )[] + [][][][][
 ] = [][][][])\OML/cmm/m/it/10 ;
  []
@@ -1799,7 +1793,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 413.
 Here is how much of TeX's memory you used:
  29720 strings out of 493089
  578521 string characters out of 6134842
- 743227 words of memory out of 5000000
+ 742227 words of memory out of 5000000
  32646 multiletter control sequences out of 15000+600000
  16473 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1824,7 +1818,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on DAME.pdf (19 pages, 1909018 bytes).
+Output written on DAME.pdf (19 pages, 1909131 bytes).
 PDF statistics:
  520 PDF objects out of 1000 (max. 8388607)
  452 compressed objects within 5 object streams
