@@ -1,2093 +1,1119 @@
-countrycode_all
-which(rownames(clanglist) %in% "ALB")
-dim(clanglist)
-clanglist[35, ] = rep(0, 96)
-clanglist[,35] = rep(0, 96)
-clanglist[35, 35] = 1
-clanglist
-which(rownames(clanglist) %in% "GAM")
-which(rownames(clanglist) %in% "USA")
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]
-clanglist
-which(rownames(clanglist) %in% "MLI")
-countrycode_all
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]
-which(rownames(clanglist) %in% "LEB")
-which(rownames(clanglist) %in% "MLI")
-which(rownames(clanglist) %in% "MAA")
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
+p[[1]]
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity") + geom_line(aes(x=day, y=num_receiver, group = 1))+ theme(axis.title.x=element_blank())
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity") + geom_line(aes(x=day, y=num_receiver, group = 1))+  labs(x="", y="")
+p[[1]]
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity", aes(col = "blue")) + geom_line(aes(x=day, y=num_receiver, group = 1))+labs(x="", y="")
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",col = "blue") + geom_line(aes(x=day, y=num_receiver, group = 1))+labs(x="", y="")
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "blue") + geom_line(aes(x=day, y=num_receiver, group = 1))+labs(x="", y="")
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "blue") + geom_line(aes(x=day, y=num_receiver, group = 1))+labs(x="", y="")
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1))+labs(x="", y="")+theme_minimal()
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(0, length(n), by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(0, length(n), by = length(n)/8)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/8)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n)+1, by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n)+n, by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = (length(n)+1)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = (length(n)+10)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = (length(n)+11)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1), col = "red")+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"))+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"))+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)]) +scale_fill_discrete(guide=FALSE)
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legned = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
 }#
-}#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
 #
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 96)#
-clanglist[,35] = rep(0, 96)#
-clanglist[35, 35] = 1#
-#Gambia uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-#Mauritania uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]
-clanglist
-which(rownames(clanglist) %in% "GUI")
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
 }#
-}#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin, Guinea, Burkina Faso uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
-clanglist[48, ] = clanglist[28,]#
-clanglist[,48] = clanglist[,28]#
-clanglist[49, ] = clanglist[28,]#
-clanglist[,49] = clanglist[,28]#
 #
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 96)#
-clanglist[,35] = rep(0, 96)#
-clanglist[35, 35] = 1#
-#Gambia, Sierra Leone uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-clanglist[50, ] = clanglist[1,]#
-clanglist[,50] = clanglist[,1]#
-#Mauritania uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]
-clanglist
-which(rownames(clanglist) %in% "GAB")
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
 }#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
 }#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin, Guinea, Burkina Faso, Togo, Gabon uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
-clanglist[48, ] = clanglist[28,]#
-clanglist[,48] = clanglist[,28]#
-clanglist[49, ] = clanglist[28,]#
-clanglist[,49] = clanglist[,28]#
-clanglist[52, ] = clanglist[28,]#
-clanglist[,52] = clanglist[,28]#
-clanglist[55, ] = clanglist[28,]#
-clanglist[,55] = clanglist[,28]#
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 96)#
-clanglist[,35] = rep(0, 96)#
-clanglist[35, 35] = 1#
-#Gambia, Sierra Leone, Ghana uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-clanglist[50, ] = clanglist[1,]#
-clanglist[,50] = clanglist[,1]#
-clanglist[51, ] = clanglist[1,]#
-clanglist[,51] = clanglist[,1]#
-#Mauritania uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]
-clanglist
-countrycode_all
-which(rownames(clanglist) %in% "CEN")
-rownames(clanglist)[55]
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", x=70, y=20, label="Scatter plot",#
+              color="red")
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
 }#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
 }#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin, Guinea, Burkina Faso, Togo, Gabon,  Central African Republic uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
-clanglist[48, ] = clanglist[28,]#
-clanglist[,48] = clanglist[,28]#
-clanglist[49, ] = clanglist[28,]#
-clanglist[,49] = clanglist[,28]#
-clanglist[52, ] = clanglist[28,]#
-clanglist[,52] = clanglist[,28]#
-clanglist[55, ] = clanglist[28,]#
-clanglist[,55] = clanglist[,28]#
-clanglist[56, ] = clanglist[28,]#
-clanglist[,56] = clanglist[,28]#
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 96)#
-clanglist[,35] = rep(0, 96)#
-clanglist[35, 35] = 1#
-#Gambia, Sierra Leone, Ghana uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-clanglist[50, ] = clanglist[1,]#
-clanglist[,50] = clanglist[,1]#
-clanglist[51, ] = clanglist[1,]#
-clanglist[,51] = clanglist[,1]#
-#Mauritania uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]
-clanglist
-clanglist[57, ] = clanglist[28,]#
-clanglist[,57] = clanglist[,28]
-which(rownames(clanglist) %in% "UGA")
-which(rownames(clanglist) %in% "TAZ")
-which(rownames(clanglist) %in% "BUR")
-which(rownames(clanglist) %in% "BUI")
-clanglist[,1]
-which(clanglist[,1]#
->0)
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", x=70, y=20, label="Author: County Manager",color="steelblue")#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
 }#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
 }#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin, Guinea, Burkina Faso, Togo, Gabon,  Central African Republic, Congo, Burundi, Rwanda uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
-clanglist[48, ] = clanglist[28,]#
-clanglist[,48] = clanglist[,28]#
-clanglist[49, ] = clanglist[28,]#
-clanglist[,49] = clanglist[,28]#
-clanglist[52, ] = clanglist[28,]#
-clanglist[,52] = clanglist[,28]#
-clanglist[55, ] = clanglist[28,]#
-clanglist[,55] = clanglist[,28]#
-clanglist[56, ] = clanglist[28,]#
-clanglist[,56] = clanglist[,28]#
-clanglist[57, ] = clanglist[28,]#
-clanglist[,57] = clanglist[,28]#
-clanglist[61, ] = clanglist[28,]#
-clanglist[,61] = clanglist[,28]#
-clanglist[62, ] = clanglist[28,]#
-clanglist[,62] = clanglist[,28]#
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 96)#
-clanglist[,35] = rep(0, 96)#
-clanglist[35, 35] = 1#
-#Gambia, Sierra Leone, Ghana, Uganda, Tanzania, Rwanda uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-clanglist[50, ] = clanglist[1,]#
-clanglist[,50] = clanglist[,1]#
-clanglist[51, ] = clanglist[1,]#
-clanglist[,51] = clanglist[,1]#
-clanglist[58, ] = clanglist[1,]#
-clanglist[,58] = clanglist[,1]#
-clanglist[60, ] = clanglist[1,]#
-clanglist[,60] = clanglist[,1]#
-clanglist[62,which(clanglist[,1]>0)] = 1#
-clanglist[which(clanglist[,1]>0),62] =1#
-#Mauritania uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]
-clanglist
-which(rownames(clanglist) %in% "ANG")
-which(rownames(clanglist) %in% "POR")
-clanglist[63,] = clanglist[30,]#
-clanglist[,63] = clanglist[,30]
-which(rownames(clanglist) %in% "ALG")
-which(rownames(clanglist) %in% "LIB")
-which(rownames(clanglist) %in% "IRQ")
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", x=70, y=200, label="Author: Emergency Department",color="#009E73")
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
 }#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
 }#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin, Guinea, Burkina Faso, Togo, Gabon,  Central African Republic, Congo, Burundi, Rwanda uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
-clanglist[48, ] = clanglist[28,]#
-clanglist[,48] = clanglist[,28]#
-clanglist[49, ] = clanglist[28,]#
-clanglist[,49] = clanglist[,28]#
-clanglist[52, ] = clanglist[28,]#
-clanglist[,52] = clanglist[,28]#
-clanglist[55, ] = clanglist[28,]#
-clanglist[,55] = clanglist[,28]#
-clanglist[56, ] = clanglist[28,]#
-clanglist[,56] = clanglist[,28]#
-clanglist[57, ] = clanglist[28,]#
-clanglist[,57] = clanglist[,28]#
-clanglist[61, ] = clanglist[28,]#
-clanglist[,61] = clanglist[,28]#
-clanglist[62, ] = clanglist[28,]#
-clanglist[,62] = clanglist[,28]#
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 96)#
-clanglist[,35] = rep(0, 96)#
-clanglist[35, 35] = 1#
-#Gambia, Sierra Leone, Ghana, Uganda, Tanzania, Rwanda uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-clanglist[50, ] = clanglist[1,]#
-clanglist[,50] = clanglist[,1]#
-clanglist[51, ] = clanglist[1,]#
-clanglist[,51] = clanglist[,1]#
-clanglist[58, ] = clanglist[1,]#
-clanglist[,58] = clanglist[,1]#
-clanglist[60, ] = clanglist[1,]#
-clanglist[,60] = clanglist[,1]#
-clanglist[62,which(clanglist[,1]>0)] = 1#
-clanglist[which(clanglist[,1]>0),62] =1#
-#Mauritania, Algeria, Libya, Iraq uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]#
-clanglist[68, ] = clanglist[77,]#
-clanglist[,68] = clanglist[,77]#
-clanglist[70, ] = clanglist[77,]#
-clanglist[,70] = clanglist[,77]#
-clanglist[74, ] = clanglist[77,]#
-clanglist[,74] = clanglist[,77]#
-#Angola,  Mozambique uses Protuguise#
-clanglist[63,] = clanglist[30,]#
-clanglist[,63] = clanglist[,30]#
-clanglist[64,] = clanglist[30,]#
-clanglist[,64] = clanglist[,30]
-clanglist
-Ylist <- list()#
-for (tp in 1:Time){#
-  Ylist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(Ylist[[tp]]) <- countrylist_all#
-  colnames(Ylist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(agreedata[[tp]]$network))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(agreedata[[tp]]$network) %in% countrylist_all[countrylist2[x]])})#
-  Ylist[[tp]][countrylist2, countrylist2] <-agreedata[[tp]]$network[countrylist3, countrylist3] #
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", x=70, y=20, label="Author: County Manager",color="steelblue")#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", x=70, y=200, label="Author: Emergency Department",color="#009E73")#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 1, x=70, y=25, label="Author: County Manager",color="steelblue")
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 5, x=70, y=25, label="Author: County Manager",color="steelblue")
+ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=200, label="Author: Emergency Department",color="#009E73")
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=175, label="Author: Emergency Department",color="#009E73")
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+time = c(Dare$edge[[1]]$unixtime, sapply(2:2247, function(x) Dare$edge[[x]]$unixtime-Dare$edge[[x-1]]$unixtime))
+time
+load('~/Desktop/IPTM/experiment/Dare_PPE/Darenew.RData')
+library(ggplot2)#
+library(lubridate)#
+library(anytime)#
+library(gridExtra)#
+senders = sapply(1:2247, function(x) Dare$edge[[x]]$sender)#
+receivers = sapply(1:2247, function(x) length(Dare$edge[[x]]$receiver))#
+time = c(Dare$edge[[1]]$unixtime, sapply(2:2247, function(x) Dare$edge[[x]]$unixtime-Dare$edge[[x-1]]$unixtime))
+time
+time = time / 3600
+time
+day = sapply(1:2247, function(x) format(anytime(Dare$edge[[x]]$unixtime, tz = "America/New_York"), format = "%m/%d"))
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+summary(time[which(senders==1)])
+summary(time[which(senders==4)])
+hist(time[which(senders==1))
+hist(time[which(senders==1)])
+hist(log(time[which(senders==1)]))
+hist(log(time[which(senders==4)]))
+hist(time[which(senders==1)])
+hist(time[which(senders==4)])
+hist(time[which(senders==1)])
+hist(log(time[which(senders==1)]))
+hist(log(time[which(senders==4)]))
+summary(time[which(senders==1)])#
+summary(time[which(senders==4)])
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#
+summary(time[which(senders==1)])#
+summary(time[which(senders==4)])#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+tabulate(words)#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words)>30)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#
+summary(time[which(senders==1)])#
+summary(time[which(senders==4)])#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words)>20)]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")#
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words)>30)]
+tabulate(words)
+sort(tabulate(words))
+sort(tabulate(words), decreasing = TRUE)
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:10])]
+tabulate(words)
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]
+)
+SummaryTable <- data.frame(Words1 = Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])])
+tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))#
+#
+tbl <- tableGrob(SummaryTable, rows=NULL, theme=tt)
+tbl
+SummaryTable
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+#
+SummaryTable <- data.frame(Words1 = Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])])#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data,aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#
+summary(time[which(senders==1)])#
+summary(time[which(senders==4)])#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day2)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+SummaryTable$Words2 <- Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")#
+tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))#
+#
+tbl <- tableGrob(SummaryTable, rows=NULL, theme=tt)
+SummaryTable
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]
+SummaryTable <- data.frame(Words1 = Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[3:15])])
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data,aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#
+summary(time[which(senders==1)])#
+summary(time[which(senders==4)])#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+SummaryTable$Words2 <- Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")
+SummaryTable
+tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))#
+#
+tbl <- tableGrob(SummaryTable, rows=NULL, theme=tt)
+tbl
+names(SummaryTable) <- c(#
+#
+expression(County Manager),#
+#
+              expression(Emergency Department)
+names(SummaryTable) <- c(#
+#
+expression("County Manager"),#
+#
+              expression("Emergency Department"))
+SummaryTable
+tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))#
+#
+tbl <- tableGrob(SummaryTable, rows=NULL, theme=tt)
+tbl
+grid.arrange(p, tbl, nrow = 2, as.table = TRUE)
+grid.arrange(p[1:2], tbl, nrow = 2, as.table = TRUE)
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 1)#
+	i = i + 1#
+}#
+#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 1])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==1), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+#
+SummaryTable <- data.frame(Words1 = Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[3:15])])#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[1]]<-ggplot(data=data,aes(x=day, y=send)) + geom_bar(stat="identity",fill = "steelblue") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=25, label="Author: County Manager",color="steelblue")#
+#
+summary(time[which(senders==1)])#
+summary(time[which(senders==4)])#
+#emails sent by Emergency Services official (node 4) --- total 325#
+byday = rep(0, length(unique(day)))#
+names(byday)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday[i] = sum(senders[docs] == 4)#
+	i = i + 1#
+}#
+byday2 = rep(0, length(unique(day)))#
+names(byday2)  = unique(day)#
+i = 1#
+for (d in unique(day)) {#
+	docs = which(day == d)#
+	byday2[i] = sum(receivers[docs][senders[docs] == 4])#
+	i = i + 1#
+}#
+#
+words = unlist(lapply(which(senders==4), function(x) Dare$text[[x]]))#
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+SummaryTable$Words2 <- Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[1:15])]#
+#
+data = data.frame(day = as.factor(unique(day)), send = byday, num_receiver = byday2)#
+p[[2]]<-ggplot(data=data, aes(x=day, y=send)) + geom_bar(stat="identity",fill = "#009E73") + geom_line(aes(x=day, y=num_receiver, group = 1, colour="#FF9999"), show.legend = F)+labs(x="", y="")+theme_minimal()+ scale_x_discrete(breaks = function(n) n[seq(1, length(n), by = length(n)/10)])+annotate(geom="text", size = 3, x=70, y=178, label="Author: Emergency Department",color="#009E73")#
+#
+names(SummaryTable) <- c(#
+#
+expression("County Manager"),#
+#
+              expression("Emergency Department"))#
+tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))#
+#
+tbl <- tableGrob(SummaryTable, rows=NULL, theme=tt)#
+#
+grid.arrange(p[1:2], tbl, nrow = 2, as.table = TRUE)
+grid.arrange(tbl)
+SummaryTable$Words2 <- Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[3:17])]
+SummaryTable$Words2 <- Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[2:16])]
+Dare$vocab[which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[2:16])]
+which(tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[2:16])
+tabulate(words) %in% sort(tabulate(words), decreasing = TRUE)[2:16]
+grid.arrange(p[1:2], tbl, nrow = 3, as.table = TRUE)
+grid.arrange(p, tbl, nrow = 3, as.table = TRUE)
+grid.arrange(p[[1]], tbl, nrow = 1, as.table = TRUE)
+tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))#
+#
+tbl <- tableGrob(SummaryTable[,1], rows=NULL, theme=tt)#
+#
+grid.arrange(p[[1]], tbl, nrow = 1, as.table = TRUE)
+grid.arrange(p[[1]], tbl, nrow = 1, as.table = TRUE,  heights=c(1,2))
+grid.arrange(p[[1]], tbl, nrow = 1, as.table = TRUE,  heights=c(1,1))
+grid.arrange(p[[1]], tbl, nrow = 1, as.table = TRUE,  heights=c(2))
+grid.arrange(p[[1]], tbl, nrow = 1, as.table = TRUE,  heights=c(1))
+marrangeGrob(p[1:2], nrow = 2, ncol = 1, top = NULL)
+library(IPTM)#
+load('Darenew.RData')#
+attach(Dare)#
+Dare$node = 1:nrow(Dare$node)#
+Dare$edge = lapply(Dare$edge, function(x){x[1:3]})#
+#
+set.seed(1)#
+missing = matrix(0, nrow = length(Dare$edge), ncol = 3)#
+missing[sample(391:2247, 371, replace = FALSE), 1] = 1#
+missing[sample(391:2247, 371, replace = FALSE), 2] = 1#
+missing[sample(391:2247, 371, replace = FALSE), 3] = 1
+load('~/Desktop/IPTM/experiment/Dare_PPE/Darenew.RData')
+library(IPTM)#
+load('Darenew.RData')#
+attach(Dare)#
+Dare$node = 1:nrow(Dare$node)#
+Dare$edge = lapply(Dare$edge, function(x){x[1:3]})#
+#
+set.seed(1)#
+missing = matrix(0, nrow = length(Dare$edge), ncol = 3)#
+missing[sample(391:2247, 371, replace = FALSE), 1] = 1#
+missing[sample(391:2247, 371, replace = FALSE), 2] = 1#
+missing[sample(391:2247, 371, replace = FALSE), 3] = 1
+missing
+which(missing[,1]==1 & missing[,3] ==1)
+which(missing[,1]==1 & missing[,3] ==0)
+which(missing[,1])
+which(missing[,1]==1)
+which(which(missing[,1]==1) == 413)
+sendermissing = which(missing[,1]==1)#
+  receivermissing = which(missing[,2]==1)#
+  timemissing = which(missing[,3]==1)
+sendermissing
+receivermissing
+timemissing
+intersect(sendermissing, timemissing)
+timemissing[-sendermissing]
+timemissing[!sendersmissing]
+timemissing[!sendermissing]
+timemissing[!intersect(sendermissing, timemissing)]
+intersect(sendermissing, timemissing)
+timemissing
+timemissing[timemissing !%in% intersect(sendermissing, timemissing)]
+timemissing[-timemissing %in% intersect(sendermissing, timemissing)]
+timemissing %in% intersect(sendermissing, timemissing)
+timemissing[!timemissing %in% intersect(sendermissing, timemissing)]
+sendermissing[!sendermissing %in% int_sendertime]
+int_sendertime = intersect(sendermissing, timemissing)
+sendermissing[!sendermissing %in% int_sendertime]
+sendermissing
+which(sendermissing==413)
+install.packages("bookdown")
+load('~/Desktop/IPTM/experiment/Enron_full/Enron_full_3_100_ver5.RData')
+names(Enrontest)
+Enrontest$l
+plot(Enrontest$convergence, type = 'l')
+plot(Enrontest$sigma_tau, type = 'l')
+plot(Enrontest$delta, type = 'l')
+plot(Enrontest$alpha, type = 'l')
+plot(Enrontest$eta[[1]][1,], type = 'l')
+plot(Enrontest$eta[[1]][2,], type = 'l')
+plot(Enrontest$eta[[1]][3,], type = 'l')
+plot(Enrontest$eta[[1]][4,], type = 'l')
+plot(Enrontest$eta[[1]][5,], type = 'l')
+plot(Enrontest$eta[[1]][31,], type = 'l')
+plot(Enrontest$eta[[1]][30,], type = 'l')
+plot(Enrontest$eta[[1]][6,], type = 'l')
+plot(Enrontest$eta[[1]][7,], type = 'l')
+plot(Enrontest$eta[[1]][8,], type = 'l')
+plot(Enrontest$eta[[1]][9,], type = 'l')
+par(mfrow =c(4,8))
+for (i in 1:32){plot(Enrontest$eta[[1]][i,], type = 'l')#
 }
-Ylist[[1]]
-Ylist <- list()#
-for (tp in 1:Time){#
-  Ylist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(Ylist[[tp]]) <- countrylist_all#
-  colnames(Ylist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(agreedata[[tp]]$network))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(agreedata[[tp]]$network) %in% countrylist_all[countrylist2[x]])})#
-  Ylist[[tp]][countrylist2, countrylist2] <-agreedata[[tp]]$network[countrylist3, countrylist3] #
-  diag(Ylist[[tp]]) <- 1#
+for (i in 1:32){plot(Enrontest$eta[[2]][i,], type = 'l')#
 }
-Ylist[[1]]
-missing4 = sapply(1:32, function(t){which(colSums(Ylist[[t]], na.rm = TRUE)==0)})
-missing5
-missing4
-missing5 = sapply(1:32, function(t){which(colSums(Ylist[[t]], na.rm = TRUE)==0)})
-missing5
-Ylist <- list()#
-for (tp in 1:Time){#
-  Ylist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(Ylist[[tp]]) <- countrylist_all#
-  colnames(Ylist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(agreedata[[tp]]$network))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(agreedata[[tp]]$network) %in% countrylist_all[countrylist2[x]])})#
-  Ylist[[tp]][countrylist2, countrylist2] <-agreedata[[tp]]$network[countrylist3, countrylist3] #
-}#
-missing5 = sapply(1:32, function(t){which(colSums(Ylist[[t]], na.rm = TRUE)==0)})
-missing5
-Ylist <- list()#
-for (tp in 1:Time){#
-  Ylist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(Ylist[[tp]]) <- countrylist_all#
-  colnames(Ylist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(agreedata[[tp]]$network))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(agreedata[[tp]]$network) %in% countrylist_all[countrylist2[x]])})#
-  Ylist[[tp]][countrylist2, countrylist2] <-agreedata[[tp]]$network[countrylist3, countrylist3] #
-}#
-missing5 = sapply(1:32, function(t){which(colSums(Ylist[[t]], na.rm = TRUE)==0)})#
-Y <- array(NA, dim=c(Time, length(countrylist_all), length(countrylist_all)))#
-dimnames(Y) <- list(c(1983:2014), countrylist_all, countrylist_all)#
-for (tp in 1:Time){#
-  Y[tp,,]<- Ylist[[tp]]#
-  diag(Y[tp,,]) = 1#
+par(mfrow =c(4,8))
+for (i in 1:32){plot(Enrontest$eta[[2]][i,], type = 'l')#
 }
-Y[1,,]
-Y[32,,]
-P = 1 + 7#
-N = dim(Y)[2]#
-X <- array(NA, dim=c(Time, N, N, P))#
-dimnames(X) <- list(c(1983:2014), countrylist_all, countrylist_all, c("intercept", "log(distance)", "polity", "alliance", "min(Trade_ij/GDP_i, Trade_ij/GDP_j)", "language", "Trade", "GDPratio"))
-tradelist[[1]]
-Y <- array(NA, dim=c(Time, length(countrylist_all), length(countrylist_all)))#
-dimnames(Y) <- list(c(1983:2014), countrylist_all, countrylist_all)#
-for (tp in 1:Time){#
-  Y[tp,,]<- Ylist[[tp]]#
-  diag(Y[tp,,]) = 1#
-}#
-#
-P = 1 + 7#
-N = dim(Y)[2]#
-X <- array(NA, dim=c(Time, N, N, P))#
-dimnames(X) <- list(c(1983:2014), countrylist_all, countrylist_all, c("intercept", "log(distance)", "polity", "alliance", "min(Trade_ij/GDP_i, Trade_ij/GDP_j)", "language", "GDP", "Export"))#
-#
-for (tp in 1:Time){#
-  X[tp,,,1] <- 1#
-  X[tp,,,2] <- as.matrix(log(dist2), nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,3] <- as.matrix(politylist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  X[tp,,,4] <- as.matrix(allilist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  for (i in 1:dim(Y)[2]){#
-  	for (j in 1:dim(Y)[2]){#
-  		ratioi = tradelist[[tp]][i,j] / GDPlist[[tp]][i,1]#
-  		ratioj = tradelist[[tp]][i,j] / GDPlist[[tp]][j,1]#
-  		X[tp, i, j, 5] = min(ratioi, ratioj)#
-  	}#
-  }#
-  X[tp,,,6] =  as.matrix(clanglist, nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,7] <- as.matrix(GDPlist[[tp]]), nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,8] <- as.matrix(exportlist[[tp]]), nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  	}#
-  }#
+par(mfrow =c(4,6))
+for (i in 1:32){plot(Enrontest$ㅠ[[1]][i,], type = 'l')#
 }
-P = 1 + 7#
-N = dim(Y)[2]#
-X <- array(NA, dim=c(Time, N, N, P))#
-dimnames(X) <- list(c(1983:2014), countrylist_all, countrylist_all, c("intercept", "log(distance)", "polity", "alliance", "min(Trade_ij/GDP_i, Trade_ij/GDP_j)", "language", "GDP", "Export"))#
-#
-for (tp in 1:Time){#
-  X[tp,,,1] <- 1#
-  X[tp,,,2] <- as.matrix(log(dist2), nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,3] <- as.matrix(politylist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  X[tp,,,4] <- as.matrix(allilist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  for (i in 1:dim(Y)[2]){#
-  	for (j in 1:dim(Y)[2]){#
-  		ratioi = tradelist[[tp]][i,j] / GDPlist[[tp]][i,1]#
-  		ratioj = tradelist[[tp]][i,j] / GDPlist[[tp]][j,1]#
-  		X[tp, i, j, 5] = min(ratioi, ratioj)#
-  	}#
-  }#
-  X[tp,,,6] =  as.matrix(clanglist, nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,7] <- as.matrix(GDPlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,8] <- as.matrix(exportlist[[tp]]), nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  	}#
-  }#
+for (i in 1:32){plot(Enrontest$b[[1]][i,], type = 'l')#
 }
-P = 1 + 7#
-N = dim(Y)[2]#
-X <- array(NA, dim=c(Time, N, N, P))#
-dimnames(X) <- list(c(1983:2014), countrylist_all, countrylist_all, c("intercept", "log(distance)", "polity", "alliance", "min(Trade_ij/GDP_i, Trade_ij/GDP_j)", "language", "GDP", "Export"))#
-#
-for (tp in 1:Time){#
-  X[tp,,,1] <- 1#
-  X[tp,,,2] <- as.matrix(log(dist2), nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,3] <- as.matrix(politylist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  X[tp,,,4] <- as.matrix(allilist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  for (i in 1:dim(Y)[2]){#
-  	for (j in 1:dim(Y)[2]){#
-  		ratioi = tradelist[[tp]][i,j] / GDPlist[[tp]][i,1]#
-  		ratioj = tradelist[[tp]][i,j] / GDPlist[[tp]][j,1]#
-  		X[tp, i, j, 5] = min(ratioi, ratioj)#
-  	}#
-  }#
-  X[tp,,,6] =  as.matrix(clanglist, nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,7] <- as.matrix(GDPlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,8] <- as.matrix(exportlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  	}#
-  }#
+for (i in 1:24){plot(Enrontest$b[[1]][i,], type = 'l')#
 }
-P = 1 + 7#
-N = dim(Y)[2]#
-X <- array(NA, dim=c(Time, N, N, P))#
-dimnames(X) <- list(c(1983:2014), countrylist_all, countrylist_all, c("intercept", "log(distance)", "polity", "alliance", "min(Trade_ij/GDP_i, Trade_ij/GDP_j)", "language", "GDP", "Export"))#
-#
-for (tp in 1:Time){#
-  X[tp,,,1] <- 1#
-  X[tp,,,2] <- as.matrix(log(dist2), nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,3] <- as.matrix(politylist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  X[tp,,,4] <- as.matrix(allilist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  for (i in 1:dim(Y)[2]){#
-  	for (j in 1:dim(Y)[2]){#
-  		ratioi = tradelist[[tp]][i,j] / GDPlist[[tp]][i,1]#
-  		ratioj = tradelist[[tp]][i,j] / GDPlist[[tp]][j,1]#
-  		X[tp, i, j, 5] = min(ratioi, ratioj)#
-  	}#
-  }#
-  X[tp,,,6] =  as.matrix(clanglist, nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,7] <- as.matrix(GDPlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,8] <- as.matrix(exportlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  	}
-X[1,,]
-X[1,,,]
-UNdatafull = list()#
-UNdatafull$Y = Y#
-UNdatafull$X = X
-save(UNdatafull, file = "UNdatafull.RData")
-library(gdata)#
-ideal <- read.table('/Users/bomin8319/Desktop/Old Research/DaveMaggie/dataverse_files/Idealpoints.tab', sep="\t", header=TRUE)#
-description <- read.csv('/Users/bomin8319/Desktop/Old Research/DaveMaggie/dataverse_files/descriptionsnew.csv',header=TRUE)#
-#
-important <- description[description$importantvote==1,-9:-10]#
-time<-strptime(important[,7], "%m/%d/%y")#
-years <-unique(time$year+1900)#
-#
-ideal <- ideal[ideal$Year %in% years,]#
-#
-countrycode <-unique(ideal[,c(2,3,6)])#
-countrycode<-countrycode[order(countrycode[,1]),]#
-#
-###########################################################
-#first take the subset of countries in the response & covariates#
-#
-load('/Users/bomin8319/Desktop/Old Research/DaveMaggie/agreedata.RData')#
-years = 1983:2014#
-Time =32#
-countrylist = sapply(1:Time, function(t){rownames(agreedata[[t]]$network)})#
-countrylist_all = countrylist[[1]]#
-for (i in 2:32){countrylist_all = union(countrylist_all, countrylist[[i]])}#
-#
-polity <- read.csv('/Users/bomin8319/Desktop/DLFM/UNfit/polity.csv', header = TRUE, sep = ",")#
-polity <- polity[, -(4:7)]#
-#
-polcountries = unique(polity$scode)#
-countrylist_all = intersect(unique(polity[polity$year %in% years,]$scode), countrylist_all)#
-#result in 163 countries remaining#
-countrylist_all2 = countrycode[which(countrycode[,2] %in% countrylist_all),3]#
-GDP <- read.csv('/Users/bomin8319/Desktop/DAME/GDP.csv')#
-#
-countrylist_all2 = intersect(countrylist_all2, GDP[,1])#
-#result in 144 countries remaining#
-#GDP[-which(GDP[,1] %in% countrylist_all2),1]#
-#
-countrycode_all = unique(countrycode[which(countrycode[,3] %in% countrylist_all2),])#
-countrylist_all = countrycode_all[,2]#
-#
-source('/Users/bomin8319/Downloads/Trade_DOT/DOT_EX_MX/DOTX8005.R')#
-export <- Matrix.X#
-for (tp in 1:26) {#
-	rownames(export[[tp]])[which(rownames(export[[tp]])=="GMY")] = "GFR"#
-    rownames(export[[tp]])[which(rownames(export[[tp]])=="RUM")] = "ROM"#
-    rownames(export[[tp]])[which(rownames(export[[tp]])=="YEM")] = "YPR"#
-}#
-a = rownames(export[[1]])#
-for (i in 2:26) { a = union(a, rownames(export[[i]]))}#
-countrylist_all = intersect(a, countrylist_all)#
-#
-#result in 138 countries remaining#
-countrycode_all = countrycode_all[which(countrycode_all[,2] %in% countrylist_all),]#
-#distance overlaps with all 138 countries#
-dist <- read.csv('/Users/bomin8319/Downloads/Trade_DOT/DOT_EX_MX/distance.csv', header=TRUE)#
-alliance <- read.csv('/Users/bomin8319/Downloads/version4.1_csv/alliance_v4.1_by_dyad_yearly.csv')#
-alliance <- alliance[which(alliance$year %in% years), c(2:5, 18)]#
-alliancelist <- unique(union(alliance$ccode1, alliance$ccode2))#
-countrycode_all <- countrycode_all[which(countrycode_all[,1] %in% alliancelist),]#
-countrycode_all <- countrycode_all[-33,] #deleted GFR twice#
-#result in 119 countries#
-countrylist_all <- countrycode_all[,2]#
-##################################################################
-#delete countries with large NA's#
-#
-#nothing deleted with distance#
-dist <- dist[,-1]#
-rownames(dist)<- colnames(dist) #
-#
-dist2 <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(dist2)<- colnames(dist2) <- countrylist_all#
-for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(dist) %in% countrylist_all[i])#
-	where2 <- which(colnames(dist) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	dist2[i, j] <- dist[where1, where2]#
-	}#
-}#
-}#
-#
-#polity delte 2 countries#
-polity <- polity[polity$year %in% years,]#
-polity[polity$scode == "GMY",]$scode = "GFR"#
-#
-politylist <-list()#
-for (tp in 1:Time){ #
-  politylist[[tp]] = matrix(NA, length(countrylist_all), length(countrylist_all))#
-  diag(politylist[[tp]]) = 0#
-  rownames(politylist[[tp]]) <- colnames(politylist[[tp]]) <- countrylist_all#
-  for (i in 1:length(countrylist_all)) {#
-    for (j in 1:length(countrylist_all)) {#
-      polityi = unique(polity$polity2[polity$scode %in% countrylist_all[i] & polity$year == years[tp]])#
-      if (length(polityi) > 0 && is.na(polityi)==TRUE) {polityi = 0}#
-      polityj = unique(polity$polity2[polity$scode %in% countrylist_all[j] & polity$year == years[tp]])#
-      if (length(polityj) > 0 && is.na(polityj)==TRUE) {polityj = 0}#
-        if (length(polityi) + length(polityj) >= 2)#
-        politylist[[tp]][i,j] = abs(polityi - polityj)#
-    }#
-  }#
-}#
-#
-missing1 <- sapply(1:32, function(t){which(is.na(politylist[[t]][,1]))})#
-#delete ETH and YPR since no polity score over 10 years#
-countrycode_all <- countrycode_all[-which(countrycode_all[,2] %in% c("YPR", "ETH")),] #deleted GFR twice#
-#result in 117 countries#
-countrylist_all <- countrycode_all[,2]#
-#
-#reprocess earlier ones#
-dist2 <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(dist2)<- colnames(dist2) <- countrylist_all#
-for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(dist) %in% countrylist_all[i])#
-	where2 <- which(colnames(dist) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	dist2[i, j] <- dist[where1, where2]#
-	}#
-}#
-}#
-#
-politylist <-list()#
-for (tp in 1:Time){ #
-  politylist[[tp]] = matrix(NA, length(countrylist_all), length(countrylist_all))#
-  diag(politylist[[tp]]) = 0#
-  rownames(politylist[[tp]]) <- colnames(politylist[[tp]]) <- countrylist_all#
-  for (i in 1:length(countrylist_all)) {#
-    for (j in 1:length(countrylist_all)) {#
-      polityi = unique(polity$polity2[polity$scode %in% countrylist_all[i] & polity$year == years[tp]])#
-      if (length(polityi) > 0 && is.na(polityi)==TRUE) {polityi = 0}#
-      polityj = unique(polity$polity2[polity$scode %in% countrylist_all[j] & polity$year == years[tp]])#
-      if (length(polityj) > 0 && is.na(polityj)==TRUE) {polityj = 0}#
-        if (length(polityi) + length(polityj) >= 2)#
-        politylist[[tp]][i,j] = abs(polityi - polityj)#
-    }#
-  }#
-}#
-missing1 <- sapply(1:32, function(t){which(is.na(politylist[[t]][,1]))})#
-#
-#nothing deleted with alliance (treat none as 0)#
-allilist <-list()#
-for (tp in 1:30){ #
-  allilist[[tp]] = matrix(0, length(countrylist_all), length(countrylist_all))#
-  rownames(allilist[[tp]]) <- colnames(allilist[[tp]]) <- countrylist_all#
-  alliyear = alliance[which(alliance$year == years[tp]),]#
-  for (i in 1:nrow(alliyear)){#
-  	allilist[[tp]][which(countrycode_all[,1] == alliyear[i,1]), which(countrycode_all[,1] == alliyear[i,3])] = 1#
-  	allilist[[tp]][which(countrycode_all[,1] == alliyear[i,3]), which(countrycode_all[,1] == alliyear[i,1])] = 1#
-  }#
-   diag(allilist[[tp]]) = 1#
-   } 	#
-allilist[[31]] = allilist[[32]] = allilist[[30]]#
-#
-#process GDP#
-GDPlist <- list()#
-for (tp in 1:Time){#
-  GDPlist[[tp]]<- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(GDPlist[[tp]]) <- countrylist_all#
-  colnames(GDPlist[[tp]]) <- countrylist_all#
-  GDPyeart <- GDP[,c(1,tp+1)]#
-  for (i in 1:length(countrylist_all)){#
-  	GDPi <-  as.numeric(GDPyeart[which(GDPyeart[,1] %in% countrycode_all[i,3]),2])#
-    GDPlist[[tp]][i, ] <- ifelse(length(GDPi) > 0, GDPi, NA)#
-  }#
-}#
-missing2 = sapply(1:32, function(t){which(is.na(GDPlist[[t]][,1])==TRUE)})#
-#
-#now export#
-source('/Users/bomin8319/Downloads/Trade_DOT/DOT_EX_MX/DOTX8005.R')#
-export <- Matrix.X#
-export <- export[4:26]#
-for (tp in 1:23) {#
-	rownames(export[[tp]])[which(rownames(export[[tp]])=="GMY")] = "GFR"#
-}#
-exportlist <- list()#
-for (tp in 1:23){#
-  exportlist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[tp]]) <- countrylist_all#
-  colnames(exportlist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(export[[tp]]))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(export[[tp]]) %in% countrylist_all[countrylist2[x]])})#
-  exportlist[[tp]][countrylist2, countrylist2] <- as.matrix(export[[tp]][countrylist3,countrylist3], nrow=length(countrylist3), ncol=length(countrylist3))#
-  diag(exportlist[[tp]]) = 0#
-  }#
-#
-export0609 <- read.csv('/Users/bomin8319/Downloads/Trade_DOT/exports_2006-09.csv')#
-export0609[(export0609 == "n.a.")]<- NA#
-export0609 <- as.matrix(export0609)#
-export0609[which(export0609[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export0609[which(export0609[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export0609[which(export0609[,1] %in% "United States"),1] = as.character("United States of America")#
-export0609[which(export0609[,2] %in% "United States"),2] = as.character("United States of America")#
-export0609[which(export0609[,1] %in% "Venezuela, Rep\xfablica Bolivariana de"),1] = as.character("Venezuela")#
-export0609[which(export0609[,2] %in% "Venezuela, Rep\xfablica Bolivariana de"),2] = as.character("Venezuela")#
-export0609[which(export0609[,1] %in% "China, P.R.: Mainland"),1] = as.character("China")#
-export0609[which(export0609[,2] %in% "China, P.R.: Mainland"),2] = as.character("China")#
-export0609[which(export0609[,1] %in% "Afghanistan, Islamic Republic of"),1] = as.character("Afghanistan")#
-export0609[which(export0609[,2] %in% "Afghanistan, Islamic Republic of"),2] = as.character("Afghanistan")#
-export0609[which(export0609[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export0609[which(export0609[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export0609[which(export0609[,1] %in% "Iran, Islamic Republic of"),1] = as.character("Iran")#
-export0609[which(export0609[,2] %in% "Iran, Islamic Republic of"),2] = as.character("Iran")#
-export0609[which(export0609[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export0609[which(export0609[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export0609[which(export0609[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export0609[which(export0609[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export0609[which(export0609[,1] %in% "Slovak Republic"),1] = as.character("Slovakia")#
-export0609[which(export0609[,2] %in% "Slovak Republic"),2] = as.character("Slovakia")#
-export0609[which(export0609[,1] %in% "Lao People's Democratic Republic"),1] = as.character("Laos")#
-export0609[which(export0609[,2] %in% "Lao People's Democratic Republic"),2] = as.character("Laos")#
-export0609[which(export0609[,1] %in% "Macedonia, FYR"),1] = as.character("Macedonia")#
-export0609[which(export0609[,2] %in% "Macedonia, FYR"),2] = as.character("Macedonia")#
-export0609[which(export0609[,1] %in% "Gambia, The"),1] = as.character("Gambia")#
-export0609[which(export0609[,2] %in% "Gambia, The"),2] = as.character("Gambia")#
-export0609[which(export0609[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export0609[which(export0609[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-export0609[which(export0609[,1] %in% "Armenia, Republic of"),1] = as.character("Armenia")#
-export0609[which(export0609[,2] %in% "Armenia, Republic of"),2] = as.character("Armenia")#
-export0609[which(export0609[,1] %in% "Kyrgyz Republic"),1] = as.character("Kyrgyzstan")#
-export0609[which(export0609[,2] %in% "Kyrgyz Republic"),2] = as.character("Kyrgyzstan")#
-export0609[which(export0609[,1] %in% "Azerbaijan, Republic of"),1] = as.character("Azerbaijan")#
-export0609[which(export0609[,2] %in% "Azerbaijan, Republic of"),2] = as.character("Azerbaijan")#
-export0609[which(export0609[,1] %in% "Azerbaijan, Republic of"),1] = as.character("Azerbaijan")#
-export0609[which(export0609[,2] %in% "Azerbaijan, Republic of"),2] = as.character("Azerbaijan")#
-#
-export0609 <- export0609[which(export0609[,1] %in% countrycode_all[,3]), -3]#
-export0609 <- export0609[which(export0609[,2] %in% countrycode_all[,3]), ] #
-iter = 1#
-for (i in 24:27){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export0609[which((export0609[,1] %in% countrycode_all[j,3]) & (export0609[,2] %in% countrycode_all[k,3])), iter+2])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-  iter = iter + 1#
-}  #
-#
-setClass("num.with.commas")#
-setAs("character", "num.with.commas",#
-function(from) as.numeric(gsub(",","",from)))#
-export10 <- read.csv('/Users/bomin8319/Downloads/2010export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export10[(export10 == "n.a.")]<- NA#
-export10 <- as.matrix(export10[,-4])#
-#
-export10[which(export10[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export10[which(export10[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export10[which(export10[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export10[which(export10[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export10[which(export10[,1] %in% "United States"),1] = as.character("United States of America")#
-export10[which(export10[,2] %in% "United States"),2] = as.character("United States of America")#
-export10[which(export10[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export10[which(export10[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export10[which(export10[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export10[which(export10[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export10[which(export10[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export10[which(export10[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export10[which(export10[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export10[which(export10[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export10[which(export10[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export10[which(export10[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export10[which(export10[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export10[which(export10[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-export10 <- export10[which(export10[,1] %in% countrycode_all[,3]), ]#
-export10 <- export10[which(export10[,2] %in% countrycode_all[,3]), ] #
-for (i in 28){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export10[which((export10[,1] %in% countrycode_all[j,3]) & (export10[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export11 <- read.csv('/Users/bomin8319/Downloads/2011export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export11[(export11 == "n.a.")]<- NA#
-export11 <- as.matrix(export11[,-4])#
-export11[which(export11[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export11[which(export11[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export11[which(export11[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export11[which(export11[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export11[which(export11[,1] %in% "United States"),1] = as.character("United States of America")#
-export11[which(export11[,2] %in% "United States"),2] = as.character("United States of America")#
-export11[which(export11[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export11[which(export11[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export11[which(export11[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export11[which(export11[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export11[which(export11[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export11[which(export11[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export11[which(export11[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export11[which(export11[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export11[which(export11[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export11[which(export11[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export11[which(export11[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export11[which(export11[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 29){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export11[which((export11[,1] %in% countrycode_all[j,3]) & (export11[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export12 <- read.csv('/Users/bomin8319/Downloads/2012export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export12[(export12 == "n.a.")]<- NA#
-export12 <- as.matrix(export12[,-4])#
-export12[which(export12[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export12[which(export12[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export12[which(export12[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export12[which(export12[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export12[which(export12[,1] %in% "United States"),1] = as.character("United States of America")#
-export12[which(export12[,2] %in% "United States"),2] = as.character("United States of America")#
-export12[which(export12[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export12[which(export12[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export12[which(export12[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export12[which(export12[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export12[which(export12[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export12[which(export12[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export12[which(export12[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export12[which(export12[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export12[which(export12[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export12[which(export12[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export12[which(export12[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export12[which(export12[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 30){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export12[which((export12[,1] %in% countrycode_all[j,3]) & (export12[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export13 <- read.csv('/Users/bomin8319/Downloads/2013export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export13[(export13 == "n.a.")]<- NA#
-export13 <- as.matrix(export13[,-4])#
-#
-export13[which(export13[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export13[which(export13[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export13[which(export13[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export13[which(export13[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export13[which(export13[,1] %in% "United States"),1] = as.character("United States of America")#
-export13[which(export13[,2] %in% "United States"),2] = as.character("United States of America")#
-export13[which(export13[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export13[which(export13[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export13[which(export13[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export13[which(export13[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export13[which(export13[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export13[which(export13[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export13[which(export13[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export13[which(export13[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export13[which(export13[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export13[which(export13[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export13[which(export13[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export13[which(export13[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 31){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export13[which((export13[,1] %in% countrycode_all[j,3]) & (export13[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-}#
-#
-export14 <- read.csv('/Users/bomin8319/Downloads/2014export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export14[(export14 == "n.a.")]<- NA#
-export14 <- as.matrix(export13[,-4])#
-export14[which(export14[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export14[which(export14[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export14[which(export14[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export14[which(export14[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export14[which(export14[,1] %in% "United States"),1] = as.character("United States of America")#
-export14[which(export14[,2] %in% "United States"),2] = as.character("United States of America")#
-export14[which(export14[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export14[which(export14[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export14[which(export14[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export14[which(export14[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export14[which(export14[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export14[which(export14[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export14[which(export14[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export14[which(export14[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export14[which(export14[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export14[which(export14[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export14[which(export14[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export14[which(export14[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 32){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export14[which((export14[,1] %in% countrycode_all[j,3]) & (export14[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-}#
-#
-missing3 = sapply(1:32, function(t){which(colSums(exportlist[[t]], na.rm = TRUE)==0)})#
-#
-#delete BEL, LUX, SAF, CRO, MLD, LAT, BLR, ARM, AZE, TKM, KYR, UZB, KZK since missing >= 10#
-#     ccode CountryAbb  CountryName#
-#3854   211        BEL      Belgium#
-#3855   212        LUX   Luxembourg#
-#5296   344        CRO      Croatia#
-#5303   359        MLD      Moldova#
-#5136   367        LAT       Latvia#
-#3875   370        BLR      Belarus#
-#5140   371        ARM      Armenia#
-#5141   373        AZE   Azerbaijan#
-#5530   560        SAF South Africa#
-#5382   701        TKM Turkmenistan#
-#5384   703        KYR   Kyrgyzstan#
-#5737   704        UZB   Uzbekistan#
-#5385   705        KZK   Kazakhstan#
-#
-#become 104 countries#
-countrycode_all = countrycode_all[-which(countrycode_all[,2] %in% c("BEL", "LUX", "SAF", "CRO", "MLD", "LAT", "BLR", "ARM", "AZE", "TKM", "KYR", "UZB", "KZK")),]#
-countrylist_all = countrycode_all[,2]#
-#################
-#now reprocess data with these final countries#
-#
-dist2 <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(dist2)<- colnames(dist2) <- countrylist_all#
-for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(dist) %in% countrylist_all[i])#
-	where2 <- which(colnames(dist) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	dist2[i, j] <- dist[where1, where2]#
-	}#
-}#
-}#
-#
-politylist <-list()#
-for (tp in 1:Time){ #
-  politylist[[tp]] = matrix(NA, length(countrylist_all), length(countrylist_all))#
-  diag(politylist[[tp]]) = 0#
-  rownames(politylist[[tp]]) <- colnames(politylist[[tp]]) <- countrylist_all#
-  for (i in 1:length(countrylist_all)) {#
-    for (j in 1:length(countrylist_all)) {#
-      polityi = unique(polity$polity2[polity$scode %in% countrylist_all[i] & polity$year == years[tp]])#
-      if (length(polityi) > 0 && is.na(polityi)==TRUE) {polityi = 0}#
-      polityj = unique(polity$polity2[polity$scode %in% countrylist_all[j] & polity$year == years[tp]])#
-      if (length(polityj) > 0 && is.na(polityj)==TRUE) {polityj = 0}#
-        if (length(polityi) + length(polityj) >= 2)#
-        politylist[[tp]][i,j] = abs(polityi - polityj)#
-    }#
-  }#
-}#
-missing1 <- sapply(1:32, function(t){which(is.na(politylist[[t]][,1]))})#
-#
-#nothing deleted with alliance (treat none as 0)#
-allilist <-list()#
-for (tp in 1:30){ #
-  allilist[[tp]] = matrix(0, length(countrylist_all), length(countrylist_all))#
-  rownames(allilist[[tp]]) <- colnames(allilist[[tp]]) <- countrylist_all#
-  alliyear = alliance[which(alliance$year == years[tp]),]#
-  for (i in 1:nrow(alliyear)){#
-  	allilist[[tp]][which(countrycode_all[,1] == alliyear[i,1]), which(countrycode_all[,1] == alliyear[i,3])] = 1#
-  	allilist[[tp]][which(countrycode_all[,1] == alliyear[i,3]), which(countrycode_all[,1] == alliyear[i,1])] = 1#
-  }#
-   diag(allilist[[tp]]) = 1#
-   } 	#
-allilist[[31]] = allilist[[32]] = allilist[[30]]#
-#
-#process GDP#
-GDPlist <- list()#
-for (tp in 1:Time){#
-  GDPlist[[tp]]<- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(GDPlist[[tp]]) <- countrylist_all#
-  colnames(GDPlist[[tp]]) <- countrylist_all#
-  GDPyeart <- GDP[,c(1,tp+1)]#
-  for (i in 1:length(countrylist_all)){#
-  	GDPi <-  as.numeric(GDPyeart[which(GDPyeart[,1] %in% countrycode_all[i,3]),2])#
-    GDPlist[[tp]][i, ] <- ifelse(length(GDPi) > 0, GDPi, NA)#
-  }#
-}#
-missing2 = sapply(1:32, function(t){which(is.na(GDPlist[[t]][,1])==TRUE)})#
-#
-#now export#
-source('/Users/bomin8319/Downloads/Trade_DOT/DOT_EX_MX/DOTX8005.R')#
-export <- Matrix.X#
-export <- export[4:26]#
-for (tp in 1:23) {#
-	rownames(export[[tp]])[which(rownames(export[[tp]])=="GMY")] = "GFR"#
-}#
-exportlist <- list()#
-for (tp in 1:23){#
-  exportlist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[tp]]) <- countrylist_all#
-  colnames(exportlist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(export[[tp]]))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(export[[tp]]) %in% countrylist_all[countrylist2[x]])})#
-  exportlist[[tp]][countrylist2, countrylist2] <- as.matrix(export[[tp]][countrylist3,countrylist3], nrow=length(countrylist3), ncol=length(countrylist3))#
-  diag(exportlist[[tp]]) = 0#
-  }#
-export0609 <- read.csv('/Users/bomin8319/Downloads/Trade_DOT/exports_2006-09.csv')#
-export0609[(export0609 == "n.a.")]<- NA#
-export0609 <- as.matrix(export0609)#
-export0609[which(export0609[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export0609[which(export0609[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export0609[which(export0609[,1] %in% "United States"),1] = as.character("United States of America")#
-export0609[which(export0609[,2] %in% "United States"),2] = as.character("United States of America")#
-export0609[which(export0609[,1] %in% "Venezuela, Rep\xfablica Bolivariana de"),1] = as.character("Venezuela")#
-export0609[which(export0609[,2] %in% "Venezuela, Rep\xfablica Bolivariana de"),2] = as.character("Venezuela")#
-export0609[which(export0609[,1] %in% "China, P.R.: Mainland"),1] = as.character("China")#
-export0609[which(export0609[,2] %in% "China, P.R.: Mainland"),2] = as.character("China")#
-export0609[which(export0609[,1] %in% "Afghanistan, Islamic Republic of"),1] = as.character("Afghanistan")#
-export0609[which(export0609[,2] %in% "Afghanistan, Islamic Republic of"),2] = as.character("Afghanistan")#
-export0609[which(export0609[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export0609[which(export0609[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export0609[which(export0609[,1] %in% "Iran, Islamic Republic of"),1] = as.character("Iran")#
-export0609[which(export0609[,2] %in% "Iran, Islamic Republic of"),2] = as.character("Iran")#
-export0609[which(export0609[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export0609[which(export0609[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export0609[which(export0609[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export0609[which(export0609[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export0609[which(export0609[,1] %in% "Slovak Republic"),1] = as.character("Slovakia")#
-export0609[which(export0609[,2] %in% "Slovak Republic"),2] = as.character("Slovakia")#
-export0609[which(export0609[,1] %in% "Lao People's Democratic Republic"),1] = as.character("Laos")#
-export0609[which(export0609[,2] %in% "Lao People's Democratic Republic"),2] = as.character("Laos")#
-export0609[which(export0609[,1] %in% "Macedonia, FYR"),1] = as.character("Macedonia")#
-export0609[which(export0609[,2] %in% "Macedonia, FYR"),2] = as.character("Macedonia")#
-export0609[which(export0609[,1] %in% "Gambia, The"),1] = as.character("Gambia")#
-export0609[which(export0609[,2] %in% "Gambia, The"),2] = as.character("Gambia")#
-export0609[which(export0609[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export0609[which(export0609[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-export0609[which(export0609[,1] %in% "Armenia, Republic of"),1] = as.character("Armenia")#
-export0609[which(export0609[,2] %in% "Armenia, Republic of"),2] = as.character("Armenia")#
-export0609[which(export0609[,1] %in% "Kyrgyz Republic"),1] = as.character("Kyrgyzstan")#
-export0609[which(export0609[,2] %in% "Kyrgyz Republic"),2] = as.character("Kyrgyzstan")#
-export0609[which(export0609[,1] %in% "Azerbaijan, Republic of"),1] = as.character("Azerbaijan")#
-export0609[which(export0609[,2] %in% "Azerbaijan, Republic of"),2] = as.character("Azerbaijan")#
-export0609[which(export0609[,1] %in% "Azerbaijan, Republic of"),1] = as.character("Azerbaijan")#
-export0609[which(export0609[,2] %in% "Azerbaijan, Republic of"),2] = as.character("Azerbaijan")#
-#
-export0609 <- export0609[which(export0609[,1] %in% countrycode_all[,3]), -3]#
-export0609 <- export0609[which(export0609[,2] %in% countrycode_all[,3]), ] #
-iter = 1#
-for (i in 24:27){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export0609[which((export0609[,1] %in% countrycode_all[j,3]) & (export0609[,2] %in% countrycode_all[k,3])), iter+2])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-  iter = iter + 1#
-}  #
-#
-setClass("num.with.commas")#
-setAs("character", "num.with.commas",#
-function(from) as.numeric(gsub(",","",from)))#
-export10 <- read.csv('/Users/bomin8319/Downloads/2010export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export10[(export10 == "n.a.")]<- NA#
-export10 <- as.matrix(export10[,-4])#
-#
-export10[which(export10[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export10[which(export10[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export10[which(export10[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export10[which(export10[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export10[which(export10[,1] %in% "United States"),1] = as.character("United States of America")#
-export10[which(export10[,2] %in% "United States"),2] = as.character("United States of America")#
-export10[which(export10[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export10[which(export10[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export10[which(export10[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export10[which(export10[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export10[which(export10[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export10[which(export10[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export10[which(export10[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export10[which(export10[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export10[which(export10[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export10[which(export10[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export10[which(export10[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export10[which(export10[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-export10 <- export10[which(export10[,1] %in% countrycode_all[,3]), ]#
-export10 <- export10[which(export10[,2] %in% countrycode_all[,3]), ] #
-for (i in 28){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export10[which((export10[,1] %in% countrycode_all[j,3]) & (export10[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export11 <- read.csv('/Users/bomin8319/Downloads/2011export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export11[(export11 == "n.a.")]<- NA#
-export11 <- as.matrix(export11[,-4])#
-export11[which(export11[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export11[which(export11[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export11[which(export11[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export11[which(export11[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export11[which(export11[,1] %in% "United States"),1] = as.character("United States of America")#
-export11[which(export11[,2] %in% "United States"),2] = as.character("United States of America")#
-export11[which(export11[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export11[which(export11[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export11[which(export11[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export11[which(export11[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export11[which(export11[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export11[which(export11[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export11[which(export11[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export11[which(export11[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export11[which(export11[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export11[which(export11[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export11[which(export11[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export11[which(export11[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 29){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export11[which((export11[,1] %in% countrycode_all[j,3]) & (export11[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export12 <- read.csv('/Users/bomin8319/Downloads/2012export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export12[(export12 == "n.a.")]<- NA#
-export12 <- as.matrix(export12[,-4])#
-export12[which(export12[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export12[which(export12[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export12[which(export12[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export12[which(export12[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export12[which(export12[,1] %in% "United States"),1] = as.character("United States of America")#
-export12[which(export12[,2] %in% "United States"),2] = as.character("United States of America")#
-export12[which(export12[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export12[which(export12[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export12[which(export12[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export12[which(export12[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export12[which(export12[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export12[which(export12[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export12[which(export12[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export12[which(export12[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export12[which(export12[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export12[which(export12[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export12[which(export12[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export12[which(export12[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 30){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export12[which((export12[,1] %in% countrycode_all[j,3]) & (export12[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export13 <- read.csv('/Users/bomin8319/Downloads/2013export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export13[(export13 == "n.a.")]<- NA#
-export13 <- as.matrix(export13[,-4])#
-#
-export13[which(export13[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export13[which(export13[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export13[which(export13[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export13[which(export13[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export13[which(export13[,1] %in% "United States"),1] = as.character("United States of America")#
-export13[which(export13[,2] %in% "United States"),2] = as.character("United States of America")#
-export13[which(export13[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export13[which(export13[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export13[which(export13[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export13[which(export13[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export13[which(export13[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export13[which(export13[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export13[which(export13[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export13[which(export13[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export13[which(export13[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export13[which(export13[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export13[which(export13[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export13[which(export13[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 31){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export13[which((export13[,1] %in% countrycode_all[j,3]) & (export13[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-}#
-#
-export14 <- read.csv('/Users/bomin8319/Downloads/2014export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export14[(export14 == "n.a.")]<- NA#
-export14 <- as.matrix(export13[,-4])#
-export14[which(export14[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export14[which(export14[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export14[which(export14[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export14[which(export14[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export14[which(export14[,1] %in% "United States"),1] = as.character("United States of America")#
-export14[which(export14[,2] %in% "United States"),2] = as.character("United States of America")#
-export14[which(export14[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export14[which(export14[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export14[which(export14[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export14[which(export14[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export14[which(export14[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export14[which(export14[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export14[which(export14[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export14[which(export14[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export14[which(export14[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export14[which(export14[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export14[which(export14[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export14[which(export14[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 32){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export14[which((export14[,1] %in% countrycode_all[j,3]) & (export14[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-}#
-#
-missing3 = sapply(1:32, function(t){which(colSums(exportlist[[t]], na.rm = TRUE)==0)})#
-#
-#filled out NA's in exprot manually from other data source -> or just fill in the previous years#
-for (tp in 2:32) {#
-	print(sum(is.na(exportlist[[tp]])))#
-	exportlist[[tp]][which(is.na(exportlist[[tp]]))] = exportlist[[tp-1]][which(is.na(exportlist[[tp]]))]#
-	print(sum(is.na(exportlist[[tp]])))#
-}#
-#
-missing4 = lapply(1:32, function(t){sapply(1:104, function(c){sum(is.na(exportlist[[t]][c,]))>31})})#
-missing4 = lapply(1:32, function(x){rownames(exportlist[[1]])[missing4[[x]]>0]})#
-#those miss over 30% of export more than 10 years: EQG, DJI, GNB, MON, CHA, GRG, UKR#
-countrycode_all = countrycode_all[-which(countrycode_all[,2] %in% c("EQG", "DJI", "GNB", "MON", "CHA", "GRG", "UKR")),]#
-countrylist_all = countrycode_all[,2]#
-#
-#become 97 countries#
-dist2 <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(dist2)<- colnames(dist2) <- countrylist_all#
-for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(dist) %in% countrylist_all[i])#
-	where2 <- which(colnames(dist) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	dist2[i, j] <- dist[where1, where2]#
-	}#
-}#
-}#
-#
-politylist <-list()#
-for (tp in 1:Time){ #
-  politylist[[tp]] = matrix(NA, length(countrylist_all), length(countrylist_all))#
-  diag(politylist[[tp]]) = 0#
-  rownames(politylist[[tp]]) <- colnames(politylist[[tp]]) <- countrylist_all#
-  for (i in 1:length(countrylist_all)) {#
-    for (j in 1:length(countrylist_all)) {#
-      polityi = unique(polity$polity2[polity$scode %in% countrylist_all[i] & polity$year == years[tp]])#
-      if (length(polityi) > 0 && is.na(polityi)==TRUE) {polityi = 0}#
-      polityj = unique(polity$polity2[polity$scode %in% countrylist_all[j] & polity$year == years[tp]])#
-      if (length(polityj) > 0 && is.na(polityj)==TRUE) {polityj = 0}#
-        if (length(polityi) + length(polityj) >= 2)#
-        politylist[[tp]][i,j] = abs(polityi - polityj)#
-    }#
-  }#
-}#
-missing1 <- sapply(1:32, function(t){which(is.na(politylist[[t]][,1]))})#
-#
-#nothing deleted with alliance (treat none as 0)#
-allilist <-list()#
-for (tp in 1:30){ #
-  allilist[[tp]] = matrix(0, length(countrylist_all), length(countrylist_all))#
-  rownames(allilist[[tp]]) <- colnames(allilist[[tp]]) <- countrylist_all#
-  alliyear = alliance[which(alliance$year == years[tp]),]#
-  for (i in 1:nrow(alliyear)){#
-  	allilist[[tp]][which(countrycode_all[,1] == alliyear[i,1]), which(countrycode_all[,1] == alliyear[i,3])] = 1#
-  	allilist[[tp]][which(countrycode_all[,1] == alliyear[i,3]), which(countrycode_all[,1] == alliyear[i,1])] = 1#
-  }#
-   diag(allilist[[tp]]) = 1#
-   } 	#
-allilist[[31]] = allilist[[32]] = allilist[[30]]#
-#
-#process GDP#
-GDPlist <- list()#
-for (tp in 1:Time){#
-  GDPlist[[tp]]<- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(GDPlist[[tp]]) <- countrylist_all#
-  colnames(GDPlist[[tp]]) <- countrylist_all#
-  GDPyeart <- GDP[,c(1,tp+1)]#
-  for (i in 1:length(countrylist_all)){#
-  	GDPi <-  as.numeric(GDPyeart[which(GDPyeart[,1] %in% countrycode_all[i,3]),2])#
-    GDPlist[[tp]][i, ] <- ifelse(length(GDPi) > 0, GDPi, NA)#
-  }#
-}#
-missing2 = sapply(1:32, function(t){which(is.na(GDPlist[[t]][,1])==TRUE)})#
-#
-#now export#
-source('/Users/bomin8319/Downloads/Trade_DOT/DOT_EX_MX/DOTX8005.R')#
-export <- Matrix.X#
-export <- export[4:26]#
-for (tp in 1:23) {#
-	rownames(export[[tp]])[which(rownames(export[[tp]])=="GMY")] = "GFR"#
-}#
-exportlist <- list()#
-for (tp in 1:23){#
-  exportlist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[tp]]) <- countrylist_all#
-  colnames(exportlist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(export[[tp]]))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(export[[tp]]) %in% countrylist_all[countrylist2[x]])})#
-  exportlist[[tp]][countrylist2, countrylist2] <- as.matrix(export[[tp]][countrylist3,countrylist3], nrow=length(countrylist3), ncol=length(countrylist3))#
-  diag(exportlist[[tp]]) = 0#
-  }#
-export0609 <- read.csv('/Users/bomin8319/Downloads/Trade_DOT/exports_2006-09.csv')#
-export0609[(export0609 == "n.a.")]<- NA#
-export0609 <- as.matrix(export0609)#
-export0609[which(export0609[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export0609[which(export0609[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export0609[which(export0609[,1] %in% "United States"),1] = as.character("United States of America")#
-export0609[which(export0609[,2] %in% "United States"),2] = as.character("United States of America")#
-export0609[which(export0609[,1] %in% "Venezuela, Rep\xfablica Bolivariana de"),1] = as.character("Venezuela")#
-export0609[which(export0609[,2] %in% "Venezuela, Rep\xfablica Bolivariana de"),2] = as.character("Venezuela")#
-export0609[which(export0609[,1] %in% "China, P.R.: Mainland"),1] = as.character("China")#
-export0609[which(export0609[,2] %in% "China, P.R.: Mainland"),2] = as.character("China")#
-export0609[which(export0609[,1] %in% "Afghanistan, Islamic Republic of"),1] = as.character("Afghanistan")#
-export0609[which(export0609[,2] %in% "Afghanistan, Islamic Republic of"),2] = as.character("Afghanistan")#
-export0609[which(export0609[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export0609[which(export0609[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export0609[which(export0609[,1] %in% "Iran, Islamic Republic of"),1] = as.character("Iran")#
-export0609[which(export0609[,2] %in% "Iran, Islamic Republic of"),2] = as.character("Iran")#
-export0609[which(export0609[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export0609[which(export0609[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export0609[which(export0609[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export0609[which(export0609[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export0609[which(export0609[,1] %in% "Slovak Republic"),1] = as.character("Slovakia")#
-export0609[which(export0609[,2] %in% "Slovak Republic"),2] = as.character("Slovakia")#
-export0609[which(export0609[,1] %in% "Lao People's Democratic Republic"),1] = as.character("Laos")#
-export0609[which(export0609[,2] %in% "Lao People's Democratic Republic"),2] = as.character("Laos")#
-export0609[which(export0609[,1] %in% "Macedonia, FYR"),1] = as.character("Macedonia")#
-export0609[which(export0609[,2] %in% "Macedonia, FYR"),2] = as.character("Macedonia")#
-export0609[which(export0609[,1] %in% "Gambia, The"),1] = as.character("Gambia")#
-export0609[which(export0609[,2] %in% "Gambia, The"),2] = as.character("Gambia")#
-export0609[which(export0609[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export0609[which(export0609[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-export0609[which(export0609[,1] %in% "Armenia, Republic of"),1] = as.character("Armenia")#
-export0609[which(export0609[,2] %in% "Armenia, Republic of"),2] = as.character("Armenia")#
-export0609[which(export0609[,1] %in% "Kyrgyz Republic"),1] = as.character("Kyrgyzstan")#
-export0609[which(export0609[,2] %in% "Kyrgyz Republic"),2] = as.character("Kyrgyzstan")#
-export0609[which(export0609[,1] %in% "Azerbaijan, Republic of"),1] = as.character("Azerbaijan")#
-export0609[which(export0609[,2] %in% "Azerbaijan, Republic of"),2] = as.character("Azerbaijan")#
-export0609[which(export0609[,1] %in% "Azerbaijan, Republic of"),1] = as.character("Azerbaijan")#
-export0609[which(export0609[,2] %in% "Azerbaijan, Republic of"),2] = as.character("Azerbaijan")#
-#
-export0609 <- export0609[which(export0609[,1] %in% countrycode_all[,3]), -3]#
-export0609 <- export0609[which(export0609[,2] %in% countrycode_all[,3]), ] #
-iter = 1#
-for (i in 24:27){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export0609[which((export0609[,1] %in% countrycode_all[j,3]) & (export0609[,2] %in% countrycode_all[k,3])), iter+2])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-  iter = iter + 1#
-}  #
-#
-setClass("num.with.commas")#
-setAs("character", "num.with.commas",#
-function(from) as.numeric(gsub(",","",from)))#
-export10 <- read.csv('/Users/bomin8319/Downloads/2010export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export10[(export10 == "n.a.")]<- NA#
-export10 <- as.matrix(export10[,-4])#
-#
-export10[which(export10[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export10[which(export10[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export10[which(export10[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export10[which(export10[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export10[which(export10[,1] %in% "United States"),1] = as.character("United States of America")#
-export10[which(export10[,2] %in% "United States"),2] = as.character("United States of America")#
-export10[which(export10[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export10[which(export10[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export10[which(export10[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export10[which(export10[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export10[which(export10[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export10[which(export10[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export10[which(export10[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export10[which(export10[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export10[which(export10[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export10[which(export10[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export10[which(export10[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export10[which(export10[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-export10 <- export10[which(export10[,1] %in% countrycode_all[,3]), ]#
-export10 <- export10[which(export10[,2] %in% countrycode_all[,3]), ] #
-for (i in 28){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export10[which((export10[,1] %in% countrycode_all[j,3]) & (export10[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export11 <- read.csv('/Users/bomin8319/Downloads/2011export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export11[(export11 == "n.a.")]<- NA#
-export11 <- as.matrix(export11[,-4])#
-export11[which(export11[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export11[which(export11[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export11[which(export11[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export11[which(export11[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export11[which(export11[,1] %in% "United States"),1] = as.character("United States of America")#
-export11[which(export11[,2] %in% "United States"),2] = as.character("United States of America")#
-export11[which(export11[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export11[which(export11[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export11[which(export11[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export11[which(export11[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export11[which(export11[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export11[which(export11[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export11[which(export11[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export11[which(export11[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export11[which(export11[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export11[which(export11[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export11[which(export11[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export11[which(export11[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 29){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export11[which((export11[,1] %in% countrycode_all[j,3]) & (export11[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export12 <- read.csv('/Users/bomin8319/Downloads/2012export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export12[(export12 == "n.a.")]<- NA#
-export12 <- as.matrix(export12[,-4])#
-export12[which(export12[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export12[which(export12[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export12[which(export12[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export12[which(export12[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export12[which(export12[,1] %in% "United States"),1] = as.character("United States of America")#
-export12[which(export12[,2] %in% "United States"),2] = as.character("United States of America")#
-export12[which(export12[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export12[which(export12[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export12[which(export12[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export12[which(export12[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export12[which(export12[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export12[which(export12[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export12[which(export12[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export12[which(export12[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export12[which(export12[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export12[which(export12[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export12[which(export12[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export12[which(export12[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 30){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export12[which((export12[,1] %in% countrycode_all[j,3]) & (export12[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-} #
-#
-export13 <- read.csv('/Users/bomin8319/Downloads/2013export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export13[(export13 == "n.a.")]<- NA#
-export13 <- as.matrix(export13[,-4])#
-#
-export13[which(export13[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export13[which(export13[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export13[which(export13[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export13[which(export13[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export13[which(export13[,1] %in% "United States"),1] = as.character("United States of America")#
-export13[which(export13[,2] %in% "United States"),2] = as.character("United States of America")#
-export13[which(export13[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export13[which(export13[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export13[which(export13[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export13[which(export13[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export13[which(export13[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export13[which(export13[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export13[which(export13[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export13[which(export13[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export13[which(export13[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export13[which(export13[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export13[which(export13[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export13[which(export13[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 31){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export13[which((export13[,1] %in% countrycode_all[j,3]) & (export13[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-}#
-#
-export14 <- read.csv('/Users/bomin8319/Downloads/2014export.csv', skip=1, header=TRUE, colClasses=c('character', 'character', 'num.with.commas'))#
-export14[(export14 == "n.a.")]<- NA#
-export14 <- as.matrix(export13[,-4])#
-export14[which(export14[,1] %in% "Afghanistan, I.R. of"),1] = as.character("Afghanistan")#
-export14[which(export14[,2] %in% "Afghanistan, I.R. of"),2] = as.character("Afghanistan")#
-export14[which(export14[,1] %in% "Korea, Republic of"),1] = as.character("South Korea")#
-export14[which(export14[,2] %in% "Korea, Republic of"),2] = as.character("South Korea")#
-export14[which(export14[,1] %in% "United States"),1] = as.character("United States of America")#
-export14[which(export14[,2] %in% "United States"),2] = as.character("United States of America")#
-export14[which(export14[,1] %in% "China,P.R.: Mainland"),1] = as.character("China")#
-export14[which(export14[,2] %in% "China,P.R.: Mainland"),2] = as.character("China")#
-export14[which(export14[,1] %in% "Germany"),1] = as.character("German Federal Republic")#
-export14[which(export14[,2] %in% "Germany"),2] = as.character("German Federal Republic")#
-export14[which(export14[,1] %in% "Iran, I.R. of"),1] = as.character("Iran")#
-export14[which(export14[,2] %in% "Iran, I.R. of"),2] = as.character("Iran")#
-export14[which(export14[,1] %in% "Russian Federation"),1] = as.character("Russia")#
-export14[which(export14[,2] %in% "Russian Federation"),2] = as.character("Russia")#
-export14[which(export14[,1] %in% "Syrian Arab Republic"),1] = as.character("Syria")#
-export14[which(export14[,2] %in% "Syrian Arab Republic"),2] = as.character("Syria")#
-export14[which(export14[,1] %in% "Bahrain, Kingdom of"),1] = as.character("Bahrain")#
-export14[which(export14[,2] %in% "Bahrain, Kingdom of"),2] = as.character("Bahrain")#
-for (i in 32){#
-  exportlist[[i]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(exportlist[[i]]) <- colnames(exportlist[[i]]) <- countrylist_all#
-  for (j in 1:length(countrylist_all)){#
-    for (k in 1:length(countrylist_all)){#
-    	 exportijt = as.numeric(export14[which((export14[,1] %in% countrycode_all[j,3]) & (export14[,2] %in% countrycode_all[k,3])), 3])/10^6#
-     exportlist[[i]][j,k] <- ifelse(length(exportijt > 0), exportijt, NA)#
-           }#
-  }#
-  diag(exportlist[[i]]) = 0#
-}#
-#
-missing3 = sapply(1:32, function(t){which(colSums(exportlist[[t]], na.rm = TRUE)==0)})#
-#
-#filled out NA's in exprot manually from other data source -> or just fill in the previous years#
-for (tp in 2:32) {#
-	print(sum(is.na(exportlist[[tp]])))#
-	exportlist[[tp]][which(is.na(exportlist[[tp]]))] = exportlist[[tp-1]][which(is.na(exportlist[[tp]]))]#
-	print(sum(is.na(exportlist[[tp]])))#
-}#
-#
-missing4 = lapply(1:32, function(t){sapply(1:97, function(c){sum(is.na(exportlist[[t]][c,]))>31})})#
-missing4 = lapply(1:32, function(x){rownames(exportlist[[1]])[missing4[[x]]>0]})#
-#
-tradelist <- list()#
-for (tp in 1:32) {#
-    exportlist[[tp]][is.na(exportlist[[tp]])] = 0 #finally, missing export plugged in as zeros#
-	tradelist[[tp]] = exportlist[[tp]] + t(exportlist[[tp]])#
-}#
-load("/Users/bomin8319/Desktop/DAME/clang.RData")#
-rownames(clang)[36] = "GFR"#
-colnames(clang)[36] = "GFR"#
-clanglist <- matrix(NA, length(countrylist_all), length(countrylist_all))#
-rownames(clanglist) <- colnames(clanglist) <- countrylist_all#
- for (i in 1:length(countrylist_all)) {#
-	for (j in 1:length(countrylist_all)) {#
-	where1 <- which(rownames(clang) %in% countrylist_all[i])#
-	where2 <- which(colnames(clang) %in% countrylist_all[j])#
-	if (length(where1) >0 & length(where2) > 0) {#
-	clanglist[i, j] <- clang[where1, where2]#
-	}#
-}#
-}#
-diag(clanglist) = 1#
-#Haiti, Mali, Benin, Guinea, Burkina Faso, Togo, Gabon,  Central African Republic, Congo, Burundi, Rwanda uses French#
-clanglist[3,] = clanglist[28,]#
-clanglist[,3] = clanglist[,28]#
-clanglist[43, ] = clanglist[28,]#
-clanglist[,43] = clanglist[,28]#
-clanglist[45, ] = clanglist[28,]#
-clanglist[,45] = clanglist[,28]#
-clanglist[48, ] = clanglist[28,]#
-clanglist[,48] = clanglist[,28]#
-clanglist[49, ] = clanglist[28,]#
-clanglist[,49] = clanglist[,28]#
-clanglist[52, ] = clanglist[28,]#
-clanglist[,52] = clanglist[,28]#
-clanglist[55, ] = clanglist[28,]#
-clanglist[,55] = clanglist[,28]#
-clanglist[56, ] = clanglist[28,]#
-clanglist[,56] = clanglist[,28]#
-clanglist[57, ] = clanglist[28,]#
-clanglist[,57] = clanglist[,28]#
-clanglist[61, ] = clanglist[28,]#
-clanglist[,61] = clanglist[,28]#
-clanglist[62, ] = clanglist[28,]#
-clanglist[,62] = clanglist[,28]#
-#El Salvador, Nicaragua uses Spanish#
-clanglist[10, ] = clanglist[29,]#
-clanglist[,10] = clanglist[,29]#
-clanglist[11, ] = clanglist[29,]#
-clanglist[,11] = clanglist[,29]#
-#Suriname uses Dutch#
-clanglist[17, ] = clanglist[31,]#
-clanglist[,17] = clanglist[,31]#
-#Algania uses Albanian#
-clanglist[35, ] = rep(0, 97)#
-clanglist[,35] = rep(0, 97)#
-clanglist[35, 35] = 1#
-#Gambia, Sierra Leone, Ghana, Uganda, Tanzania, Rwanda uses English#
-clanglist[42, ] = clanglist[1,]#
-clanglist[,42] = clanglist[,1]#
-clanglist[50, ] = clanglist[1,]#
-clanglist[,50] = clanglist[,1]#
-clanglist[51, ] = clanglist[1,]#
-clanglist[,51] = clanglist[,1]#
-clanglist[58, ] = clanglist[1,]#
-clanglist[,58] = clanglist[,1]#
-clanglist[60, ] = clanglist[1,]#
-clanglist[,60] = clanglist[,1]#
-clanglist[62,which(clanglist[,1]>0)] = 1#
-clanglist[which(clanglist[,1]>0),62] =1#
-#Mauritania, Algeria, Libya, Iraq uses Arabic#
-clanglist[46, ] = clanglist[77,]#
-clanglist[,46] = clanglist[,77]#
-clanglist[68, ] = clanglist[77,]#
-clanglist[,68] = clanglist[,77]#
-clanglist[70, ] = clanglist[77,]#
-clanglist[,70] = clanglist[,77]#
-clanglist[74, ] = clanglist[77,]#
-clanglist[,74] = clanglist[,77]#
-#Angola,  Mozambique uses Protuguise#
-clanglist[63,] = clanglist[30,]#
-clanglist[,63] = clanglist[,30]#
-clanglist[64,] = clanglist[30,]#
-clanglist[,64] = clanglist[,30]#
-Ylist <- list()#
-for (tp in 1:Time){#
-  Ylist[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-  rownames(Ylist[[tp]]) <- countrylist_all#
-  colnames(Ylist[[tp]]) <- countrylist_all#
-  countrylist2 <- which(countrylist_all %in% rownames(agreedata[[tp]]$network))#
-  countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(agreedata[[tp]]$network) %in% countrylist_all[countrylist2[x]])})#
-  Ylist[[tp]][countrylist2, countrylist2] <-agreedata[[tp]]$network[countrylist3, countrylist3] #
-}#
-missing5 = sapply(1:32, function(t){which(colSums(Ylist[[t]], na.rm = TRUE)==0)})#
-Ylist2 <- list()#
-for (tp in 1:Time){#
-    Ylist2[[tp]] <- matrix(NA, nrow=length(countrylist_all), ncol=length(countrylist_all))#
-    rownames(Ylist2[[tp]]) <- countrylist_all#
-    colnames(Ylist2[[tp]]) <- countrylist_all#
-    countrylist2 <- which(countrylist_all %in% rownames(agreedata[[tp]]$jointvote))#
-    countrylist3 <- sapply(1:length(countrylist2), function(x){which(rownames(agreedata[[tp]]$jointvote) %in% countrylist_all[countrylist2[x]])})#
-    Ylist2[[tp]][countrylist2, countrylist2] <-agreedata[[tp]]$jointvote[countrylist3, countrylist3]#
-}#
-Y <- array(NA, dim=c(Time, length(countrylist_all), length(countrylist_all)))#
-dimnames(Y) <- list(c(1983:2014), countrylist_all, countrylist_all)#
-for (tp in 1:Time){#
-  Y[tp,,]<- Ylist[[tp]]#
-  diag(Y[tp,,]) = 1#
-}#
-#
-P = 1 + 7#
-N = dim(Y)[2]#
-X <- array(NA, dim=c(Time, N, N, P))#
-dimnames(X) <- list(c(1983:2014), countrylist_all, countrylist_all, c("intercept", "log(distance)", "polity", "alliance", "min(Trade_ij/GDP_i, Trade_ij/GDP_j)", "language", "GDP", "Export"))#
-#
-for (tp in 1:Time){#
-  X[tp,,,1] <- 1#
-  X[tp,,,2] <- as.matrix(log(dist2), nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  diag(X[tp,,,2]) <- 0#
-  X[tp,,,3] <- as.matrix(politylist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  X[tp,,,4] <- as.matrix(allilist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  for (i in 1:dim(Y)[2]){#
-  	for (j in 1:dim(Y)[2]){#
-  		ratioi = tradelist[[tp]][i,j] / GDPlist[[tp]][i,1]#
-  		ratioj = tradelist[[tp]][i,j] / GDPlist[[tp]][j,1]#
-  		X[tp, i, j, 5] = min(ratioi, ratioj)#
-  	}#
-  }#
-  X[tp,,,6] =  as.matrix(clanglist, nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,7] <- as.matrix(GDPlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2])#
-  X[tp,,,8] <- as.matrix(exportlist[[tp]], nrow=dim(Y)[2], ncol=dim(Y)[2]) #
-  	}#
-#
-UNdatafull = list()#
-UNdatafull$Y = Y#
-UNdatafull$X = X
-sapply(1:32, function(t){mean(UNdatafull$X[t,,,5])})
-sapply(1:32, function(t){mean(UNdatafull$X[t,,,5], na.rm = TRUE)})
-sapply(1:32, function(t){sd(UNdatafull$X[t,,,5], na.rm = TRUE)})
-save(UNdatafull, file = "UNdatafull.RData")
-Xvectors = list()#
-for (i in 1:5) {#
-	Xvectors[[i]] = sapply(1:32, function(t){UNdatafull$X[t,,,i+1][upper.tri(UNdatafull$X[t,,,i+1])]})#
-}#
-#
-cor(c(Xvectors[[1]]), c(Xvectors[[1]]), use = "complete.obs")#
-cor(c(Xvectors[[1]]), c(Xvectors[[2]]), use = "complete.obs")#
-cor(c(Xvectors[[1]]), c(Xvectors[[3]]), use = "complete.obs")#
-cor(c(Xvectors[[1]]), c(Xvectors[[4]]), use = "complete.obs")#
-cor(c(Xvectors[[1]]), c(Xvectors[[5]]), use = "complete.obs")#
-#
-cor(c(Xvectors[[2]]), c(Xvectors[[2]]), use = "complete.obs")#
-cor(c(Xvectors[[2]]), c(Xvectors[[3]]), use = "complete.obs")#
-cor(c(Xvectors[[2]]), c(Xvectors[[4]]), use = "complete.obs")#
-cor(c(Xvectors[[2]]), c(Xvectors[[5]]), use = "complete.obs")#
-#
-cor(c(Xvectors[[3]]), c(Xvectors[[3]]), use = "complete.obs")#
-cor(c(Xvectors[[3]]), c(Xvectors[[4]]), use = "complete.obs")#
-cor(c(Xvectors[[3]]), c(Xvectors[[5]]), use = "complete.obs")#
-#
-cor(c(Xvectors[[4]]), c(Xvectors[[4]]), use = "complete.obs")#
-cor(c(Xvectors[[4]]), c(Xvectors[[5]]), use = "complete.obs")
-load('~/Desktop/DAME/withoutalliance/UN_full.RData')
-load('~/Desktop/DAME/withoutalliance/UN_full3.RData')
-names(UN3)
-UN3$U
-load('~/Desktop/DAME/withoutalliance/UN_full.RData')
-load('~/Desktop/DLFM/UN_full.RData')
-names(UN)
-UN$U
-names(UN)
-UN = UN3
-N = 97#
-#construct eigenvector-ized U's#
-Unew = list()#
-R = 2#
-for (tp in 1:32) {#
-	Unew[[tp]] = matrix(NA, nrow = nrow(UN$U[[tp]]), ncol = 2*500)#
-	rownames(Unew[[tp]]) = rownames(UN$U[[tp]])#
-	for (iter in 1:500){#
-		Uold = UN$UPS[[tp]][-which(is.na(UN$UPS[[tp]][,1])),(2*iter-1):(2*iter)] #
-		UDU = Uold %*% diag(UN$DPS[[tp]][iter,]) %*% t(Uold)#
-		eULU = eigen(UDU)#
-		Unew[[tp]][, (2*iter-1):(2*iter)] = eULU$vec[, seq(1, R, length = R), drop = FALSE]	}#
+par(mfrow =c(4,6))
+for (i in 1:24){plot(Enrontest$b[[1]][i,], type = 'l')#
 }
-tp
-iter
-UN$DPS[[1]]
-acos
-?acos
-acos(c(0,1))
-angle <- function(a, b) {#
-	acos(sum(a*b) / (sqrt(sum(a*a))*sqrt(sum(b*b))))#
+for (i in 1:24){plot(Enrontest$b[[2]][i,], type = 'l')#
 }
-a = UN$U[[1]][1,]
-a
-a = UN3$U[[1]][1,]
-a
-head(UN$U[[1]])
-load('~/Desktop/DLFM/UN_full.RData')
-head(UN$U[[1]])
-a = UN$U[[1]][1,]
-a
-b = UN$U[[1]][1,]
-b = UN$U[[1]][2,]
-angle(a, b)
-b = UN$U[[1]][3,]
-angle(a, b)
-b = UN$U[[1]][30,]
-angle(a, b)
-angle <- function(x,y){#
-  dot.prod <- x%*%y #
-  norm.x <- norm(x,type="2")#
-  norm.y <- norm(y,type="2")#
-  theta <- acos(dot.prod / (norm.x * norm.y))#
-  as.numeric(theta)#
+for (i in 1:24){plot(Enrontest$b[[3]][i,], type = 'l')#
 }
-angle(a, b)
-b = UN$U[[1]][35,]
-angle(a, b)
-Unow = UN$U[[1]]
-Unow
-Unow %*% t(Unow)
-combinat
-combn
-?combn
-Unow
-combn(rownames(Unow), 2)
-tp
-N = nrow(Unew[[tp]])#
-	angles[[tp]] = matrix(NA, nrow = 500, ncol = 2 + N * (N-1) / 2)#
-	angles[[tp]][,1:2] = combn(rownames(Unow), 2)
-angles = list()
-N = nrow(Unew[[tp]])
-N
-Unew[[1]]
-angles[[tp]] = matrix(NA, nrow = 500, ncol = 2 + N * (N-1) / 2)
-angles[[tp]][,1:2] = combn(rownames(Unow), 2)
-Unow
-combn(rownames(Unow), 2)
-N * (N-1) / 2
-Unew = list()
-Unew[[1]] = UN$U[[1]]
-N = nrow(Unew[[tp]])
-B
-N
-angles[[tp]] = matrix(NA, nrow = 500, ncol = 2 + N * (N-1) / 2)
-angles[[tp]][,1:2] = combn(rownames(Unow), 2)
-combn(rownames(Unow), 2)
-Unow = UN$U[[1]]
-combn(rownames(Unow), 2)
-N
-N * (N-1) / 2
-combn(rownames(Unow), 2)
-angles[[tp]][,1:2] = t(combn(rownames(Unow), 2))
-t(combn(rownames(Unow), 2))
-angles[[tp]] = matrix(NA, nrow = 2 + N * (N-1) / 2, ncol = 500)
-angles[[tp]][,1:2] = t(combn(rownames(Unow), 2))
-t(combn(rownames(Unow), 2))
-angles[[tp]] = matrix(NA, nrow = N * (N-1) / 2, ncol = 2+500)
-angles[[tp]][,1:2] = t(combn(rownames(Unow), 2))
-angles[[1]]
-angles[[1]][,1:3]
-Unow = Unew[[tp]][,(2*iter-1):(2*iter)]
-Unow
-for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter+2] = angle(Unow[which(rownames(Unow) %in% angles[[tp]][i,1]),], Unow[which(rownames(Unow) %in% angles[[tp]][i,2]),])
+load('~/Desktop/IPTM/experiment/Enron_full/Enron_full_3_100_ver4.RData')
+for (i in 1:24){plot(Enrontest$b[[3]][i,], type = 'l')#
 }
-angles
-angles[[1]][,1:3]
-for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter+2] = as.data.frame(angle(Unow[which(rownames(Unow) %in% angles[[tp]][i,1]),], Unow[which(rownames(Unow) %in% angles[[tp]][i,2]),]))#
-		}
-for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter+2] = angle(Unow[which(rownames(Unow) %in% angles[[tp]][i,1]),], Unow[which(rownames(Unow) %in% angles[[tp]][i,2]),])#
-		}
-angles = list()
-N = nrow(Unew[[tp]])#
-	angles[[tp]] = matrix(NA, nrow = N * (N-1) / 2, ncol = 2+500)#
-	angles[[tp]][,1:2] = t(combn(rownames(Unow), 2))
-Unow = Unew[[tp]][,(2*iter-1):(2*iter)]
-Unow
-for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter+2] = angle(Unow[which(rownames(Unow) %in% angles[[tp]][i,1]),], Unow[which(rownames(Unow) %in% angles[[tp]][i,2]),])#
-		}
-iter
-angles[[1]][,1:3]
-N = nrow(Unew[[tp]])#
-	countrypair =  t(combn(rownames(Unow), 2))#
-	angles[[tp]] = matrix(NA, nrow = N * (N-1) / 2, ncol = 500)
-countrypair
-N = nrow(Unew[[tp]])#
-	countrypair =  t(combn(rownames(Unow), 2))#
-	angles[[tp]] = matrix(NA, nrow = N * (N-1) / 2, ncol = 500)
-Unow = Unew[[tp]][,(2*iter-1):(2*iter)]#
-		for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter] = angle(Unow[which(rownames(Unow) %in% countrypair[i,1]),], Unow[which(rownames(Unow) %in% countrypair[i,2]),])#
-		}#
-	}
-angles[[1]][,1:2]
-summary(angles[[1]][,1])
-Unow[which(rownames(Unow) %in% countrypair[i,1]),]
-Unow[which(rownames(Unow) %in% countrypair[i,2]),]
-pi
-dot.prod / (norm.x * norm.y)
+Daretest$l
+Enrontest$l
+load('~/Desktop/IPTM/experiment/Enron_full/Enron_full_3_100_ver3.RData')
+Enrontest$l
+load('~/Desktop/IPTM/experiment/Enron_full/Enron_full_3_100_ver2.RData')
+Enrontest$l
+load('~/Desktop/IPTM/experiment/Enron_full/Enron_full_3_100_ver1.RData')
+Enrontest$l
+length(556:6613)
+length(556:6613) * 0.1
+length(556:6613)
+length(556:6613)*0.1
+for (i in 1:5){#
+    set.seed(i)#
+    missing[[i]] = matrix(0, nrow = 6613, ncol = 3)#
+    #missing[[i]][sample(556:6613, 606, replace = FALSE), 1] = 1#
+    #missing[[i]][sample(556:6613, 606, replace = FALSE), 2] = 1#
+    missing[[i]][sample(556:6613, 606, replace = FALSE), 3] = 1#
+}
+missing = list()
+for (i in 1:5){#
+    set.seed(i)#
+    missing[[i]] = matrix(0, nrow = 6613, ncol = 3)#
+    #missing[[i]][sample(556:6613, 606, replace = FALSE), 1] = 1#
+    #missing[[i]][sample(556:6613, 606, replace = FALSE), 2] = 1#
+    missing[[i]][sample(556:6613, 606, replace = FALSE), 3] = 1#
+}
+missing
+paste0("Dare_PPC_", nIP,"_",K,"_ver", i, ".RData")
+nIP = 3
+K  =2
+paste0("Dare_PPC_", nIP,"_",K,"_ver", i, ".RData")
+i =1
+paste0("Dare_PPC_", nIP,"_",K,"_ver", i, ".RData")
 load('~/Desktop/UN_full.RData')
+names(UN)
+plot(UN$tau[,1], type = 'l')
+plot(UN$tau[,2], type = 'l')
+plot(UN$tau[,3], type = 'l')
+plot(UN$tau[,4], type = 'l')
+plot(UN$tau[,5], type = 'l')
+plot(UN$tau[,6], type = 'l')
+plot(UN$tau[,7], type = 'l')
+plot(UN$tau[,8], type = 'l')
+plot(UN$tau[,9], type = 'l')
+plot(UN$tau[,10], type = 'l')
+plot(UN$tau[,11], type = 'l')
+plot(UN$tau[,12], type = 'l')
+plot(UN$kappas[,1], type = 'l')
+plot(UN$kappas[,2], type = 'l')
+plot(UN$kappas[,3], type = 'l')
+plot(UN$kappas[,4], type = 'l')
+plot(UN$kappas[,5], type = 'l')
+plot(UN$kappas[,6], type = 'l')
+plot(UN$kappas[,7], type = 'l')
+plot(UN$kappas[,8], type = 'l')
+plot(UN$kappas[,9], type = 'l')
+plot(UN$kappas[,10], type = 'l')
+names(UN)
+plot(UN$s2, type = 'l')
+head(UN$corr)
+p = list()#
+cordata = data.frame(rbind(UN$corr[,1:3]), c(rep("DAME", 500)))#
+colnames(cordata) = c("Lag1", "Lag2", "Lag3", "Model")#
+p[[1]] = ggplot(cordata, aes(x = Lag1, fill = Model, color = Model)) + geom_histogram(position = "identity", alpha = 0.5) + geom_vline(aes(xintercept = vapply(1:1, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)), col = "blue", size = 1) +theme_minimal() +theme(legend.position = "bottom")#
+p[[2]] = ggplot(cordata, aes(x = Lag2, fill = Model, color = Model)) + geom_histogram(position = "identity", alpha = 0.5) + geom_vline(aes(xintercept = vapply(2:2, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)), col = "blue", size = 1)  + theme_minimal()#
+p[[3]] = ggplot(cordata, aes(x = Lag3, fill = Model, color = Model)) + geom_histogram(position = "identity", alpha = 0.5) + geom_vline(aes(xintercept = vapply(3:3, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)), col = "blue", size = 1) +theme_minimal()+ theme(legend.position = "top")#
+marrangeGrob(p[1:3], nrow = 1, ncol = 3, top = NULL)#
+g_legend<-function(a.gplot){#
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))#
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")#
+  legend <- tmp$grobs[[leg]]#
+  return(legend)}
+load("/Users/bomin8319/Desktop/DAME/UNdatafull2.RData")#
+attach(UNdatafull)#
+library(FastGP)#
+library(mvtnorm)#
+library(fields)#
+library(reshape)#
+library(MCMCpack)#
+library(expm)#
+library(igraph)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}
+setwd("/Users/bomin8319/Desktop/DAME_paper")
+load("/Users/bomin8319/Desktop/DAME/UNdatafull2.RData")#
+attach(UNdatafull)#
+library(FastGP)#
+library(mvtnorm)#
+library(fields)#
+library(reshape)#
+library(MCMCpack)#
+library(expm)#
+library(igraph)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}
+# 97 country version#
 Time = 32#
 N = 97#
-#construct eigenvector-ized U's#
-Unew = list()#
-R = 2#
-for (tp in 1:32) {#
-	Unew[[tp]] = matrix(NA, nrow = nrow(UN$U[[tp]]), ncol = 2*500)#
-	rownames(UN$U[[tp]])[which(rownames(UN$U[[tp]]) %in% "GFR")] = "GMY"#
-	rownames(Unew[[tp]]) = rownames(UN$U[[tp]])#
-	for (iter in 1:500){#
-		if (sum(is.na(UN$UPS[[tp]][,1]))>0){#
-		Uold = UN$UPS[[tp]][-which(is.na(UN$UPS[[tp]][,1])),(2*iter-1):(2*iter)] #
-		} else {#
-			Uold = UN$UPS[[tp]][,(2*iter-1):(2*iter)] #
-		}#
-		UDU = Uold %*% diag(UN$DPS[[tp]][iter,]) %*% t(Uold)#
-		eULU = eigen(UDU)#
-		Unew[[tp]][, (2*iter-1):(2*iter)] = eULU$vec[, seq(1, R, length = R), drop = FALSE]	}#
-}
-angle <- function(x,y){#
-  dot.prod <- x%*%y #
-  norm.x <- norm(x,type="2")#
-  norm.y <- norm(y,type="2")#
-  theta <- acos(dot.prod / (norm.x * norm.y))#
-  if (is.na(theta)) browser()#
-  as.numeric(theta)#
-}#
-angles = list()#
-countrypair = list()#
-for (tp in 1:32) {#
-	N = nrow(Unew[[tp]])#
-	countrypair[[tp]] =  t(combn(rownames(Unew[[tp]]), 2))#
-	angles[[tp]] = matrix(NA, nrow = N * (N-1) / 2, ncol = 500)#
-	for (iter in 1:500){#
-		Unow = Unew[[tp]][,(2*iter-1):(2*iter)]#
-		for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter] = angle(Unow[which(rownames(Unow) %in% countrypair[[tp]][i,1]),], Unow[which(rownames(Unow) %in% countrypair[[tp]][i,2]),])#
-		}#
-	}#
-}
-theta
-dot.prod
-norm.x
-norm.y
-dot.prod / (norm.x * norm.y)
-acos(dot.prod / (norm.x * norm.y))
-acos
-?acos
-dot.prod / (norm.x * norm.y)
-acos(1)
-acos(1)
-Q
-angle <- function(x,y){#
-  dot.prod <- x%*%y #
-  norm.x <- norm(x,type="2")#
-  norm.y <- norm(y,type="2")#
-  theta <- acos(dot.prod / (norm.x * norm.y))#
-  if (is.na(theta)) theta <- 0 #
-  as.numeric(theta)#
-}#
-angles = list()#
-countrypair = list()#
-for (tp in 1:32) {#
-	N = nrow(Unew[[tp]])#
-	countrypair[[tp]] =  t(combn(rownames(Unew[[tp]]), 2))#
-	angles[[tp]] = matrix(NA, nrow = N * (N-1) / 2, ncol = 500)#
-	for (iter in 1:500){#
-		Unow = Unew[[tp]][,(2*iter-1):(2*iter)]#
-		for (i in 1:nrow(angles[[tp]])) {#
-			angles[[tp]][i, iter] = angle(Unow[which(rownames(Unow) %in% countrypair[[tp]][i,1]),], Unow[which(rownames(Unow) %in% countrypair[[tp]][i,2]),])#
-		}#
-	}#
-}
-which(is.na(unlist(angles)))
-angles[[1]]
-plot(angles[[1]][1,])
-plot(angles[[1]][1,], type = 'l')
-plot(angles[[1]][2,], type = 'l')
-plot(angles[[1]][32,], type = 'l')
-plot(angles[[10]][32,], type = 'l')
-countrypair[[1]]
-tp
-i
-i = 1
-angles[[tp]][i,]
-cbind(summary(mcmc(angles[[tp]][i,])[[2]][,c(1,3, 5)]
-cbind(summary(mcmc(angles[[tp]][i,])[[2]][,c(1,3, 5)])
-)
-summary(mcmc(angles[[tp]][i,])[[2]][,c(1,3, 5)])
-library(MCMCpack)
-summary(mcmc(angles[[tp]][i,])[[2]][,c(1,3, 5)])
-summary(mcmc(angles[[tp]][i,]))[[2]][,c(1,3, 5)])
-summary(mcmc(angles[[tp]][i,]))[[2]][,c(1,3, 5)]
-summary(mcmc(angles[[tp]][i,]))
-summary(mcmc(angles[[tp]][i,]))[[2]]
-summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]
-for (tp in 1:32) {#
- for (i in 1:nrow(countrypair[[tp]])) {#
- 	countrypair[[tp]][i, 3:5] =  summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]#
- }
-}
-head(countrypair[[1]])
-countrypair2 = list()
-for (tp in 1:32) {#
-	countrypair2[[tp]] = matrix(NA, nrow = nrow(countrypair[[tp]]), ncol = 5)#
-	countrypair2[[tp]][,1:2] = countrypair[[tp]]#
- for (i in 1:nrow(countrypair[[tp]])) {#
- 	countrypair2[[tp]][i, 3:5] =  summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]#
- }#
-}
-countrypair2[[1]]
-countrypair2 = list()#
-for (tp in 1:32) {#
-	countrypair2[[tp]] = matrix(NA, nrow = nrow(countrypair[[tp]]), ncol = 3)#
- for (i in 1:nrow(countrypair[[tp]])) {#
- 	countrypair2[[tp]][i, ] =  summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]#
- }#
- 	countrypair[[tp]] = data.frame(countrypair[[tp]], countrypair2[[tp]])#
-}
-countrypair[[1]]
-arccos(1)
-acos(1)
-summary = summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]
-summary
-(summary[1] <= 1 & summary[3] >= 1)
-summary[1] <= 1
-summary[3] >= 1
+#
+# not existing countries -> all missing values imputed using model (biased)#
+avail1 = matrix(1, Time, N)#
+colnames(avail1) = colnames(UNdatafull$Y)#
+avail1[1:8, which(colnames(avail1) %in% c("ROK", "PRK"))] =0 #North and South Korea did not joined UN voting until 1990#
+avail1[1:9, which(colnames(avail1) %in% c("RUS"))] = 0 #RUS X variables not existed until 1991#
+avail1[13:21, which(colnames(avail1) %in% c("IRQ"))] = 0 #IRQ under sanction#
+#
+#avail1[9:14, which(colnames(avail1) %in% c("IRQ"))] = 0 #Under the rule of Saddam, economic data were considered state secrets; thus, reliable data for the era was limited. (From 1990 until Saddam accepted the terms and conditions of UN Resolution 986 in 1996 the GDP in Iraq remained at less than 30 percent of the 1989 value.)#
+#
+Degrees = vapply(1:Time, function(tp) {rowSums(Y[tp,,], na.rm = TRUE)}, rep(0, N))#
+corr = vapply(1:31, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)#
+plot(corr, type = 'l')
+load("/Users/bomin8319/Desktop/DAME/UNdatafull2.RData")
+load("/Users/bomin8319/Desktop/DAME_paper/UNdatafull2.RData")
+attach(UNdatafull)#
+library(FastGP)#
+library(mvtnorm)#
+library(fields)#
+library(reshape)#
 library(MCMCpack)#
-countrypair2 = list()#
-for (tp in 1:32) {#
-	countrypair2[[tp]] = matrix(NA, nrow = nrow(countrypair[[tp]]), ncol = 4)#
- for (i in 1:nrow(countrypair[[tp]])) {#
- 	summary = summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]#
- 	countrypair2[[tp]][i, ] =  c(summary, (summary[1] <= 1 & summary[3] >= 1)) #
+library(expm)#
+library(igraph)#
+library(DLFM2)#
+library(coda)#
+library(ggplot2)#
+library(gridExtra)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}#
+#
+# 97 country version#
+Time = 32#
+N = 97#
+#
+# not existing countries -> all missing values imputed using model (biased)#
+avail1 = matrix(1, Time, N)#
+colnames(avail1) = colnames(UNdatafull$Y)#
+avail1[1:8, which(colnames(avail1) %in% c("ROK", "PRK"))] =0 #North and South Korea did not joined UN voting until 1990#
+avail1[1:9, which(colnames(avail1) %in% c("RUS"))] = 0 #RUS X variables not existed until 1991#
+avail1[13:21, which(colnames(avail1) %in% c("IRQ"))] = 0 #IRQ under sanction#
+#
+#avail1[9:14, which(colnames(avail1) %in% c("IRQ"))] = 0 #Under the rule of Saddam, economic data were considered state secrets; thus, reliable data for the era was limited. (From 1990 until Saddam accepted the terms and conditions of UN Resolution 986 in 1996 the GDP in Iraq remained at less than 30 percent of the 1989 value.)#
+#
+Degrees = vapply(1:Time, function(tp) {rowSums(Y[tp,,], na.rm = TRUE)}, rep(0, N))#
+corr = vapply(1:31, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)#
+plot(corr, type = 'l')
+p = list()#
+cordata = data.frame(rbind(UN$corr[,1:3]), c(rep("DAME", 500)))#
+colnames(cordata) = c("Lag1", "Lag2", "Lag3", "Model")#
+p[[1]] = ggplot(cordata, aes(x = Lag1, fill = Model, color = Model)) + geom_histogram(position = "identity", alpha = 0.5) + geom_vline(aes(xintercept = vapply(1:1, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)), col = "blue", size = 1) +theme_minimal() +theme(legend.position = "bottom")#
+p[[2]] = ggplot(cordata, aes(x = Lag2, fill = Model, color = Model)) + geom_histogram(position = "identity", alpha = 0.5) + geom_vline(aes(xintercept = vapply(2:2, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)), col = "blue", size = 1)  + theme_minimal()#
+p[[3]] = ggplot(cordata, aes(x = Lag3, fill = Model, color = Model)) + geom_histogram(position = "identity", alpha = 0.5) + geom_vline(aes(xintercept = vapply(3:3, function(l) {cor(Degrees[1:(N*(Time - l))], Degrees[(1 + N*l):(N*Time)], use = "complete")}, 0)), col = "blue", size = 1) +theme_minimal()+ theme(legend.position = "top")#
+marrangeGrob(p[1:3], nrow = 1, ncol = 3, top = NULL)#
+g_legend<-function(a.gplot){#
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))#
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")#
+  legend <- tmp$grobs[[leg]]#
+  return(legend)}#
+#
+mylegend<-g_legend(p[[1]])#
+p3 <- grid.arrange(arrangeGrob(p[[1]] + theme(legend.position="none"),#
+                         p[[2]] + theme(legend.position="none"),#
+                         p[[3]] + theme(legend.position="none"), nrow=1),#
+             mylegend, heights=c(10, 1))
+corr
+colMeans(UN$corr)
+#beta#
+beta = lapply(1:Time, function(t){summary(mcmc(UN$BETA[[t]][1:500,]))[[2]]})#
+betas = list()#
+for (i in 1:6) {betas[[i]] = sapply(1:Time, function(t){beta[[t]][i,]})}#
+betacols= ggplotColours(6)#
+plots = list()#
+i= 1#
+years = c(1983:2014)#
+data = data.frame(cbind(years,t(betas[[i]])))#
+ colnames(data)[4] = "beta"#
+ f = ggplot(data, aes(x = years))#
+plots[[1]]=f + geom_line(aes(y = beta), colour=betacols[1]) + geom_ribbon(aes(ymin = X2.5., ymax = X97.5.), alpha = 0.1) + scale_x_continuous(breaks=number_ticks(8))+ylab("Intercept") + theme_minimal()#
+#
+color =betacols[-1]#
+varname = c("log(distance)", "Polity", "Alliance", "Lower trade-to-GDP ratio", "Common Language")#
+for (i in 2:6){#
+years = c(1983:2014)#
+data = data.frame(cbind(years,t(betas[[i]])))#
+ colnames(data)[4] = "beta"#
+ f = ggplot(data, aes(x = years))#
+ plots[[i]] <- f + geom_line(aes(y = beta), colour=color[i-1]) + geom_ribbon(aes(ymin = X2.5., ymax = X97.5.), alpha = 0.1) + ylab(varname[i-1]) + scale_x_continuous(breaks=number_ticks(8)) + geom_hline(yintercept = 0) + theme_minimal()#
+#
  }#
- 	countrypair[[tp]] = data.frame(countrypair[[tp]], countrypair2[[tp]])#
+ marrangeGrob(plots[1:6], nrow = 2, ncol = 3, top = NULL)
+colors = sort(rownames(UN$U[[Time]]))#
+colors[which(colors == "GFR")] = "GMY"#
+rownames(UN$U[[Time]])[31] = "GMY"#
+	thetanew = t(sapply(1:Time, function(t){colMeans(UN$theta[[t]])}))#
+	colnames(thetanew) = colnames(avail1)#
+	orders = sapply(1:N, function(n){which(colors[n]== rownames(UN$U[[Time]]))})#
+	thetanew = thetanew[,orders]#
+	data3 = data.frame(years = years, theta = thetanew)#
+	colnames(data3)[-1] = colors#
+	data3new = melt(data3, id = "years")#
+	colnames(data3new)[3] = "theta"
+ggcolors = ggplotColours(21)#
+colors = sort(rownames(UN$U[[Time]])[which(rownames(UN$U[[Time]]) %in% c("USA", "CHN", "IND", "ROK","PRK","IRQ","RUS","GRG","UKR","UKG", "FRN", "GMY", "TUR", "JPN", "ISR", "SYR", "LEB", "SUD", "IRN", "AUL", "PAK", "EGY","AFG"))])#
+data4new = data3new[data3new$variable %in% c("USA", "CHN", "IND", "ROK","PRK","IRQ","RUS","GRG","UKR","UKG", "FRN", "GMY", "TUR", "JPN", "ISR", "SYR", "LEB", "SUD", "IRN", "AUL", "PAK", "EGY","AFG"),]#
+#
+f <- ggplot(data4new, aes(years, theta, color = variable, label = variable))#
+f + geom_line(size = 0.5, aes(linetype =as.factor(c(sapply(c(6:1,5:1,5:1,5:1), function(x){rep(x, Time)})))))+geom_point(size =1, aes(shape =as.factor(c(sapply(c(1:6,1:5,1:5,1:5), function(x){rep(x, Time)})))))+ scale_x_continuous(breaks=number_ticks(8)) + theme_minimal() + #
+  geom_text(data = data4new[data4new$years=="1983", ], aes(label = variable), check_overlap = T, hjust = 1.3, vjust = 1, size =3, show.legend = F )+#
+geom_text(data = data4new[data4new$years=="2014", ], aes(label = variable), check_overlap = T, hjust = -0.3, vjust = 1, size =3, show.legend = F )+#
+  scale_color_manual(values = ggplotColours(21), name = "countries")+scale_linetype(guide = FALSE)+scale_shape(guide = FALSE)+#
+  guides(colour = guide_legend(override.aes = list(shape = c(1:6,1:5,1:5,1:5), linetype = c(6:1,5:1,5:1,5:1)))) #
+#
+f <- ggplot(data4new, aes(years, theta, color = variable, label = variable))#
+f + geom_line( aes(linetype =as.factor(c(sapply(c(6:1,5:1,5:1,5:1), function(x){rep(x, Time)})))))+ scale_x_continuous(breaks=number_ticks(8)) + theme_minimal() + #
+  geom_text(data = data4new[data4new$years=="1983", ], aes(label = variable), check_overlap = F, hjust = 1.3, vjust = 1, size =3, show.legend = F )+#
+  geom_text(data = data4new[data4new$years=="1988", ], aes(label = variable), check_overlap = F, hjust = 0, vjust = 1.2, size =3, show.legend = F )+#
+  geom_text(data = data4new[data4new$years=="2009", ], aes(label = variable), check_overlap = F, hjust = 0, vjust = 1.2, size =3, show.legend = F )+#
+  geom_text(data = data4new[data4new$years=="2014", ], aes(label = variable), check_overlap = F, hjust = -0.3, vjust = 1, size =3, show.legend = F )+#
+  scale_color_manual(values = ggplotColours(21), name = "countries")+scale_linetype(guide = FALSE)+scale_shape(guide = FALSE)+#
+  guides(colour = guide_legend(override.aes = list(linetype = c(6:1,5:1,5:1,5:1))))
+names(UN)
+ggcolors = ggplotColours(3)#
+datacollapse = matrix(0, nrow = 112500, ncol = 3)#
+observedcollapse = matrix(0, 75, 3)#
+pp = list()#
+for (tp in 1:Time) {#
+	diag(Y[tp,,]) = 0#
+	Y[tp, which(avail1[tp, ]==0), ] = 0#
+	Y[tp, , which(avail1[tp, ]==0)] = 0#
+	Y[d, , ][which(is.na(Y[d, , ]))] = 0#
+		data = t(sapply(1:500, function(r){tabulate(round(UN$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	colnames(data) =  c(21:95)#
+	datamat = matrix(0, 500, 75)#
+	colnames(datamat) = c(21:95)#
+	for (i in 1:500) {#
+		datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	}#
+	datamat1 = data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("AME"))#
+#
+	 data =  t(sapply(1:500, function(r){tabulate(round(UN4$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	colnames(data) =  c(21:95)#
+	datamat = matrix(0, 500, 75)#
+	 colnames(datamat) = c(21:95)#
+	 for (i in 1:500) {#
+		 datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	 }#
+	 datamat2 = rbind(datamat1, data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("ME")))#
+	 data =  t(sapply(1:500, function(r){tabulate(round(UN2$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	 colnames(data) =  c(21:95)#
+	 datamat = matrix(0, 500,75)#
+	 colnames(datamat) = c(21:95)#
+		 for (i in 1:500) {#
+		 datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	}#
+	 datamat3 = rbind(datamat2, data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("AE")))#
+	 data =  t(sapply(1:500, function(r){tabulate(round(UN3$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	 colnames(data) =  c(21:95)#
+	 datamat = matrix(0, 500, 75)#
+	 colnames(datamat) =c(21:95)#
+		 for (i in 1:500) {#
+		 datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	}#
+	 datamat4 = rbind(datamat3, data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("NO")))#
+	datamat4 = datamat3#
+	datamat4 = as.data.frame(datamat4)#
+	observedpp = as.numeric(tabulate(round(rowSums(Y[tp,,])), 95) / sum(tabulate(round(rowSums(Y[tp,,])), 95)))[-1:-20]#
+	names(observedpp) = c(21:95)#
+	pvec = rep(0, 75)#
+	names(pvec) =c(21:95)#
+	pvec[which(names(pvec) %in% names(observedpp))] = observedpp#
+	observed = data.frame(Proportion = pvec, Degree = as.factor(c(21:95)), Model = "AME")#
+	pp[[tp]] = ggplot(datamat4, aes(x = Degree, y = Proportion,fill = Model, color =Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal()+scale_fill_manual(values = alpha(ggcolors, 0.5)) + geom_line(data = observed, color = "blue", size = 0.2, group = 1)+geom_point(data =observed, color = "blue", size =2, group = 1)+guides(colour = guide_legend(override.aes = list(shape = NA))) + theme(legend.title = element_blank())#
+    datacollapse[,1] = datacollapse[,1] + datamat3[,1]#
+    observedcollapse[,1] = observedcollapse[,1] + observed[,1]#
+}#
+years = c(1983:2014)
+ggcolors = ggplotColours(3)#
+datacollapse = matrix(0, nrow = 112500, ncol = 3)#
+observedcollapse = matrix(0, 75, 3)#
+pp = list()#
+for (tp in 1:Time) {#
+	diag(Y[tp,,]) = 0#
+	Y[tp, which(avail1[tp, ]==0), ] = 0#
+	Y[tp, , which(avail1[tp, ]==0)] = 0#
+	Y[tp, , ][which(is.na(Y[tp, , ]))] = 0#
+		data = t(sapply(1:500, function(r){tabulate(round(UN$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	colnames(data) =  c(21:95)#
+	datamat = matrix(0, 500, 75)#
+	colnames(datamat) = c(21:95)#
+	for (i in 1:500) {#
+		datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	}#
+	datamat1 = data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("AME"))#
+#
+	 data =  t(sapply(1:500, function(r){tabulate(round(UN4$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	colnames(data) =  c(21:95)#
+	datamat = matrix(0, 500, 75)#
+	 colnames(datamat) = c(21:95)#
+	 for (i in 1:500) {#
+		 datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	 }#
+	 datamat2 = rbind(datamat1, data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("ME")))#
+	 data =  t(sapply(1:500, function(r){tabulate(round(UN2$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	 colnames(data) =  c(21:95)#
+	 datamat = matrix(0, 500,75)#
+	 colnames(datamat) = c(21:95)#
+		 for (i in 1:500) {#
+		 datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	}#
+	 datamat3 = rbind(datamat2, data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("AE")))#
+	 data =  t(sapply(1:500, function(r){tabulate(round(UN3$Degree[[tp]][r,]), 95)}))[,-1:-20]#
+	 colnames(data) =  c(21:95)#
+	 datamat = matrix(0, 500, 75)#
+	 colnames(datamat) =c(21:95)#
+		 for (i in 1:500) {#
+		 datamat[i, which(colnames(datamat) %in% colnames(data))] = data[i,] / sum(data[i,])#
+	}#
+	 datamat4 = rbind(datamat3, data.frame(Proportion = c(datamat), Degree = factor(c(sapply(c(21:95), function(k){rep(k, 500)}))), Model = as.factor("NO")))#
+	datamat4 = datamat3#
+	datamat4 = as.data.frame(datamat4)#
+	observedpp = as.numeric(tabulate(round(rowSums(Y[tp,,])), 95) / sum(tabulate(round(rowSums(Y[tp,,])), 95)))[-1:-20]#
+	names(observedpp) = c(21:95)#
+	pvec = rep(0, 75)#
+	names(pvec) =c(21:95)#
+	pvec[which(names(pvec) %in% names(observedpp))] = observedpp#
+	observed = data.frame(Proportion = pvec, Degree = as.factor(c(21:95)), Model = "AME")#
+	pp[[tp]] = ggplot(datamat4, aes(x = Degree, y = Proportion,fill = Model, color =Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal()+scale_fill_manual(values = alpha(ggcolors, 0.5)) + geom_line(data = observed, color = "blue", size = 0.2, group = 1)+geom_point(data =observed, color = "blue", size =2, group = 1)+guides(colour = guide_legend(override.aes = list(shape = NA))) + theme(legend.title = element_blank())#
+    datacollapse[,1] = datacollapse[,1] + datamat3[,1]#
+    observedcollapse[,1] = observedcollapse[,1] + observed[,1]#
+}#
+years = c(1983:2014)
+for (t in 1:Time){#
+mname = paste0(years[t], "overalldegree", ".png")#
+print(pp[[t]])#
+#ggsave(filename = mname, width = 10, height = 6)#
 }
-countrypair[[1]]
-for(tp in 1:32) {#
-	countrypair[[tp]] = countrypair[[tp]][,-c(1:3)]#
-}
-countrypair[[1]]
-countrypair = list()
-for (tp in 1:32) {#
-	N = nrow(Unew[[tp]])#
-	countrypair[[tp]] =  t(combn(rownames(Unew[[tp]]), 2))#
-}
-countrypair[[1]]
-library(MCMCpack)#
-countrypair2 = list()#
-for (tp in 1:32) {#
-	countrypair2[[tp]] = matrix(NA, nrow = nrow(countrypair[[tp]]), ncol = 4)#
- for (i in 1:nrow(countrypair[[tp]])) {#
- 	summary = summary(mcmc(angles[[tp]][i,]))[[2]][c(1,3, 5)]#
- 	countrypair2[[tp]][i, ] =  c(summary, (summary[1] <= 1 & summary[3] >= 1)) #
- }#
- 	countrypair[[tp]] = data.frame(countrypair[[tp]], countrypair2[[tp]])#
-}
-countrypair[[1]]
-for (tp in 1:32){#
-	print(countrypair[[tp]][which(countrypair[[tp]][,6] == 1), 1:2])#
-}
-similar = list()#
-for (tp in 1:32){#
-	similar[[tp]] =countrypair[[tp]][which(countrypair[[tp]][,6] == 1), 1:2])#
-}
-similar = list()#
-for (tp in 1:32){#
-	similar[[tp]] =countrypair[[tp]][which(countrypair[[tp]][,6] == 1), 1:2]	#
-}
-similar[[1]]
-similar[[32]]
-save(angles, file = "angles.RData")
+pp[[1]]
+datacollapse = data.frame(Proportion = datacollapse[,1]/Time, Degree = datamat3$Degree, Model = datamat3$Model)#
+observedcollapse = data.frame(Proportion = observedcollapse[,1]/Time, Degree = observed$Degree, Model = observed$Model)#
+datacollapse2 = datacollapse[datacollapse$Model == "AME",]#
+pp = ggplot(datacollapse, aes(x = Degree, y = Proportion,fill = Model, color =Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal()+scale_fill_manual(values = alpha(ggcolors, 0.5)) + geom_line(data = observedcollapse, color = "blue", size = 0.2, group = 1)+geom_point(data =observedcollapse, color = "blue", size =2, group = 1)+guides(colour = guide_legend(override.aes = list(shape = NA))) + theme(legend.title = element_blank())#
+pp = ggplot(datacollapse2, aes(x = Degree, y = Proportion,fill = Model, color =Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal()+scale_fill_manual(values = alpha(ggcolors, 0.5)) + geom_line(data = observedcollapse, color = "blue", size = 0.2, group = 1)+geom_point(data =observedcollapse, color = "blue", size =2, group = 1)+guides(colour = guide_legend(override.aes = list(shape = NA))) + theme(legend.title = element_blank())
+colMeans(UN$tau)
+load('~/Desktop/DAME_paper/MCMC_file/UN_full.RData')
+colMeans(UN$tau)
+names(UN)
+UN$U
+UN$U
+UN$D
+load('~/Desktop/UN_full.RData')
+UN$U
+UN$D

@@ -55,24 +55,22 @@
 \begin{document}
 	\maketitle
 \section{Metropolis-Hastings algorithm for GP parameters}
-For Gaussian process parameters---variance parameter $\tau$ and length-scale parameter $\kappa$, we use the Metropolis-Hastings algorithm with a proposal density $Q$ being the truncated Normal distribution with support $(0, \infty)$. Given the proposal distribution variance $\sigma^2_Q = (\sigma^2_{Q1}, \sigma^2_{Q2})$, we sample the new values $\tau^\prime$ and $\kappa^\prime$ from
-\begin{equation}
-\begin{aligned}
-\tau^\prime &\sim \mbox{truncnorm}(\tau, \sigma^2_{Q1})\\
-\kappa^\prime &\sim \mbox{truncnorm}(\kappa,\sigma^2_{Q2}).
-\end{aligned}
-\end{equation}
-We then accept the new proposed value $(\tau^\prime, \kappa^\prime)$ with probability equal to:
+For Gaussian process parameters---variance parameter $\tau$ and length-scale parameter $\kappa$, we use the Metropolis-Hastings algorithm with a proposal density $Q$ being the multivariate Gaussian distribution, with a diagonal covariance matrix---i.e., diag$ (\sigma^2_{Q1}, \sigma^2_{Q2})$. Given the proposal variance $\sigma^2_Q = (\sigma^2_{Q1}, \sigma^2_{Q2})$, we sample the new values $\tau^\prime$ and $\kappa^\prime$ from
+\begin{equation*}
+	(\tau^\prime, \kappa^\prime) \sim \exp(MVN_2(\log(\tau, \kappa), \sigma^2_QI_2)),
+\end{equation*}
+where we sample from the mean $\log(\tau, \kappa)$ and take exponentiation since both $\tau$ and $\kappa$ have to be positive. 
+Under the symmetric proposal distribution as above, we cancel out Q-ratio and then accept the new proposed value $(\tau^\prime, \kappa^\prime)$ with probability equal to:
 \begin{equation}
 \begin{split}
 & \mbox{Acceptance Probability}=
-\begin{cases}  \frac{P(\tau|\tau^\prime)P(\kappa|\kappa^\prime)P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x,\gamma)}{P(\tau^\prime|\tau)P(\kappa^\prime|\kappa)P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x,\gamma)}\quad\text{if}  <1\\
+\begin{cases}  \frac{P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x,\gamma)}{P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x,\gamma)}\quad\text{if}  <1\\
 1 \quad \text{else}
 \end{cases},
 \end{split}
 \end{equation}
-where $x$ is the $T$-length vector of interest (e.g. $\beta_p, \theta, d$), $\tau$ has a prior $\tau \sim \mbox{IG}(a_x, b_x)$, and $\kappa$ has a prior $\kappa \sim \mbox{half-cauchy}(\gamma)$. If a sample from Uniform(0,1) is less than the acceptance probability, we accept the proposed value. Otherwise, we reject.
-For any $x$, the probability from Q-ratio is $\frac{P(\tau|\tau^\prime)P(\kappa|\kappa^\prime)}{P(\tau^\prime|\tau)P(\kappa^\prime|\kappa)}$---i.e., ratio of truncated normal densities---while the posterior part $\frac{P(\tau^{x\prime}, \kappa^{x\prime}|x(\cdot), a_x, b_x,\gamma)}{P(\tau^{x}, \kappa^{x}|x(\cdot), a_x, b_x,\gamma)}$ may vary. Below are the derivation of acceptance ratio for each of the variables.
+where $x$ is the $T$-length vector of interest (e.g. $\beta_p, \theta, d$), $\tau$ has a prior $\tau \sim \mbox{IG}(a_x, b_x)$, and $\kappa$ has a prior $\kappa \sim \mbox{half-cauchy}(\gamma)$. If a sample from Uniform(0,1) is less than the acceptance probability, we accept the proposed value. Otherwise, we reject.\\ \newline
+Below are the derivation of acceptance ratio for each of the variables.
 \begin{itemize}
 	\item [1.] $(\tau^\beta_p, \kappa^\beta_p), \mbox{ for } p=1,\ldots,P$:
 	\begin{equation}

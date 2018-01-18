@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  15 JAN 2018 17:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  17 JAN 2018 14:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1342,20 +1342,20 @@ LaTeX Info: Redefining \cite on input line 694.
 ) (./DAME.aux)
 \openout1 = `DAME.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1420,7 +1420,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 56.
+Package hyperref Info: Link coloring OFF on input line 55.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1430,9 +1430,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count225
 )
-LaTeX Info: Redefining \ref on input line 56.
-LaTeX Info: Redefining \pageref on input line 56.
-LaTeX Info: Redefining \nameref on input line 56.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
 
 (./DAME.out) (./DAME.out)
 \@outlinefile=\write5
@@ -1524,55 +1524,55 @@ File: siunitx-abbreviations.cfg 2015/01/21 v2.6e siunitx: Abbreviated units
 \c__siunitx_mathsf_int=\count226
 \c__siunitx_mathtt_int=\count227
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--65
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
 
  []
 
 [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 71--76
+Underfull \hbox (badness 10000) in paragraph at lines 70--75
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--76
+Underfull \hbox (badness 10000) in paragraph at lines 70--75
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--86
+Underfull \hbox (badness 10000) in paragraph at lines 81--85
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 99--102
+Underfull \hbox (badness 10000) in paragraph at lines 98--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--114
+Underfull \hbox (badness 10000) in paragraph at lines 110--113
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 116--119
+Underfull \hbox (badness 10000) in paragraph at lines 115--118
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--123
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
 
  []
 
 [4]
-Overfull \hbox (24.5648pt too wide) detected at line 149
+Overfull \hbox (24.5648pt too wide) detected at line 148
 [] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 ^^\[][]\OT1/cmr/m/n/10 )[] + [][][][][
 ] = [][][][])\OML/cmm/m/it/10 ;
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--164
+Underfull \hbox (badness 10000) in paragraph at lines 161--163
 
  []
 
@@ -1676,17 +1676,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 260--268
 File: plots_paper/betaplot-1.png Graphic file (type png)
 
 <use plots_paper/betaplot-1.png>
-Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 273.
+Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 274.
 (pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
 
 <plots_paper/thetaplot-1.png, id=366, 2264.46pt x 1249.66875pt>
 File: plots_paper/thetaplot-1.png Graphic file (type png)
 
 <use plots_paper/thetaplot-1.png>
-Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 280.
+Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 281.
 (pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--285
+<plots_paper/UDU_reduced_8years-1.png, id=372, 2264.46pt x 1238.6275pt>
+File: plots_paper/UDU_reduced_8years-1.png Graphic file (type png)
+
+<use plots_paper/UDU_reduced_8years-1.png>
+Package pdftex.def Info: plots_paper/UDU_reduced_8years-1.png used on input lin
+e 290.
+(pdftex.def)             Requested size: 435.32718pt x 238.10106pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--295
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--295
 
  []
 
@@ -1695,35 +1708,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 270--285
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.285 ...on of additive random effects}\\ \newpage
-                                                   <./plots_paper/ISR79.png>]
-[12pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
- has been already used, duplicate ignored
+l.295   \newpage
+                 <./plots_paper/ISR79.png>] [12pdfTeX warning (ext4): destinati
+on with the same identifier (name{figure.4}) has been already used, duplicate i
+gnored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.285 ...on of additive random effects}\\ \newpage
-                                                   <./plots_paper/betaplot-1.pn
-g>] <plots_paper/UDU_reduced_8years-1.png, id=386, 2264.46pt x 1238.6275pt>
-File: plots_paper/UDU_reduced_8years-1.png Graphic file (type png)
-
-<use plots_paper/UDU_reduced_8years-1.png>
-Package pdftex.def Info: plots_paper/UDU_reduced_8years-1.png used on input lin
-e 289.
-(pdftex.def)             Requested size: 435.32718pt x 238.10106pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 286--294
-
- []
-
-[13pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
- has been already used, duplicate ignored
+l.295   \newpage
+                 <./plots_paper/betaplot-1.png>] [13pdfTeX warning (ext4): dest
+ination with the same identifier (name{figure.5}) has been already used, duplic
+ate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.294   \newpage
+l.295   \newpage
                  <./plots_paper/thetaplot-1.png>] (./DAME.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 296--1
+Underfull \hbox (badness 10000) in paragraph at lines 297--1
 
  []
 
@@ -1732,7 +1733,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 296--1
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.18 
+l.13 
       <./plots_paper/UDU_reduced_8years-1.png>] [15]) [16]
 Overfull \vbox (15.78067pt too high) has occurred while \output is active []
 
@@ -1742,53 +1743,53 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.364 \section
+l.365 \section
               {Summary of UN Voting Network}\label{appendix: summarystat}]
-<plots_paper/AMEoveralldegree-1.png, id=417, 2264.46pt x 1243.64626pt>
+<plots_paper/AMEoveralldegree-1.png, id=416, 2264.46pt x 1243.64626pt>
 File: plots_paper/AMEoveralldegree-1.png Graphic file (type png)
 
 <use plots_paper/AMEoveralldegree-1.png>
 Package pdftex.def Info: plots_paper/AMEoveralldegree-1.png used on input line 
-406.
+407.
 (pdftex.def)             Requested size: 370.03075pt x 203.21922pt.
 
-<plots_paper/AMEoverallsecond-1.png, id=418, 2264.46pt x 1243.64626pt>
+<plots_paper/AMEoverallsecond-1.png, id=417, 2264.46pt x 1243.64626pt>
 File: plots_paper/AMEoverallsecond-1.png Graphic file (type png)
 
 <use plots_paper/AMEoverallsecond-1.png>
 Package pdftex.def Info: plots_paper/AMEoverallsecond-1.png used on input line 
-407.
+408.
 (pdftex.def)             Requested size: 370.03075pt x 203.21922pt.
 
-<plots_paper/AMEoverallthird-1.png, id=419, 2264.46pt x 1242.6425pt>
+<plots_paper/AMEoverallthird-1.png, id=418, 2264.46pt x 1242.6425pt>
 File: plots_paper/AMEoverallthird-1.png Graphic file (type png)
 
 <use plots_paper/AMEoverallthird-1.png>
 Package pdftex.def Info: plots_paper/AMEoverallthird-1.png used on input line 4
-08.
+09.
 (pdftex.def)             Requested size: 370.03075pt x 203.0552pt.
  [18pdfTeX warning (ext4): destination with the same identifier (name{table.3})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.411 
+l.412 
       pdfTeX warning (ext4): destination with the same identifier (name{table.4
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.411 
+l.412 
       ] [19 <./plots_paper/AMEoveralldegree-1.png> <./plots_paper/AMEoverallsec
 ond-1.png> <./plots_paper/AMEoverallthird-1.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 413.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 413.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 414.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 414.
  (./DAME.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 413.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 413.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 414.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 414.
 Package rerunfilecheck Info: File `DAME.out' has not changed.
 (rerunfilecheck)             Checksum: 22E53088070B7FF36E0FA7CA455CE17A;1320.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 413.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 414.
  ) 
 Here is how much of TeX's memory you used:
  29720 strings out of 493089
@@ -1818,10 +1819,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on DAME.pdf (19 pages, 1909131 bytes).
+Output written on DAME.pdf (19 pages, 1910940 bytes).
 PDF statistics:
- 520 PDF objects out of 1000 (max. 8388607)
- 452 compressed objects within 5 object streams
+ 519 PDF objects out of 1000 (max. 8388607)
+ 451 compressed objects within 5 object streams
  99 named destinations out of 1000 (max. 500000)
  220 words of extra memory for PDF output out of 10000 (max. 10000000)
 

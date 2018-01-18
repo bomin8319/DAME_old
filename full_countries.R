@@ -1,6 +1,6 @@
 #full
 library(devtools)
-setwd('/Users/bomin8319/Desktop/DAME/DAME/R')
+setwd('/Users/bomin8319/Desktop/DAME/DAME_pkg/R')
 load_all()
 load("/Users/bomin8319/Desktop/DAME/UNdatafull2.RData")
 attach(UNdatafull)
@@ -14,6 +14,8 @@ library(igraph)
 library(DLFM2)
 library(coda)
 library(ggplot2)
+library(LaplacesDemon)
+library(truncnorm)
 library(gridExtra)
 ggplotColours <- function(n = 6, h = c(0, 360) + 15){
   if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n
@@ -53,7 +55,7 @@ plot(corr, type = 'l')
 	# cor(a[1:lengthab],b[1:lengthab] , use = "complete")}, 0)
 
 setwd("/Users/bomin8319/Desktop")
-UN = DAME_MH(Y[1:Time,,], X[1:Time,,,1:6], RE = c("additive", "multiplicative"), R = 2, avail = avail1, burn =5000, nscan = 25000, odens = 50)
+UN = DAME_MH(Y[1:Time,,], X[1:Time,,,1:6], RE = c("additive", "multiplicative"), R = 2, avail = avail1, burn =500, nscan = 2500, odens = 5, sigma_Q = c(10,1,0.1,0.1,10,10))
 save(UN, file = "UN_full.RData")
 UN2 = DAME_MH(Y[1:Time,,], X[1:Time,,,1:6], RE = c("additive"), R = 2, avail = avail1, burn = 5000, nscan =25000, odens = 50)
 save(UN2, file = "UN_full2.RData")
@@ -490,7 +492,7 @@ for (tp in 1:Time) {
 	diag(Y[tp,,]) = 0
 	Y[tp, which(avail1[tp, ]==0), ] = 0
 	Y[tp, , which(avail1[tp, ]==0)] = 0
-	Y[d, , ][which(is.na(Y[d, , ]))] = 0
+	Y[tp, , ][which(is.na(Y[tp, , ]))] = 0
 		data = t(sapply(1:500, function(r){tabulate(round(UN$Degree[[tp]][r,]), 95)}))[,-1:-20]
 	colnames(data) =  c(21:95)
 	datamat = matrix(0, 500, 75)
@@ -542,7 +544,7 @@ years = c(1983:2014)
 for (t in 1:Time){
 mname = paste0(years[t], "overalldegree", ".png")
 print(pp[[t]])
-ggsave(filename = mname, width = 10, height = 6)
+#ggsave(filename = mname, width = 10, height = 6)
 }
 datacollapse = data.frame(Proportion = datacollapse[,1]/Time, Degree = datamat3$Degree, Model = datamat3$Model)
 observedcollapse = data.frame(Proportion = observedcollapse[,1]/Time, Degree = observed$Degree, Model = observed$Model)
