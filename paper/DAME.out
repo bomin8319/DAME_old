@@ -2,7 +2,7 @@
 \BOOKMARK [1][-]{section.2}{Dynamic Additive and Multiplicative Effects Model}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Model Formulation}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Posterior Computation}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Varying Number of Nodes}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{Handling Missing Data}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Simulation Study}{}% 6
 \BOOKMARK [2][-]{subsection.3.1}{Estimating Strong Correlations}{section.3}% 7
 \BOOKMARK [2][-]{subsection.3.2}{Capturing Transitivity}{section.3}% 8
@@ -14,6 +14,7 @@
 \BOOKMARK [1][-]{section.5}{Discussion}{}% 14
 \BOOKMARK [1][-]{section*.2}{Appendices}{}% 15
 \BOOKMARK [1][-]{Appendix.a.A}{List of Countries in Voting Network}{}% 16
-\BOOKMARK [1][-]{Appendix.a.B}{Summary of UN Voting Network}{}% 17
-\BOOKMARK [1][-]{Appendix.a.C}{Correlation between Independent Variables}{}% 18
-\BOOKMARK [1][-]{Appendix.a.D}{Posterior Predictive Checks on Degree Statistics}{}% 19
+\BOOKMARK [1][-]{Appendix.a.B}{Summary of UN Voting Network\204Non-important Votes}{}% 17
+\BOOKMARK [1][-]{Appendix.a.C}{Summary of UN Voting Network\204Important Votes}{}% 18
+\BOOKMARK [1][-]{Appendix.a.D}{Correlation between Independent Variables}{}% 19
+\BOOKMARK [1][-]{Appendix.a.E}{Posterior Predictive Checks on Degree Statistics}{}% 20

@@ -59,11 +59,6 @@ Gibler, D.~M. (2008).
 \newblock {\em International military alliances, 1648-2008}.
 \newblock CQ Press.
 
-\bibitem[Golub and Van~Loan, 2012]{golub2012matrix}
-Golub, G.~H. and Van~Loan, C.~F. (2012).
-\newblock {\em Matrix computations}, volume~3.
-\newblock JHU Press.
-
 \bibitem[Hanneke et~al., 2010]{hanneke2010discrete}
 Hanneke, S., Fu, W., Xing, E.~P., et~al. (2010).
 \newblock Discrete temporal models of social networks.
@@ -152,6 +147,12 @@ Minhas, S., Hoff, P.~D., and Ward, M.~D. (2016b).
 \newblock A new approach to analyzing coevolving longitudinal networks in
   international relations.
 \newblock {\em Journal of Peace Research}, 53(3):491--505.
+
+\bibitem[Rasmussen, 2004]{rasmussen2004gaussian}
+Rasmussen, C.~E. (2004).
+\newblock Gaussian processes in machine learning.
+\newblock In {\em Advanced lectures on machine learning}, pages 63--71.
+  Springer.
 
 \bibitem[Sarkar and Moore, 2005]{sarkar2005dynamic}
 Sarkar, P. and Moore, A.~W. (2005).

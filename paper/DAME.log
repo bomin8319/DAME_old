@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  17 JAN 2018 14:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 FEB 2018 23:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1546,38 +1546,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--85
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 98--101
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 110--113
+Underfull \hbox (badness 10000) in paragraph at lines 99--102
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 115--118
+Underfull \hbox (badness 10000) in paragraph at lines 133--137
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--122
+Underfull \hbox (badness 10000) in paragraph at lines 149--151
 
  []
 
 [4]
-Overfull \hbox (24.5648pt too wide) detected at line 148
+Overfull \hbox (24.5648pt too wide) detected at line 177
 [] \OT1/cmr/m/n/10 = [](\OML/cmm/m/it/10 ^^\[][]\OT1/cmr/m/n/10 )[] + [][][][][
 ] = [][][][])\OML/cmm/m/it/10 ;
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 161--163
+Underfull \hbox (badness 10000) in paragraph at lines 190--193
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 175--177
+Underfull \hbox (badness 10000) in paragraph at lines 205--207
 
  []
 
@@ -1585,220 +1580,226 @@ Underfull \hbox (badness 10000) in paragraph at lines 175--177
 File: plots_paper/correlations-1.png Graphic file (type png)
 
 <use plots_paper/correlations-1.png>
-Package pdftex.def Info: plots_paper/correlations-1.png used on input line 185.
+Package pdftex.def Info: plots_paper/correlations-1.png used on input line 219.
 
 (pdftex.def)             Requested size: 435.32718pt x 152.04507pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--188
+Underfull \hbox (badness 10000) in paragraph at lines 214--223
 
  []
 
-<plots_paper/newpositiveD-1.png, id=267, 2264.46pt x 867.24pt>
+[6] <plots_paper/newpositiveD-1.png, id=276, 2264.46pt x 867.24pt>
 File: plots_paper/newpositiveD-1.png Graphic file (type png)
 
 <use plots_paper/newpositiveD-1.png>
-Package pdftex.def Info: plots_paper/newpositiveD-1.png used on input line 194.
+Package pdftex.def Info: plots_paper/newpositiveD-1.png used on input line 228.
 
-(pdftex.def)             Requested size: 435.32718pt x 166.70934pt.
+(pdftex.def)             Requested size: 389.61967pt x 149.2153pt.
 
-<plots_paper/newmixedD-1.png, id=268, 2264.46pt x 865.2325pt>
+<plots_paper/newmixedD-1.png, id=277, 2264.46pt x 865.2325pt>
 File: plots_paper/newmixedD-1.png Graphic file (type png)
 
 <use plots_paper/newmixedD-1.png>
-Package pdftex.def Info: plots_paper/newmixedD-1.png used on input line 195.
-(pdftex.def)             Requested size: 435.32718pt x 166.32343pt.
+Package pdftex.def Info: plots_paper/newmixedD-1.png used on input line 229.
+(pdftex.def)             Requested size: 389.61967pt x 148.86989pt.
 
-<plots_paper/newnegativeD-1.png, id=269, 2264.46pt x 865.2325pt>
+<plots_paper/newnegativeD-1.png, id=278, 2264.46pt x 865.2325pt>
 File: plots_paper/newnegativeD-1.png Graphic file (type png)
 
 <use plots_paper/newnegativeD-1.png>
-Package pdftex.def Info: plots_paper/newnegativeD-1.png used on input line 196.
+Package pdftex.def Info: plots_paper/newnegativeD-1.png used on input line 230.
 
-(pdftex.def)             Requested size: 435.32718pt x 166.32343pt.
+(pdftex.def)             Requested size: 389.61967pt x 148.86989pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 190--200
+Underfull \hbox (badness 10000) in paragraph at lines 224--233
 
  []
 
-[6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.200 
-       <./plots_paper/correlations-1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 203--219
+l.233 \end{figure}
+                   <./plots_paper/correlations-1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 237--252
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 203--219
+Underfull \hbox (badness 10000) in paragraph at lines 237--252
 
  []
 
-[7] [8pdfTeX warning (ext4): destination with the same identifier (name{figure.
-2}) has been already used, duplicate ignored
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.219 	\item
+l.252 	\item
              [1.] $\mbox{Intercept}^t_{ij}$: constant 1, <./plots_paper/newposi
 tiveD-1.png> <./plots_paper/newmixedD-1.png> <./plots_paper/newnegativeD-1.png>
-]
-Underfull \hbox (badness 10000) in paragraph at lines 226--229
+] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 259--262
 
  []
 
-[9pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
-as been already used, duplicate ignored
+[10pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.229 	\item
-            [1.]  North Korea (PRK) have structural zeros from $t = 1$ to $t...
-]
-Underfull \hbox (badness 10000) in paragraph at lines 247--259
+l.274 \begin{equation*}
+                       ]
+Underfull \hbox (badness 10000) in paragraph at lines 280--283
 
  []
 
-<plots_paper/ISR79.png, id=356, 3613.5pt x 1806.75pt>
+<plots_paper/ISR79.png, id=366, 3613.5pt x 1806.75pt>
 File: plots_paper/ISR79.png Graphic file (type png)
 
 <use plots_paper/ISR79.png>
-Package pdftex.def Info: plots_paper/ISR79.png used on input line 264.
+Package pdftex.def Info: plots_paper/ISR79.png used on input line 287.
 (pdftex.def)             Requested size: 435.32718pt x 217.65527pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--268
-
- []
-
-[10] <plots_paper/betaplot-1.png, id=365, 2264.46pt x 1249.66875pt>
+<plots_paper/betaplot-1.png, id=370, 2264.46pt x 1249.66875pt>
 File: plots_paper/betaplot-1.png Graphic file (type png)
 
 <use plots_paper/betaplot-1.png>
-Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 274.
+Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 297.
 (pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
 
-<plots_paper/thetaplot-1.png, id=366, 2264.46pt x 1249.66875pt>
+<plots_paper/thetaplot-1.png, id=371, 2264.46pt x 1249.66875pt>
 File: plots_paper/thetaplot-1.png Graphic file (type png)
 
 <use plots_paper/thetaplot-1.png>
-Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 281.
+Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 304.
 (pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
 
-<plots_paper/UDU_reduced_8years-1.png, id=372, 2264.46pt x 1238.6275pt>
+<plots_paper/UDU_reduced_8years-1.png, id=377, 2264.46pt x 1238.6275pt>
 File: plots_paper/UDU_reduced_8years-1.png Graphic file (type png)
 
 <use plots_paper/UDU_reduced_8years-1.png>
 Package pdftex.def Info: plots_paper/UDU_reduced_8years-1.png used on input lin
-e 290.
+e 313.
 (pdftex.def)             Requested size: 435.32718pt x 238.10106pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--318
 
  []
 
-[11pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+[11] [12pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.318 \section
+              {Discussion} <./plots_paper/ISR79.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 319--322
+
+ []
+
+[13pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.295   \newpage
-                 <./plots_paper/ISR79.png>] [12pdfTeX warning (ext4): destinati
-on with the same identifier (name{figure.4}) has been already used, duplicate i
-gnored
+l.322 \newpage
+               <./plots_paper/betaplot-1.png>] [14pdfTeX warning (ext4): destin
+ation with the same identifier (name{figure.5}) has been already used, duplicat
+e ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.295   \newpage
-                 <./plots_paper/betaplot-1.png>] [13pdfTeX warning (ext4): dest
-ination with the same identifier (name{figure.5}) has been already used, duplic
-ate ignored
+l.322 \newpage
+               <./plots_paper/thetaplot-1.png>] (./DAME.bbl [15pdfTeX warning (
+ext4): destination with the same identifier (name{figure.6}) has been already u
+sed, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.295   \newpage
-                 <./plots_paper/thetaplot-1.png>] (./DAME.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 297--1
-
- []
-
-[14pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
- has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.13 
-      <./plots_paper/UDU_reduced_8years-1.png>] [15]) [16]
+l.66 
+      <./plots_paper/UDU_reduced_8years-1.png>] [16]) [17]
 Overfull \vbox (15.78067pt too high) has occurred while \output is active []
 
 
-[17pdfTeX warning (ext4): destination with the same identifier (name{table.2}) 
+[18pdfTeX warning (ext4): destination with the same identifier (name{table.2}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.365 \section
-              {Summary of UN Voting Network}\label{appendix: summarystat}]
-<plots_paper/AMEoveralldegree-1.png, id=416, 2264.46pt x 1243.64626pt>
+l.388 
+      ]
+Overfull \hbox (21.76816pt too wide) in paragraph at lines 392--408
+ [][] 
+ []
+
+[19pdfTeX warning (ext4): destination with the same identifier (name{table.3}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.434 \newpage
+              pdfTeX warning (ext4): destination with the same identifier (name
+{table.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.434 \newpage
+              ]
+<plots_paper/AMEoveralldegree-1.png, id=432, 2264.46pt x 1243.64626pt>
 File: plots_paper/AMEoveralldegree-1.png Graphic file (type png)
 
 <use plots_paper/AMEoveralldegree-1.png>
 Package pdftex.def Info: plots_paper/AMEoveralldegree-1.png used on input line 
-407.
-(pdftex.def)             Requested size: 370.03075pt x 203.21922pt.
+455.
+(pdftex.def)             Requested size: 278.60912pt x 153.00743pt.
 
-<plots_paper/AMEoverallsecond-1.png, id=417, 2264.46pt x 1243.64626pt>
+<plots_paper/AMEoverallsecond-1.png, id=433, 2264.46pt x 1243.64626pt>
 File: plots_paper/AMEoverallsecond-1.png Graphic file (type png)
 
 <use plots_paper/AMEoverallsecond-1.png>
 Package pdftex.def Info: plots_paper/AMEoverallsecond-1.png used on input line 
-408.
-(pdftex.def)             Requested size: 370.03075pt x 203.21922pt.
+456.
+(pdftex.def)             Requested size: 278.60912pt x 153.00743pt.
 
-<plots_paper/AMEoverallthird-1.png, id=418, 2264.46pt x 1242.6425pt>
+<plots_paper/AMEoverallthird-1.png, id=434, 2264.46pt x 1242.6425pt>
 File: plots_paper/AMEoverallthird-1.png Graphic file (type png)
 
 <use plots_paper/AMEoverallthird-1.png>
 Package pdftex.def Info: plots_paper/AMEoverallthird-1.png used on input line 4
-09.
-(pdftex.def)             Requested size: 370.03075pt x 203.0552pt.
- [18pdfTeX warning (ext4): destination with the same identifier (name{table.3})
+57.
+(pdftex.def)             Requested size: 278.60912pt x 152.88394pt.
+ [20pdfTeX warning (ext4): destination with the same identifier (name{table.5})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.412 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.4
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.412 
-      ] [19 <./plots_paper/AMEoveralldegree-1.png> <./plots_paper/AMEoverallsec
-ond-1.png> <./plots_paper/AMEoverallthird-1.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 414.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 414.
+l.462 \end{document}
+                     <./plots_paper/AMEoveralldegree-1.png> <./plots_paper/AMEo
+verallsecond-1.png> <./plots_paper/AMEoverallthird-1.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 462.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 462.
  (./DAME.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 414.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 414.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 462.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 462.
 Package rerunfilecheck Info: File `DAME.out' has not changed.
-(rerunfilecheck)             Checksum: 22E53088070B7FF36E0FA7CA455CE17A;1320.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 414.
+(rerunfilecheck)             Checksum: D1EEFCE1F09C236B9A81F3217FA90D5A;1427.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 462.
  ) 
 Here is how much of TeX's memory you used:
- 29720 strings out of 493089
- 578521 string characters out of 6134842
- 742227 words of memory out of 5000000
- 32646 multiletter control sequences out of 15000+600000
+ 29726 strings out of 493089
+ 578631 string characters out of 6134842
+ 744624 words of memory out of 5000000
+ 32649 multiletter control sequences out of 15000+600000
  16473 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,11n,56p,10416b,932s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,13n,56p,10416b,901s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
@@ -1817,12 +1818,14 @@ ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on DAME.pdf (19 pages, 1910940 bytes).
+ist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on DAME.pdf (20 pages, 1928059 bytes).
 PDF statistics:
- 519 PDF objects out of 1000 (max. 8388607)
- 451 compressed objects within 5 object streams
- 99 named destinations out of 1000 (max. 500000)
- 220 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 536 PDF objects out of 1000 (max. 8388607)
+ 465 compressed objects within 5 object streams
+ 102 named destinations out of 1000 (max. 500000)
+ 228 words of extra memory for PDF output out of 10000 (max. 10000000)
 
