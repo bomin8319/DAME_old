@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 FEB 2018 23:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 MAR 2018 18:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1576,42 +1576,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 205--207
 
  []
 
-<plots_paper/correlations-1.png, id=264, 2264.46pt x 790.955pt>
+[6] <plots_paper/correlations-1.png, id=267, 2264.46pt x 790.955pt>
 File: plots_paper/correlations-1.png Graphic file (type png)
 
 <use plots_paper/correlations-1.png>
 Package pdftex.def Info: plots_paper/correlations-1.png used on input line 219.
 
-(pdftex.def)             Requested size: 435.32718pt x 152.04507pt.
+(pdftex.def)             Requested size: 415.73825pt x 145.21404pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 214--223
 
  []
 
-[6] <plots_paper/newpositiveD-1.png, id=276, 2264.46pt x 867.24pt>
+<plots_paper/newpositiveD-1.png, id=272, 2264.46pt x 867.24pt>
 File: plots_paper/newpositiveD-1.png Graphic file (type png)
 
 <use plots_paper/newpositiveD-1.png>
 Package pdftex.def Info: plots_paper/newpositiveD-1.png used on input line 228.
 
-(pdftex.def)             Requested size: 389.61967pt x 149.2153pt.
+(pdftex.def)             Requested size: 415.73825pt x 159.21945pt.
 
-<plots_paper/newmixedD-1.png, id=277, 2264.46pt x 865.2325pt>
+<plots_paper/newmixedD-1.png, id=273, 2264.46pt x 865.2325pt>
 File: plots_paper/newmixedD-1.png Graphic file (type png)
 
 <use plots_paper/newmixedD-1.png>
 Package pdftex.def Info: plots_paper/newmixedD-1.png used on input line 229.
-(pdftex.def)             Requested size: 389.61967pt x 148.86989pt.
+(pdftex.def)             Requested size: 415.73825pt x 158.85089pt.
 
-<plots_paper/newnegativeD-1.png, id=278, 2264.46pt x 865.2325pt>
+<plots_paper/newnegativeD-1.png, id=274, 2264.46pt x 865.2325pt>
 File: plots_paper/newnegativeD-1.png Graphic file (type png)
 
 <use plots_paper/newnegativeD-1.png>
 Package pdftex.def Info: plots_paper/newnegativeD-1.png used on input line 230.
 
-(pdftex.def)             Requested size: 389.61967pt x 148.86989pt.
+(pdftex.def)             Requested size: 415.73825pt x 158.85089pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--233
+Underfull \hbox (badness 10000) in paragraph at lines 224--234
 
  []
 
@@ -1620,8 +1620,8 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.233 \end{figure}
-                   <./plots_paper/correlations-1.png>]
+l.234 
+       <./plots_paper/correlations-1.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 237--252
 
  []
@@ -1631,15 +1631,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 237--252
 
  []
 
-[8pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
-has been already used, duplicate ignored
+
+Underfull \hbox (badness 10000) in paragraph at lines 237--252
+
+ []
+
+[8] [9pdfTeX warning (ext4): destination with the same identifier (name{figure.
+2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.252 	\item
-             [1.] $\mbox{Intercept}^t_{ij}$: constant 1, <./plots_paper/newposi
-tiveD-1.png> <./plots_paper/newmixedD-1.png> <./plots_paper/newnegativeD-1.png>
-] [9]
+             [1.] $X^t_{ij1}$: intercept, included to account for the baseli...
+ <./plots_paper/newpositiveD-1.png> <./plots_paper/newmixedD-1.png> <./plots_pa
+per/newnegativeD-1.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 259--262
 
  []
@@ -1649,154 +1654,166 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.274 \begin{equation*}
-                       ]
-Underfull \hbox (badness 10000) in paragraph at lines 280--283
-
- []
-
-<plots_paper/ISR79.png, id=366, 3613.5pt x 1806.75pt>
+l.266 \end{itemize}
+                   ] <plots_paper/ISR79.png, id=359, 3613.5pt x 1806.75pt>
 File: plots_paper/ISR79.png Graphic file (type png)
 
 <use plots_paper/ISR79.png>
-Package pdftex.def Info: plots_paper/ISR79.png used on input line 287.
-(pdftex.def)             Requested size: 435.32718pt x 217.65527pt.
+Package pdftex.def Info: plots_paper/ISR79.png used on input line 272.
+(pdftex.def)             Requested size: 415.73825pt x 207.86836pt.
 
-<plots_paper/betaplot-1.png, id=370, 2264.46pt x 1249.66875pt>
+<plots_paper/betaplot-1.png, id=363, 2264.46pt x 1249.66875pt>
 File: plots_paper/betaplot-1.png Graphic file (type png)
 
 <use plots_paper/betaplot-1.png>
-Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 297.
-(pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
+Package pdftex.def Info: plots_paper/betaplot-1.png used on input line 282.
+(pdftex.def)             Requested size: 415.73825pt x 229.4308pt.
 
-<plots_paper/thetaplot-1.png, id=371, 2264.46pt x 1249.66875pt>
+<plots_paper/thetaplot-1.png, id=373, 2264.46pt x 1249.66875pt>
 File: plots_paper/thetaplot-1.png Graphic file (type png)
 
 <use plots_paper/thetaplot-1.png>
-Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 304.
-(pdftex.def)             Requested size: 435.32718pt x 240.22351pt.
+Package pdftex.def Info: plots_paper/thetaplot-1.png used on input line 290.
+(pdftex.def)             Requested size: 415.73825pt x 229.4308pt.
 
-<plots_paper/UDU_reduced_8years-1.png, id=377, 2264.46pt x 1238.6275pt>
+<plots_paper/UDU_reduced_8years-1.png, id=375, 2264.46pt x 1238.6275pt>
 File: plots_paper/UDU_reduced_8years-1.png Graphic file (type png)
 
 <use plots_paper/UDU_reduced_8years-1.png>
 Package pdftex.def Info: plots_paper/UDU_reduced_8years-1.png used on input lin
-e 313.
-(pdftex.def)             Requested size: 435.32718pt x 238.10106pt.
+e 299.
+(pdftex.def)             Requested size: 415.73825pt x 227.4037pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 293--318
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--318
+Underfull \hbox (badness 10000) in paragraph at lines 279--304
 
  []
 
-[11] [12pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.3}) has been already used, duplicate ignored
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.318 \section
-              {Discussion} <./plots_paper/ISR79.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 319--322
+Underfull \hbox (badness 10000) in paragraph at lines 279--304
 
  []
 
-[13pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+[11pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.322 \newpage
-               <./plots_paper/betaplot-1.png>] [14pdfTeX warning (ext4): destin
-ation with the same identifier (name{figure.5}) has been already used, duplicat
-e ignored
+l.304 \section
+              {Discussion} <./plots_paper/ISR79.png>] [12pdfTeX warning (ext4):
+ destination with the same identifier (name{figure.4}) has been already used, d
+uplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.322 \newpage
-               <./plots_paper/thetaplot-1.png>] (./DAME.bbl [15pdfTeX warning (
-ext4): destination with the same identifier (name{figure.6}) has been already u
-sed, duplicate ignored
+l.304 \section
+              {Discussion} <./plots_paper/betaplot-1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 305--308
+
+ []
+
+[13pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.66 
-      <./plots_paper/UDU_reduced_8years-1.png>] [16]) [17]
-Overfull \vbox (15.78067pt too high) has occurred while \output is active []
+l.308 \newpage
+               <./plots_paper/thetaplot-1.png>] [14pdfTeX warning (ext4): desti
+nation with the same identifier (name{figure.6}) has been already used, duplica
+te ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.308 \newpage
+               <./plots_paper/UDU_reduced_8years-1.png>] (./DAME.bbl [15])
+[16]
+Overfull \vbox (28.33623pt too high) has occurred while \output is active []
 
 
-[18pdfTeX warning (ext4): destination with the same identifier (name{table.2}) 
+[17pdfTeX warning (ext4): destination with the same identifier (name{table.2}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.388 
+l.374 
       ]
-Overfull \hbox (21.76816pt too wide) in paragraph at lines 392--408
+Overfull \hbox (11.81894pt too wide) in paragraph at lines 375--375
+[]\OT1/cmr/bx/n/14.4 Summary of the UN Vot-ing Network---Non-important Votes 
+ []
+
+
+Overfull \hbox (21.76816pt too wide) in paragraph at lines 378--394
  [][] 
  []
 
-[19pdfTeX warning (ext4): destination with the same identifier (name{table.3}) 
+[18pdfTeX warning (ext4): destination with the same identifier (name{table.3}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.434 \newpage
+l.420 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {table.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.434 \newpage
+l.420 \newpage
               ]
-<plots_paper/AMEoveralldegree-1.png, id=432, 2264.46pt x 1243.64626pt>
+<plots_paper/AMEoveralldegree-1.png, id=430, 2264.46pt x 1243.64626pt>
 File: plots_paper/AMEoveralldegree-1.png Graphic file (type png)
 
 <use plots_paper/AMEoveralldegree-1.png>
 Package pdftex.def Info: plots_paper/AMEoveralldegree-1.png used on input line 
-455.
-(pdftex.def)             Requested size: 278.60912pt x 153.00743pt.
+442.
+(pdftex.def)             Requested size: 256.84143pt x 141.05225pt.
 
-<plots_paper/AMEoverallsecond-1.png, id=433, 2264.46pt x 1243.64626pt>
+<plots_paper/AMEoverallsecond-1.png, id=431, 2264.46pt x 1243.64626pt>
 File: plots_paper/AMEoverallsecond-1.png Graphic file (type png)
 
 <use plots_paper/AMEoverallsecond-1.png>
 Package pdftex.def Info: plots_paper/AMEoverallsecond-1.png used on input line 
-456.
-(pdftex.def)             Requested size: 278.60912pt x 153.00743pt.
+443.
+(pdftex.def)             Requested size: 256.84143pt x 141.05225pt.
 
-<plots_paper/AMEoverallthird-1.png, id=434, 2264.46pt x 1242.6425pt>
+<plots_paper/AMEoverallthird-1.png, id=432, 2264.46pt x 1242.6425pt>
 File: plots_paper/AMEoverallthird-1.png Graphic file (type png)
 
 <use plots_paper/AMEoverallthird-1.png>
 Package pdftex.def Info: plots_paper/AMEoverallthird-1.png used on input line 4
-57.
-(pdftex.def)             Requested size: 278.60912pt x 152.88394pt.
- [20pdfTeX warning (ext4): destination with the same identifier (name{table.5})
- has been already used, duplicate ignored
+44.
+(pdftex.def)             Requested size: 256.84143pt x 140.9384pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 451--453
+
+ []
+
+[19pdfTeX warning (ext4): destination with the same identifier (name{table.5}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.462 \end{document}
-                     <./plots_paper/AMEoveralldegree-1.png> <./plots_paper/AMEo
-verallsecond-1.png> <./plots_paper/AMEoverallthird-1.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 462.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 462.
+l.453 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.453 
+       <./plots_paper/AMEoveralldegree-1.png> <./plots_paper/AMEoverallsecond-1
+.png> <./plots_paper/AMEoverallthird-1.png>] [20]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 455.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 455.
  (./DAME.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 462.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 462.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 455.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 455.
 Package rerunfilecheck Info: File `DAME.out' has not changed.
-(rerunfilecheck)             Checksum: D1EEFCE1F09C236B9A81F3217FA90D5A;1427.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 462.
+(rerunfilecheck)             Checksum: 18E3DC388265D00D7122F1A3F6A14EE4;1422.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 455.
  ) 
 Here is how much of TeX's memory you used:
- 29726 strings out of 493089
- 578631 string characters out of 6134842
- 744624 words of memory out of 5000000
- 32649 multiletter control sequences out of 15000+600000
+ 29735 strings out of 493089
+ 578868 string characters out of 6134842
+ 742760 words of memory out of 5000000
+ 32656 multiletter control sequences out of 15000+600000
  16473 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,13n,56p,10416b,901s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1807,25 +1824,24 @@ usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
 sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
 local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on DAME.pdf (20 pages, 1928059 bytes).
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on DAME.pdf (20 pages, 1923967 bytes).
 PDF statistics:
- 536 PDF objects out of 1000 (max. 8388607)
- 465 compressed objects within 5 object streams
- 102 named destinations out of 1000 (max. 500000)
+ 538 PDF objects out of 1000 (max. 8388607)
+ 466 compressed objects within 5 object streams
+ 104 named destinations out of 1000 (max. 500000)
  228 words of extra memory for PDF output out of 10000 (max. 10000000)
 

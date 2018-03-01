@@ -1,7 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Metropolis-Hastings algorithm for GP parameters}{}% 1
 \BOOKMARK [1][-]{section.2}{Proofs on Posterior Computation}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Noise error variance e2}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Fixed effect p}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Fixed effect coeffient p}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Additive random effect i}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{Multiplicative random effect dr}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.5}{Multiplicative random effect uti}{section.2}% 7

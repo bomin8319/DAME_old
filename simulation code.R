@@ -68,9 +68,9 @@ set.seed(s+2000)
 	}
 Xnew = array(1, dim = c(Time , N, N, 1))
 set.seed(s)
-M1 = DAME_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, kappas = rep(0.001, 4))
+M1 = DLFM_fix(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10, kappas = rep(0.001, 4))
 set.seed(s)
-M2 = DAME_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
+M2 = DLFM_MH(Ys, Xnew, RE = c("additive", "multiplicative"), gammapriors = c(2, 1), dist = "Exponential", avail = matrix(1, Time , N), R =2, burn = 1000, nscan = 5000, odens = 10)
 }
 Degrees = vapply(1:Time, function(tp) {rowSums(Ys[tp,,])}, rep(0, N))
 p = list()
@@ -269,36 +269,36 @@ M3 = DLFM_Dunson_fixed(Ys, Xnew, RE = c("additive", "multiplicative"), gammaprio
 }
 Degrees2 = vapply(1:Time, function(tp) {rowSums(Ys[tp,,])}, rep(0, N))
 
-k = list()
+m = list()
 for (i in 1:N) {
 	M1_degree = lapply(1:Time, function(tp) {M1$Degree[[tp]][,i]})
 	M3_degree = lapply(1:Time, function(tp) {M3$Degree[[tp]][,i]})
 	q_degree = data.frame(c(unlist(M1_degree), unlist(M3_degree)), as.factor(c(vapply(1:Time, function(tp) {rep(tp, 500)}, rep(0, 500)))), as.factor(c(rep("DAME", 5000), rep("UU", 5000))))
 	q_degree$observed = c(vapply(1:Time, function(tp) {rep(Degrees2[i, tp], 500)}, rep(0, 500)))
 	colnames(q_degree) = c("Degree", "Time", "Model", "Observed")
-	k[[i]] = ggplot(q_degree, aes(x = Time, y = Degree, fill= Model,color= Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal() + scale_color_manual(values = c("#F8766D","#00BFC4", "blue")) + scale_fill_manual(values = alpha(c("#F8766D","#00BFC4"), 0.5)) + geom_point(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 2, group = 1)+geom_line(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 0.2, group = 1)+theme(legend.position = "bottom", legend.title = element_blank())+guides(colour = guide_legend(override.aes = list(shape = NA)))
+	m[[i]] = ggplot(q_degree, aes(x = Time, y = Degree, fill= Model,color= Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal() + scale_color_manual(values = c("#F8766D","#00BFC4", "blue")) + scale_fill_manual(values = alpha(c("#F8766D","#00BFC4"), 0.5)) + geom_point(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 2, group = 1)+geom_line(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 0.2, group = 1)+theme(legend.position = "bottom", legend.title = element_blank())+guides(colour = guide_legend(override.aes = list(shape = NA)))
 }
 
 secondDegrees2 = vapply(1:Time, function(tp) {rowSums(Ys[tp,,] %*% Ys[tp,,])}, rep(0, N))
-k2 = list()
+m2 = list()
 for (i in 1:N) {
 	M1_degree = lapply(1:Time, function(tp) {M1$secondDegree[[tp]][,i]})
 	M3_degree = lapply(1:Time, function(tp) {M3$secondDegree[[tp]][,i]})
 	q_degree = data.frame(c(unlist(M1_degree), unlist(M3_degree)), as.factor(c(vapply(1:Time, function(tp) {rep(tp, 500)}, rep(0, 500)))), as.factor(c(rep("DAME", 5000), rep("UU", 5000))))
 	q_degree$observed = c(vapply(1:Time, function(tp) {rep(secondDegrees2[i, tp], 500)}, rep(0, 500)))
 	colnames(q_degree) = c("SecondDegree", "Time", "Model", "Observed")
-	k2[[i]] = ggplot(q_degree, aes(x = Time, y = SecondDegree, fill= Model,color= Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal() + scale_color_manual(values = c("#F8766D","#00BFC4","blue")) + scale_fill_manual(values = alpha(c("#F8766D","#00BFC4"), 0.5)) + geom_line(data = q_degree, aes(x = Time, y = Observed), color = "blue", size = 0.2, group = 1) + geom_point(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 2, group = 1)
+	m2[[i]] = ggplot(q_degree, aes(x = Time, y = SecondDegree, fill= Model,color= Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal() + scale_color_manual(values = c("#F8766D","#00BFC4","blue")) + scale_fill_manual(values = alpha(c("#F8766D","#00BFC4"), 0.5)) + geom_line(data = q_degree, aes(x = Time, y = Observed), color = "blue", size = 0.2, group = 1) + geom_point(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 2, group = 1)
 }
 
 thirdDegrees2 = vapply(1:Time, function(tp) {rowSums(Ys[tp,,] %*% Ys[tp,,]%*% Ys[tp,,])}, rep(0, N))
-k3 = list()
+m3 = list()
 for (i in 1:N) {
 	M1_degree = lapply(1:Time, function(tp) {M1$thirdDegree[[tp]][,i]})
 	M3_degree = lapply(1:Time, function(tp) {M3$thirdDegree[[tp]][,i]})
 	q_degree = data.frame(c(unlist(M1_degree), unlist(M3_degree)), as.factor(c(vapply(1:Time, function(tp) {rep(tp, 500)}, rep(0, 500)))), as.factor(c(rep("DAME", 5000), rep("UU", 5000))))
 	q_degree$observed = c(vapply(1:Time, function(tp) {rep(thirdDegrees2[i, tp], 500)}, rep(0, 500)))
 	colnames(q_degree) = c("ThirdDegree", "Time", "Model", "Observed")
-	k3[[i]] = ggplot(q_degree, aes(x = Time, y = ThirdDegree, fill= Model,color= Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal() + scale_color_manual(values = c("#F8766D", "#00BFC4", "blue")) + scale_fill_manual(values = alpha(c("#F8766D", "#00BFC4"), 0.5)) + geom_line(data = q_degree, aes(x = Time, y = Observed), color = "blue", size = 0.2, group = 1) + geom_point(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 2, group = 1)
+	m3[[i]] = ggplot(q_degree, aes(x = Time, y = ThirdDegree, fill= Model,color= Model)) + geom_boxplot(outlier.size = 0.5, position = position_dodge()) + theme_minimal() + scale_color_manual(values = c("#F8766D", "#00BFC4", "blue")) + scale_fill_manual(values = alpha(c("#F8766D", "#00BFC4"), 0.5)) + geom_line(data = q_degree, aes(x = Time, y = Observed), color = "blue", size = 0.2, group = 1) + geom_point(data = q_degree, aes(x = Time, y = Observed), color = "blue",size = 2, group = 1)
 }
 
 
@@ -309,11 +309,11 @@ g_legend<-function(a.gplot){
   legend <- tmp$grobs[[leg]]
   return(legend)}
 
-mylegend<-g_legend(k[[1]])
+mylegend<-g_legend(m[[1]])
 p3 <- grid.arrange(arrangeGrob(
-						k[[2]] + theme(legend.position="none"),
-                         k2[[2]] + theme(legend.position="none"),
-                         k3[[2]] + theme(legend.position="none"), 
+						m[[2]] + theme(legend.position="none"),
+                         m2[[2]] + theme(legend.position="none"),
+                         m3[[2]] + theme(legend.position="none"), 
                        nrow=1),
         heights=c(10, 1))
 

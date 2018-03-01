@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Dynamic Additive and Multiplicative Effects Model}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Model Formulation}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Posterior Computation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Handling Missing Data}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Simulation Study}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Estimating Strong Correlations}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Capturing Transitivity}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Analysis of the United Nations Voting Network}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Data}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Reduced-Rank Structure of Voting Network}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Model Validation}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.4}{Parameter Estimation and Interpretation}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{Discussion}{}% 14
+\BOOKMARK [1][-]{section*.2}{Appendices}{}% 15
+\BOOKMARK [1][-]{Appendix.a.A}{List of Countries in Voting Network}{}% 16
+\BOOKMARK [1][-]{Appendix.a.B}{Summary of UN Voting Network\204Non-important Votes}{}% 17
+\BOOKMARK [1][-]{Appendix.a.C}{Summary of UN Voting Network\204Important Votes}{}% 18
+\BOOKMARK [1][-]{Appendix.a.D}{Correlation between Independent Variables}{}% 19
+\BOOKMARK [1][-]{Appendix.a.E}{Posterior Predictive Checks on Degree Statistics}{}% 20

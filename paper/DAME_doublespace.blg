@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: DAME_doublespace.aux
+The style file: apalike.bst
+Database file #1: BominBib2.bib
+Warning--entry type for "12379_2016" isn't style-file defined
+--line 322 of file BominBib2.bib
+Repeated entry---line 393 of file BominBib2.bib
+ : @article{hoff2011hierarchical
+ :                              ,
+I'm skipping whatever remains of this entry
+You've used 41 entries,
+            1935 wiz_defined-function locations,
+            716 strings with 10500 characters,
+and the built_in function-call counts, 16539 in all, are:
+= -- 1681
+> -- 560
+< -- 33
++ -- 190
+- -- 180
+* -- 1376
+:= -- 2801
+add.period$ -- 124
+call.type$ -- 41
+change.case$ -- 291
+chr.to.int$ -- 39
+cite$ -- 41
+duplicate$ -- 647
+empty$ -- 1218
+format.name$ -- 246
+if$ -- 3282
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 41
+newline$ -- 207
+num.names$ -- 123
+pop$ -- 238
+preamble$ -- 1
+purify$ -- 292
+quote$ -- 0
+skip$ -- 507
+stack$ -- 0
+substring$ -- 1347
+swap$ -- 99
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 244
+warning$ -- 0
+while$ -- 153
+width$ -- 0
+write$ -- 527
+(There was 1 error message)

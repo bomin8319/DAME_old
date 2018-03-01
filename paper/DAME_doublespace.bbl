@@ -2,8 +2,7 @@
 
 \bibitem[Bailey et~al., 2017]{bailey2017estimating}
 Bailey, M.~A., Strezhnev, A., and Voeten, E. (2017).
-\newblock Estimating dynamic state preferences from {U}nited {N}ations voting
-  data.
+\newblock Estimating dynamic state preferences from united nations voting data.
 \newblock {\em Journal of Conflict Resolution}, 61(2):430--456.
 
 \bibitem[Bearce and Bondanella, 2007]{bearce2007intergovernmental}
@@ -88,7 +87,7 @@ Hoff, P., Fosdick, B., Volfovsky, A., and Stovel, K. (2014).
 \bibitem[Hoff, 2005]{hoff2005bilinear}
 Hoff, P.~D. (2005).
 \newblock Bilinear mixed-effects models for dyadic data.
-\newblock {\em Journal of the American Statistical Association},
+\newblock {\em Journal of the american Statistical association},
   100(469):286--295.
 
 \bibitem[Hoff, 2009]{hoff2009multiplicative}
@@ -106,18 +105,18 @@ Hoff, P.~D. (2011).
 \bibitem[Hoff, 2015]{hoff2015multilinear}
 Hoff, P.~D. (2015).
 \newblock Multilinear tensor regression for longitudinal relational data.
-\newblock {\em The Annals of Applied Statistics}, 9(3):1169.
+\newblock {\em The annals of applied statistics}, 9(3):1169.
 
 \bibitem[Hoff et~al., 2011]{hoff2011separable}
 Hoff, P.~D. et~al. (2011).
-\newblock Separable covariance arrays via the {T}ucker product, with
-  applications to multivariate relational data.
+\newblock Separable covariance arrays via the tucker product, with applications
+  to multivariate relational data.
 \newblock {\em Bayesian Analysis}, 6(2):179--196.
 
 \bibitem[Hoff et~al., 2002]{hoff2002latent}
 Hoff, P.~D., Raftery, A.~E., and Handcock, M.~S. (2002).
 \newblock Latent space approaches to social network analysis.
-\newblock {\em Journal of the American Statistical Association},
+\newblock {\em Journal of the american Statistical association},
   97(460):1090--1098.
 
 \bibitem[Kim et~al., 2017]{kim2017review}
@@ -125,21 +124,16 @@ Kim, B., Lee, K., Xue, L., and Niu, X. (2017).
 \newblock A review of dynamic network models with latent variables.
 \newblock {\em arXiv preprint arXiv:1711.10421}.
 
-\bibitem[Leibenstein, 1966]{leibenstein1966shaping}
-Leibenstein, H. (1966).
-\newblock Shaping the world economy: suggestions for an international economic
-  policy.
-
 \bibitem[Marshall et~al., 2014]{marshall2014polity}
 Marshall, M.~G., Jaggers, K., and Gurr, T.~R. (2014).
-\newblock Polity {IV} annual time-series, 1800--2013.
+\newblock Polity iv annual time-series, 1800--2013.
 \newblock {\em Center for International Development and Conflict Management at
   the University of Maryland College Park}.
 
 \bibitem[Mattes et~al., 2015]{mattes2015leadership}
 Mattes, M., Leeds, B.~A., and Carroll, R. (2015).
 \newblock Leadership turnover and foreign policy change: Societal interests,
-  domestic institutions, and voting in the {U}nited {N}ations.
+  domestic institutions, and voting in the united nations.
 \newblock {\em International Studies Quarterly}, 59(2):280--290.
 
 \bibitem[Minhas et~al., 2016a]{minhas2016inferential}
@@ -159,11 +153,6 @@ Rasmussen, C.~E. (2004).
 \newblock Gaussian processes in machine learning.
 \newblock In {\em Advanced lectures on machine learning}, pages 63--71.
   Springer.
-
-\bibitem[Rodrigue et~al., 2009]{rodrigue2009geography}
-Rodrigue, J.-P., Comtois, C., and Slack, B. (2009).
-\newblock {\em The geography of transport systems}.
-\newblock Routledge.
 
 \bibitem[Sarkar and Moore, 2005]{sarkar2005dynamic}
 Sarkar, P. and Moore, A.~W. (2005).
@@ -195,27 +184,27 @@ Signorino, C.~S. and Ritter, J.~M. (1999).
 \bibitem[Snijders et~al., 2010]{snijders2010introduction}
 Snijders, T.~A., Van~de Bunt, G.~G., and Steglich, C.~E. (2010).
 \newblock Introduction to stochastic actor-based models for network dynamics.
-\newblock {\em Social Networks}, 32(1):44--60.
+\newblock {\em Social networks}, 32(1):44--60.
 
 \bibitem[Voeten, 2000]{voeten2000clashes}
 Voeten, E. (2000).
 \newblock Clashes in the assembly.
-\newblock {\em International Organization}, 54(2):185--215.
+\newblock {\em International organization}, 54(2):185--215.
 
 \bibitem[Voeten, 2004]{voeten2004resisting}
 Voeten, E. (2004).
-\newblock Resisting the lonely superpower: Responses of states in the {U}nited
-  {N}ations to {US} dominance.
+\newblock Resisting the lonely superpower: Responses of states in the united
+  nations to us dominance.
 \newblock {\em Journal of Politics}, 66(3):729--754.
 
 \bibitem[Voeten et~al., 2016]{12379_2016}
 Voeten, E., Strezhnev, A., and Bailey, M. (2016).
-\newblock United {N}ations general assembly voting data.
+\newblock United nations general assembly voting data.
 
 \bibitem[Vu et~al., 2011]{vu2011continuous}
 Vu, D.~Q., Hunter, D., Smyth, P., and Asuncion, A.~U. (2011).
 \newblock Continuous-time regression models for longitudinal networks.
-\newblock In {\em Advances in Neural Information Processing Systems}, pages
+\newblock In {\em Advances in neural information processing systems}, pages
   2492--2500.
 
 \bibitem[Ward et~al., 2013]{ward2013gravity}
